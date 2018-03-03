@@ -1,0 +1,18 @@
+@startuml
+
+'zestaw zawiera wiele meczy
+Tournament *-- Match
+
+Match --- Team
+
+'użytkownik może dołączyć do rozgrywki jako gracz
+Game <-- User: player
+'rozgrywka czerpie dane z zestawu
+Game --> Tournament: data source
+
+'użytkownik obstawia
+User --> Bet: bets
+'w ramach gry można obstawiać wynik meczu
+Bet -- (Match, Game)
+
+@enduml

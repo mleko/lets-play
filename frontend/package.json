@@ -1,0 +1,33 @@
+{
+  "name": "typescript-react-jsx-init",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "webpack-dev-server",
+    "start:open": "webpack-dev-server --open"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^16.0.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-hot-loader": "^3.0.0",
+    "ts-loader": "^3.0.0",
+    "ts-node": "^5.0.0",
+    "tslint": "^5.8.0",
+    "tslint-loader": "^3.3.0",
+    "tslint-react": "^3.0.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
+  },
+  "dependencies": {
+    "@types/react-router": "^4.0.22",
+    "@types/react-router-dom": "^4.2.4",
+    "material-ui": "^1.0.0-beta.34",
+    "material-ui-icons": "^1.0.0-beta.17",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
+  }
+}
