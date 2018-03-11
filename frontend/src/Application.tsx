@@ -4,11 +4,11 @@ import {Paper, Reboot} from "material-ui";
 import {match, Route, RouteComponentProps} from "react-router";
 import {HashRouter as Router} from "react-router-dom";
 
-import {GameView} from "./component/GameView/index";
-import {LoginScreen} from "./component/LoginScreen";
+import {GameView} from "./component/GameView";
 import {MainMenu} from "./component/MainMenu";
 import {MatchSetList} from "./component/MatchSetList";
 import {TopBar} from "./component/TopBar";
+import {LoginScreen} from "./container/LoginScreen";
 
 export class Application extends React.Component<{}, AppState> {
 
@@ -48,9 +48,6 @@ export class Application extends React.Component<{}, AppState> {
 	private renderLoginScreen = () => {
 		return (
 			<LoginScreen
-				onLogin={this.logIn}
-				onRegister={this.anyH}
-				onReset={this.anyH}
 			/>
 		);
 	};

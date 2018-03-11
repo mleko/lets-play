@@ -43,7 +43,7 @@ export class MatchSetList extends React.PureComponent<{}, {}> {
 
 	private renderRow = (element: any, index: number) => {
 		return (
-			<TableRow>
+			<TableRow key={index}>
 				<TableCell>
 					<LinkIconButton to={"/game/" + element.id}>
 						<PlayIcon style={{cursor: "pointer"}}/>
