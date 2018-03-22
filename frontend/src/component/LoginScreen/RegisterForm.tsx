@@ -21,9 +21,33 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 		return (
 			<form>
 				<FormControl>
-					<TextField label="Name" name="name" style={{marginTop: 50}}/>
-					<TextField label="Email" name="email" type="email"/>
-					<TextField label="Password" type="password" name="password"/>
+					<TextField
+						label="Name"
+						name="name"
+						style={{marginTop: 50}}
+						value={this.state.name}
+						error={!!this.state.nameError}
+						helperText={this.state.nameError}
+						onChange={this.updateName}
+					/>
+					<TextField
+						label="Email"
+						name="email"
+						type="email"
+						value={this.state.email}
+						error={!!this.state.emailError}
+						helperText={this.state.emailError}
+						onChange={this.updateEmail}
+					/>
+					<TextField
+						label="Password"
+						type="password"
+						name="password"
+						value={this.state.password}
+						error={!!this.state.passwordError}
+						helperText={this.state.passwordError}
+						onChange={this.updatePassword}
+					/>
 					<Button
 						color="primary"
 						variant="raised"
@@ -37,8 +61,43 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 		);
 	}
 
+	private validate = (): boolean => {
+		let error = false;
+		const errors = {nameError: null, emailError: null, passwordError: null};
+		if (0 === this.state.name.length) {
+			errors.nameError = "Name cannot be empty";
+			error = true;
+		}
+		if (0 === this.state.email.length) {
+			errors.emailError = "Email cannot be empty";
+			error = true;
+		} else if (!this.state.email.match("\\S+@\\S+\\.\\S+")) {
+			errors.emailError = "Email must be valid email address";
+			error = true;
+		}
+		if(this.state.password.length < 6) {
+			errors.passwordError = "Password must at least 7 characters long";
+			error = true;
+		}
+
+		this.setState(errors);
+		return !error;
+	};
+
+	private updateName = (event: React.SyntheticEvent<HTMLInputElement>) => {
+		this.setState({name: event.currentTarget.value});
+	};
+	private updateEmail = (event: React.SyntheticEvent<HTMLInputElement>) => {
+		this.setState({email: event.currentTarget.value});
+	};
+	private updatePassword = (event: React.SyntheticEvent<HTMLInputElement>) => {
+		this.setState({password: event.currentTarget.value});
+	};
+
 	private register = () => {
-		this.props.onRegister(this.state.name, this.state.email, this.state.password);
+		if (this.validate()) {
+			this.props.onRegister(this.state.name, this.state.email, this.state.password);
+		}
 	}
 }
 
@@ -46,4 +105,7 @@ interface State {
 	name: string;
 	email: string;
 	password: string;
+	nameError?: string;
+	emailError?: string;
+	passwordError?: string;
 }

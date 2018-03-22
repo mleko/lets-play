@@ -1,8 +1,9 @@
 import {StandardAction} from "../../Action";
 
-const authActions = {
+export const authActions = {
 	register: "auth/Register",
 	login: "auth/Login",
+	logout: "auth/Logout",
 	reset: "auth/Reset"
 };
 
@@ -18,6 +19,13 @@ export class AuthActions {
 		return {
 			type: authActions.login,
 			payload: {email, password}
+		};
+	}
+
+	public static logout(): StandardAction<void> {
+		return {
+			type: authActions.logout,
+			payload: undefined
 		};
 	}
 

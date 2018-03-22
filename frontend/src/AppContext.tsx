@@ -1,17 +1,23 @@
 import * as React from "react";
 
 import {Provider as StoreProvider} from "react-redux";
-import {createStore} from "redux";
+import {applyMiddleware, compose, createStore, StoreCreator} from "redux";
 
 import {AxiosHttpClient} from "./infrastructure/http/implementation/AxiosHttpClient";
 import {HttpClientProvider} from "./infrastructure/http/Provider";
 
 import {Application} from "./Application";
+import {aggregateMiddlewares} from "./redux/Middleware";
+import {AuthMiddleware} from "./redux/module/auth/AuthMiddleware";
 
-const httpClient = new AxiosHttpClient();
+const httpClient = new AxiosHttpClient({}, {baseUrl: "/api"});
 
 const devTools = window["devToolsExtension"] && process.env["NODE_ENV"] !== "production" ? window["devToolsExtension"]() : undefined;
-const store = createStore((s) => s, undefined, devTools);
+let localCreateStore: StoreCreator = createStore;
+localCreateStore = compose(applyMiddleware(aggregateMiddlewares(
+	new AuthMiddleware(httpClient)
+)))(localCreateStore);
+const store = localCreateStore((s) => s, undefined, devTools);
 
 export class AppContext extends React.PureComponent<{}, {}> {
 	public render(): JSX.Element {
