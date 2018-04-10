@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import {Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
+import {IconButton, Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
 import {Add as AddIcon, Edit as EditIcon, PlayArrow as PlayIcon} from "material-ui-icons";
+import {LinkButton} from "../LinkButton";
 import {LinkIconButton} from "../LinkIconButton";
 
 export class MatchSetList extends React.PureComponent<{}, {}> {
@@ -36,7 +37,13 @@ export class MatchSetList extends React.PureComponent<{}, {}> {
 						{sets.map(this.renderRow)}
 					</TableBody>
 				</Table>
-				<Button variant="fab" style={{position: "absolute", bottom: 20, right: 20}}><AddIcon/></Button>
+				<LinkButton
+					to={"/match-sets/new"}
+					variant="fab"
+					style={{position: "absolute", bottom: 20, right: 20}}
+				>
+					<AddIcon/>
+				</LinkButton>
 			</div>
 		);
 	}

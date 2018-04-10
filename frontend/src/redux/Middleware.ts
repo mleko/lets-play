@@ -14,12 +14,8 @@ export class ReduceResult {
 	}
 }
 
-export interface Handler<S> extends Function {
-	/**
-	 * handle action, return true if dispatch chain should be broken
-	 */
-	(action: Action, dispatch: Dispatch, getState: () => S): ReduceResultType;
-}
+/** handle action, return true if dispatch chain should be broken */
+export type Handler<S> = (action: Action, dispatch: Dispatch, getState: () => S) => ReduceResultType;
 
 export interface HandlerMap<S> {
 	[actionType: string]: Handler<S>;

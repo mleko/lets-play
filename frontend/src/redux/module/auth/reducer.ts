@@ -1,6 +1,7 @@
 import {shallowMerge} from "typescript-object-utils";
-import {authActions, LoggedIn} from "./index";
+
 import {reducerFactory} from "../../ReducerFactory";
+import {authActions, LoggedIn} from "./index";
 
 export interface AuthState {
 	id?: string;

@@ -38,9 +38,9 @@ export class Results extends React.PureComponent<{}, {}> {
 		);
 	}
 
-	private renderRow = (m: Match) => {
+	private renderRow = (m: Match, index: number) => {
 		return (
-			<TableRow>
+			<TableRow key={index}>
 				<TableCell>{m.teams.join(" : ")}</TableCell>
 				<TableCell>-</TableCell>
 				<TableCell>{m.result.join(" : ")}</TableCell>

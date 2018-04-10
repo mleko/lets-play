@@ -33,6 +33,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "typescript-array-utils": "^0.1.4",
     "typescript-object-utils": "^0.3.0"
   }
 }

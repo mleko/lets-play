@@ -3991,6 +3991,10 @@ type-is@~1.6.15:
     media-typer "0.3.0"
     mime-types "~2.1.18"
 
+typescript-array-utils@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/typescript-array-utils/-/typescript-array-utils-0.1.4.tgz#9bb29e5a0a396e50bba10532b2828cc0290b9610"
+
 typescript-object-utils@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/typescript-object-utils/-/typescript-object-utils-0.3.0.tgz#ee3a65c250c19f075523647ce28d2c6f2c5cdf5e"

@@ -1,12 +1,13 @@
 import * as React from "react";
 
 import {Paper, Reboot} from "material-ui";
-import {Route, RouteComponentProps} from "react-router";
+import {Route, RouteComponentProps, Switch} from "react-router";
 import {HashRouter as Router} from "react-router-dom";
 
 import {GameView} from "./component/GameView";
 import {MainMenu} from "./component/MainMenu";
 import {MatchSetList} from "./component/MatchSetList";
+import {MatchSetView} from "./component/MatchSetView";
 import {TopBar} from "./component/TopBar";
 import {LoginScreen} from "./container/LoginScreen";
 
@@ -42,7 +43,11 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 						<div style={{maxWidth: 900, flex: 1, margin: "auto", paddingTop: 40}}>
 							<Paper style={{padding: 12}}>
 								<Route path="/login" render={this.renderLoginScreen}/>
-								<Route path="/match-sets" component={MatchSetList}/>
+								<Switch>
+									<Route path="/match-sets/new" component={MatchSetView}/>
+									<Route path="/match-sets/:setId" render={this.renderMatchSetView}/>
+									<Route path="/match-sets" component={MatchSetList}/>
+								</Switch>
 								<Route path="/game/:gameId" render={this.renderGameView}/>
 							</Paper>
 						</div>
@@ -53,10 +58,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 	}
 
 	private renderLoginScreen = () => {
-		return (
-			<LoginScreen
-			/>
-		);
+		return (<LoginScreen/>);
 	};
 
 	private renderGameView = (p: RouteComponentProps<any>) => {
@@ -65,6 +67,10 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 				gameId={p.match.params.gameId}
 			/>
 		);
+	};
+
+	private renderMatchSetView = (p: RouteComponentProps<any>) => {
+		return null;
 	};
 
 	private openMenu = () => {
