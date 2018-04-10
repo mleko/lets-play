@@ -1,24 +1,25 @@
 import * as React from "react";
 
-import {IconButton, Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
+import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
 import {Add as AddIcon, Edit as EditIcon, PlayArrow as PlayIcon} from "material-ui-icons";
+import {MatchSet} from "../../model/models";
 import {LinkButton} from "../LinkButton";
 import {LinkIconButton} from "../LinkIconButton";
 
-export class MatchSetList extends React.PureComponent<{}, {}> {
+export interface MatchSetListProps {
+	loadSets: () => Promise<MatchSet[]>;
+}
+
+export class MatchSetList extends React.PureComponent<MatchSetListProps, State> {
+	public constructor(props: MatchSetListProps) {
+		super(props);
+		this.state = {
+			sets: []
+		};
+	}
+
 	public render(): JSX.Element {
-
-		const sets = [
-			{
-				id: "acd34d2",
-				name: "Euro 2020"
-			},
-			{
-				id: "acd3456",
-				name: "Euro 2024"
-			}
-		];
-
+		const sets = this.state.sets;
 		return (
 			<div>
 				<Table>
@@ -48,6 +49,12 @@ export class MatchSetList extends React.PureComponent<{}, {}> {
 		);
 	}
 
+	public componentDidMount(): void {
+		this.props.loadSets().then((sets) => {
+			this.setState({sets});
+		});
+	}
+
 	private renderRow = (element: any, index: number) => {
 		return (
 			<TableRow key={index}>
@@ -57,12 +64,16 @@ export class MatchSetList extends React.PureComponent<{}, {}> {
 					</LinkIconButton>
 				</TableCell>
 				<TableCell>
-					<IconButton>
+					<LinkIconButton to={"/match-sets/" + element.id}>
 						<EditIcon style={{cursor: "pointer"}}/>
-					</IconButton>
+					</LinkIconButton>
 				</TableCell>
 				<TableCell padding="none">{element.name}</TableCell>
 			</TableRow>
 		);
-	}
+	};
+}
+
+interface State {
+	sets: MatchSet[];
 }

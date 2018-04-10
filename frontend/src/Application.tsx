@@ -6,10 +6,10 @@ import {HashRouter as Router} from "react-router-dom";
 
 import {GameView} from "./component/GameView";
 import {MainMenu} from "./component/MainMenu";
-import {MatchSetList} from "./component/MatchSetList";
-import {MatchSetView} from "./component/MatchSetView";
 import {TopBar} from "./component/TopBar";
 import {LoginScreen} from "./container/LoginScreen";
+import {MatchSetList} from "./container/MatchSetList";
+import {MatchSetView} from "./container/MatchSetView";
 
 export interface ApplicationProps {
 	authenticated: boolean;
@@ -44,9 +44,9 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 							<Paper style={{padding: 12}}>
 								<Route path="/login" render={this.renderLoginScreen}/>
 								<Switch>
-									<Route path="/match-sets/new" component={MatchSetView}/>
+									<Route path="/match-sets/new" component={this.renderMatchSetView}/>
 									<Route path="/match-sets/:setId" render={this.renderMatchSetView}/>
-									<Route path="/match-sets" component={MatchSetList}/>
+									<Route path="/match-sets" render={this.renderMatchSetList}/>
 								</Switch>
 								<Route path="/game/:gameId" render={this.renderGameView}/>
 							</Paper>
@@ -70,7 +70,13 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 	};
 
 	private renderMatchSetView = (p: RouteComponentProps<any>) => {
-		return null;
+		return (
+			<MatchSetView matchId={p.match.params.setId}/>
+		);
+	};
+
+	private renderMatchSetList = () => {
+		return <MatchSetList/>;
 	};
 
 	private openMenu = () => {
@@ -78,9 +84,6 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 	};
 	private closeMenu = () => {
 		this.setState({menuOpen: false});
-	};
-	private anyH = (a?: string, b?: string, c?: string) => {
-		// do nothing
 	};
 }
 

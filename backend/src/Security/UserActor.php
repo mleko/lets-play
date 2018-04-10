@@ -31,7 +31,7 @@ class UserActor implements UserInterface
      * @inheritdoc
      */
     public function getRoles() {
-        return [];
+        return ["ROLE_USER"];
     }
 
     /**

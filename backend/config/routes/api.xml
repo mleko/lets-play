@@ -7,4 +7,9 @@
     <route id="auth.register" path="/auth/register" controller="Mleko\LetsPlay\Controller\AuthController:register" methods="POST"/>
     <route id="auth.login" path="/auth/login" controller="Mleko\LetsPlay\Controller\AuthController:login" methods="POST"/>
     <route id="auth.get" path="/auth" controller="Mleko\LetsPlay\Controller\AuthController:getAuth" methods="GET"/>
+
+    <route id="match-set.create" path="/match-sets" controller="Mleko\LetsPlay\Controller\MatchSetController:create" methods="POST"/>
+    <route id="match-set.list" path="/match-sets" controller="Mleko\LetsPlay\Controller\MatchSetController:listAll" methods="GET"/>
+    <route id="match-set.get" path="/match-sets/{setId}" controller="Mleko\LetsPlay\Controller\MatchSetController:get" methods="GET"/>
+    <route id="match-set.update" path="/match-sets/{setId}" controller="Mleko\LetsPlay\Controller\MatchSetController:update" methods="PUT"/>
 </routes>

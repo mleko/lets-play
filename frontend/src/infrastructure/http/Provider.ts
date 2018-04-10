@@ -13,12 +13,12 @@ export interface HttpClientContext {
 	httpClient: Client;
 }
 
-const ProviderContextValidationMap: ValidationMap<any> = {
+export const httpContextValidationMap: ValidationMap<any> = {
 	httpClient: PropTypes.object.isRequired
 };
 
 export class HttpClientProvider extends Component<ProviderProps, {}> {
-	public static childContextTypes = ProviderContextValidationMap;
+	public static childContextTypes = httpContextValidationMap;
 
 	public getChildContext(): HttpClientContext {
 		return {

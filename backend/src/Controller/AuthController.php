@@ -6,10 +6,11 @@ namespace Mleko\LetsPlay\Controller;
 
 
 use Mleko\LetsPlay\Entity\User;
+use Mleko\LetsPlay\Http\Response;
 use Mleko\LetsPlay\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class AuthController
 {
@@ -24,15 +25,10 @@ class AuthController
         $this->userRepository = $userRepository;
     }
 
-    public function getAuth(TokenStorage $storage) {
+    public function getAuth(UserInterface $user) {
         /** @var User $user */
-        $user = $storage->getToken()->getUser()->getUser();
-        return new \Symfony\Component\HttpFoundation\JsonResponse(
-            [
-                "id"   => $user->getId()->getUuid(),
-                "name" => $user->getName(),
-            ]
-        );
+        $user = $user->getUser();
+        return new Response($user);
     }
 
     public function login(Request $request) {

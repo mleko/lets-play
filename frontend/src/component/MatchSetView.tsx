@@ -8,14 +8,19 @@ import Grid from "material-ui/Grid";
 import Input from "material-ui/Input";
 import {replace, without} from "typescript-array-utils";
 
-import {Match} from "../model/models";
+import {Match, MatchSet} from "../model/models";
 import {MatchRow} from "./MatchRow";
 
 export interface MatchSetViewProps {
-
+	matchId?: string;
+	loadMatchSet: (matchId: string) => Promise<MatchSet>;
 }
 
-export class MatchSetView extends React.PureComponent<MatchSetViewProps, MatchSetViewState> {
+export interface MatchSetViewActions {
+	onSave?: (set: MatchSet) => any;
+}
+
+export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchSetViewActions, MatchSetViewState> {
 
 	public constructor(props: MatchSetViewProps) {
 		super(props);
@@ -37,13 +42,22 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps, MatchSe
 				</FormControl>
 				{this.renderMatches()}
 				<FormControl fullWidth={true} style={{marginTop: 8}}>
-					<Button variant={"raised"} color={"primary"}><SaveIcon/>Save</Button>
+					<Button variant={"raised"} color={"primary"} onClick={this.save}><SaveIcon/>Save</Button>
 				</FormControl>
 				<Button variant={"fab"} style={{position: "absolute", bottom: 20, right: 20}} onClick={this.addMatch}>
 					<AddIcon/>
 				</Button>
 			</div>
 		);
+	}
+
+	public componentDidMount(): void {
+		if (this.props.matchId) {
+			this.props.loadMatchSet(this.props.matchId)
+				.then((set: MatchSet) => {
+					this.setState(set);
+				});
+		}
 	}
 
 	private renderMatches() {
@@ -77,16 +91,18 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps, MatchSe
 		});
 	};
 
+	private save = () => {
+		this.props.onSave({id: this.props.matchId, name: this.state.name, matches: this.state.matches});
+	};
 	private removeMatch = (index: number) => {
 		this.setState({matches: without(this.state.matches, index)});
 	};
 	private updateMatch = (match: Match, index: number) => {
 		this.setState({matches: replace(this.state.matches, index, match)});
-	}
-
+	};
 	private changeName = (event: ChangeEvent<HTMLInputElement>) => {
 		this.setState({name: event.currentTarget.value});
-	}
+	};
 }
 
 interface MatchSetViewState {

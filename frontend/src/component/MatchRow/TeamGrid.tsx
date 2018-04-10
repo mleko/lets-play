@@ -6,8 +6,8 @@ import Grid from "material-ui/Grid";
 import {GridSize} from "material-ui/Grid/Grid";
 import Input from "material-ui/Input";
 import withStyles from "material-ui/styles/withStyles";
-import {MatchTeam} from "../../model/models";
 import {shallowMerge} from "typescript-object-utils";
+import {MatchTeam} from "../../model/models";
 
 export interface TeamGridProps {
 	team: MatchTeam;
@@ -53,7 +53,7 @@ export const TeamGrid = withStyles(styles)(
 						disableUnderline={true}
 						style={inputStyle}
 						inputProps={{style: {textAlign: "center"}}}
-						value={team.score}
+						value={team.score || ""}
 					/>
 					{this.renderLabel(false)}
 				</Grid>
