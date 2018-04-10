@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {Paper, Reboot} from "material-ui";
-import {match, Route, RouteComponentProps} from "react-router";
+import {Route, RouteComponentProps} from "react-router";
 import {HashRouter as Router} from "react-router-dom";
 
 import {GameView} from "./component/GameView";
@@ -10,12 +10,19 @@ import {MatchSetList} from "./component/MatchSetList";
 import {TopBar} from "./component/TopBar";
 import {LoginScreen} from "./container/LoginScreen";
 
-export class Application extends React.Component<{}, AppState> {
+export interface ApplicationProps {
+	authenticated: boolean;
+}
+
+export interface ApplicationActions {
+	onLogout: () => any;
+}
+
+export class Application extends React.Component<ApplicationProps & ApplicationActions, AppState> {
 
 	public constructor(props: any) {
 		super(props);
 		this.state = {
-			authenticated: false,
 			menuOpen: false
 		};
 	}
@@ -27,9 +34,9 @@ export class Application extends React.Component<{}, AppState> {
 				<Router>
 					<div>
 						<TopBar
-							authenticated={this.state.authenticated}
+							authenticated={this.props.authenticated}
 							onMenuOpen={this.openMenu}
-							onLogout={this.logout}
+							onLogout={this.props.onLogout}
 						/>
 						<MainMenu open={this.state.menuOpen} onMenuClose={this.closeMenu}/>
 						<div style={{maxWidth: 900, flex: 1, margin: "auto", paddingTop: 40}}>
@@ -66,18 +73,11 @@ export class Application extends React.Component<{}, AppState> {
 	private closeMenu = () => {
 		this.setState({menuOpen: false});
 	};
-	private logout = () => {
-		this.setState({authenticated: false});
-	};
-	private logIn = (email: string, password: string) => {
-		this.setState({authenticated: true});
-	};
 	private anyH = (a?: string, b?: string, c?: string) => {
 		// do nothing
 	};
 }
 
 interface AppState {
-	authenticated: boolean;
 	menuOpen: boolean;
 }

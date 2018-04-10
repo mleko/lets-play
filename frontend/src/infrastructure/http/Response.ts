@@ -1,6 +1,6 @@
 export interface Response<T> {
 	success: boolean;
-	result?: T;
+	data?: T;
 	meta?: any;
 	debug?: any;
 }

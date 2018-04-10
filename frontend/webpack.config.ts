@@ -29,7 +29,11 @@ const config = {
 		"./index.tsx"
 	],
 	devServer: {
-
+		proxy: {
+			"/api": {
+				target: "http://localhost:8000"
+			}
+		}
 	},
 	plugins: [
 		new webpack.DefinePlugin({

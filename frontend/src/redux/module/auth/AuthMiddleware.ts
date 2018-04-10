@@ -1,6 +1,7 @@
 import {Client} from "../../../infrastructure/http/Client";
 import {Action, Dispatch, HandlerMap, Middleware, ReduceResult, ReduceResultType} from "../../Middleware";
-import {authActions, Register, Reset} from "./index";
+import {AuthActions, authActions, Login, Register, Reset} from "./index";
+import {Response} from "../../../infrastructure/http/Response";
 
 export class AuthMiddleware implements Middleware<any> {
 
@@ -21,11 +22,13 @@ export class AuthMiddleware implements Middleware<any> {
 			});
 			return ReduceResult.DONT_STORE;
 		},
-		[authActions.login]: (action: Reset) => {
+		[authActions.login]: (action: Login, dispatch: Dispatch) => {
 			this.client.request({
 				method: "POST",
 				url: "/auth/login",
 				data: action.payload
+			}).then((response: Response<any>) => {
+				dispatch(AuthActions.loggedIn(response.data.id, response.data.name));
 			});
 			return ReduceResult.DONT_STORE;
 		}

@@ -1,0 +1,14 @@
+security:
+  providers:
+    user_actor:
+      id: security.user_provider.user_actor
+  firewalls:
+    api:
+      pattern: "^/api/*"
+      json_login:
+        check_path: /api/auth/login
+        username_path: email
+  encoders:
+    Mleko\LetsPlay\Security\UserActor:
+      algorithm:            bcrypt
+      cost:                 10

@@ -15,9 +15,19 @@
 
         <prototype namespace="Mleko\LetsPlay\" resource="../src/*"
                    exclude="../src/{Entity,Migrations,Tests,Kernel.php}"/>
-        <prototype namespace="Mleko\LetsPlay\Controller\" resource="../src/Controller">
+        <prototype namespace="Mleko\LetsPlay\Controller\" resource="../src/Controller" autowire="true">
             <tag name="controller.service_arguments"/>
         </prototype>
+
+        <service id="Mleko\LetsPlay\Repository\JsonStorage">
+            <argument>%kernel.project_dir%/var/entities.json</argument>
+        </service>
+        <service id="Mleko\LetsPlay\Repository\UserRepository">
+            <argument type="service" id="Mleko\LetsPlay\Repository\JsonStorage"/>
+        </service>
+        <service id="security.user_provider.user_actor" class="Mleko\LetsPlay\Security\UserActorProvider">
+            <argument type="service" id="Mleko\LetsPlay\Repository\UserRepository"/>
+        </service>
     </services>
 
     <!-- ... -->
