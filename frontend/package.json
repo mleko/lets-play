@@ -4,17 +4,26 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server",
-    "start:open": "webpack-dev-server --open"
+    "start:open": "webpack-dev-server --open",
+    "test": "mocha tests/**/*.test.ts --opts ./mocha.opts",
+    "test:coverage": "nyc --reporter=text mocha tests/**/*.test.ts --opts ./mocha.opts",
+    "test:coverage:html": "nyc --reporter=html mocha tests/**/*.test.ts --opts ./mocha.opts && open .coverage/index.html"
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/mocha": "^5.0.0",
+    "@types/node": "^9.6.5",
     "@types/react": "^16.0.0",
     "@types/react-dom": "^16.0.0",
+    "mocha": "^5.1.0",
+    "nyc": "^11.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-hot-loader": "^3.0.0",
+    "source-map-support": "^0.5.4",
     "ts-loader": "^3.0.0",
     "ts-node": "^5.0.0",
+    "tsconfig-paths": "^3.2.0",
     "tslint": "^5.8.0",
     "tslint-loader": "^3.3.0",
     "tslint-react": "^3.0.0",
@@ -35,5 +44,22 @@
     "redux": "^3.7.2",
     "typescript-array-utils": "^0.1.4",
     "typescript-object-utils": "^0.3.0"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "report-dir": "./.coverage",
+    "all": true
   }
 }

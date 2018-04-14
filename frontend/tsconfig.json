@@ -4,12 +4,15 @@
         "module": "commonjs",
         "jsx": "react",
         "declaration": false,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noImplicitReturns": true,
         "removeComments": true,
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "baseUrl": "./frontend/src"
     },
     "filesGlob": [
         "./**/*.ts",
