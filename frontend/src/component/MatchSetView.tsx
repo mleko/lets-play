@@ -10,6 +10,7 @@ import {replace, without} from "typescript-array-utils";
 
 import {Match, MatchSet} from "../model/models";
 import {MatchRow} from "./MatchRow";
+import {DateTime} from "../utility/DateTime";
 
 export interface MatchSetViewProps {
 	matchId?: string;
@@ -84,7 +85,7 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchS
 		this.setState({
 			matches: this.state.matches.concat({
 				id: "",
-				startDate: "",
+				startDate: DateTime.toInputString(new Date()),
 				home: {name: ""},
 				away: {name: ""}
 			})

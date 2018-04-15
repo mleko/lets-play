@@ -1,5 +1,5 @@
 import * as React from "react";
-import {CSSProperties} from "react";
+import {ChangeEvent, CSSProperties} from "react";
 
 import {Delete as DeleteIcon} from "material-ui-icons";
 import Grid from "material-ui/Grid";
@@ -7,6 +7,7 @@ import IconButton from "material-ui/IconButton";
 import {shallowMerge} from "typescript-object-utils";
 import {Match, MatchTeam} from "../../model/models";
 import {TeamGrid} from "./TeamGrid";
+import TextField from "material-ui/TextField";
 
 export interface MatchRowProps {
 	match: Match;
@@ -27,7 +28,7 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 	public render(): JSX.Element[] {
 		const {match, onChange} = this.props;
 		const removable = !!this.props.onRemove;
-		const gridSize = removable ? 5 : 6;
+		const gridSize = removable ? 4 : 6;
 		const elements = [
 			(
 				<TeamGrid
@@ -50,9 +51,18 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 				/>
 			)
 		];
+		elements.push((
+			<Grid item={true} xs={3} style={paperStyle} key={"dateTimePicker"}>
+				<TextField
+					type="datetime-local"
+					value={match.startDate}
+					onChange={this.updateDate}
+				/>
+			</Grid>
+		));
 		if (removable) {
 			elements.push((
-				<Grid item={true} xs={2} style={{textAlign: "right", ...paperStyle}} key={"remove"}>
+				<Grid item={true} xs={1} style={{textAlign: "right", ...paperStyle}} key={"remove"}>
 					<IconButton onClick={this.remove}><DeleteIcon/></IconButton>
 				</Grid>
 			));
@@ -67,4 +77,8 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 	private editTeam = (team: MatchTeam, left: boolean) => {
 		this.props.onChange(shallowMerge(this.props.match, {[left ? "home" : "away"]: team}), this.props.index);
 	};
+
+	private updateDate = (event: ChangeEvent<HTMLInputElement>) => {
+		this.props.onChange(shallowMerge(this.props.match, {startDate: event.target.value}), this.props.index);
+	}
 }

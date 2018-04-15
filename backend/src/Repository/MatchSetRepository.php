@@ -62,6 +62,7 @@ class MatchSetRepository
         return \array_map(function (Match $match) {
             return [
                 "id" => $match->getId()->getUuid(),
+                "startDate" => $match->getStartDate()->format("c"),
                 "home" => [
                     "name" => $match->getHome()->getName(),
                     "score" => $match->getHome()->getScore()
@@ -80,6 +81,7 @@ class MatchSetRepository
                 return new Match(
                     new MatchTeam($match["home"]["name"], $match["home"]["score"] ?? null),
                     new MatchTeam($match["away"]["name"], $match["away"]["score"] ?? null),
+                    new \DateTimeImmutable($match["startDate"] ?? "now"),
                     new Uuid($match["id"])
                 );
             }, $data["matches"])

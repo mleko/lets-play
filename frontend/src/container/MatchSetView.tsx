@@ -3,7 +3,8 @@ import {MatchSetView as Component} from "../component/MatchSetView";
 import {Client} from "../infrastructure/http/Client";
 import {httpContextValidationMap} from "../infrastructure/http/Provider";
 import {Response} from "../infrastructure/http/Response";
-import {MatchSet} from "../model/models";
+import {Match, MatchSet} from "../model/models";
+import {merge} from "typescript-object-utils";
 
 export interface MatchSetViewProps {
 	matchId?: string;
@@ -27,7 +28,14 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps, {}> {
 		const client: Client = this.context.httpClient;
 		return client.request({url: "/match-sets/" + matchId, method: "GET"})
 			.then((response: Response<MatchSet>) => {
-				return response.data;
+				const set = response.data;
+				return {
+					id: set.id,
+					name: set.name,
+					matches: set.matches.map((m: Match) => {
+						return merge(m, {startDate: m.startDate.substr(0, m.startDate.length - 9)});
+					})
+				};
 			});
 	};
 	private saveMatchSet = (set: MatchSet) => {

@@ -55,7 +55,8 @@ class MatchSetController
         foreach ($data["matches"] as $match) {
             $matches[] = new Match(
                 new MatchTeam($match["home"]["name"], $match["home"]["score"] ?? null),
-                new MatchTeam($match["away"]["name"], $match["away"]["score"] ?? null)
+                new MatchTeam($match["away"]["name"], $match["away"]["score"] ?? null),
+                new \DateTimeImmutable($match["startDate"])
             );
         }
         $set = new MatchSet($data["name"], $matches, null === $id ? null : new \Mleko\LetsPlay\ValueObject\Uuid($id));

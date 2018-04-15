@@ -13,6 +13,8 @@ class Match
     private $home;
     /** @var MatchTeam */
     private $away;
+    /** @var \DateTimeImmutable */
+    private $startDate;
     /** @var Uuid */
     private $id;
 
@@ -20,11 +22,13 @@ class Match
      * Match constructor.
      * @param MatchTeam $home
      * @param MatchTeam $away
+     * @param \DateTimeImmutable $startDate
      * @param Uuid|null $id
      */
-    public function __construct(MatchTeam $home, MatchTeam $away, ?Uuid $id = null) {
+    public function __construct(MatchTeam $home, MatchTeam $away, \DateTimeImmutable $startDate, ?Uuid $id = null) {
         $this->home = $home;
         $this->away = $away;
+        $this->startDate = $startDate;
         $this->id = $id ?: new Uuid();
     }
 
@@ -44,5 +48,12 @@ class Match
      */
     public function getAway(): MatchTeam {
         return $this->away;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getStartDate(): \DateTimeImmutable {
+        return $this->startDate;
     }
 }
