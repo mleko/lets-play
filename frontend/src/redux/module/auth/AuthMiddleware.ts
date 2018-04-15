@@ -1,6 +1,6 @@
 import {Client} from "../../../infrastructure/http/Client";
 import {Response} from "../../../infrastructure/http/Response";
-import {Action, Dispatch, HandlerMap, Middleware, ReduceResult, ReduceResultType} from "../../Middleware";
+import {Action, Dispatch, HandlerMap, Middleware, ReduceResult} from "../../Middleware";
 import {AuthActions, authActions, Login, Register, Reset} from "./index";
 
 export class AuthMiddleware implements Middleware<any> {
@@ -37,10 +37,11 @@ export class AuthMiddleware implements Middleware<any> {
 	public constructor(private client: Client) {
 	}
 
-	public reduce(action: Action, dispatch: Dispatch, getState: () => any): ReduceResultType {
+	public reduce(action: Action, dispatch: Dispatch, getState: () => any): ReduceResult {
 		if (this.handlers.hasOwnProperty(action.type)) {
 			return this.handlers[action.type](action, dispatch, getState);
 		}
+		return ReduceResult.STORE;
 	}
 
 }

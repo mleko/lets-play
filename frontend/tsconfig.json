@@ -1,25 +1,28 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "jsx": "react",
-        "declaration": false,
-        "noImplicitAny": true,
-        "noUnusedLocals": true,
-        "noImplicitReturns": true,
-        "removeComments": true,
-        "noLib": false,
-        "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "experimentalDecorators": true,
-        "baseUrl": "./frontend/src"
-    },
-    "filesGlob": [
-        "./**/*.ts",
-        "./**/*.tsx",
-        "!./node_modules/**/*"
-    ],
-    "files": [
-        "./index.tsx"
-    ]
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "jsx": "react",
+    "declaration": false,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "removeComments": true,
+    "noLib": false,
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./frontend/src",
+    "paths": {
+      "*": ["*"]
+    }
+  },
+  "filesGlob": [
+    "./**/*.ts",
+    "./**/*.tsx",
+    "!./node_modules/**/*"
+  ],
+  "files": [
+    "./index.tsx"
+  ]
 }

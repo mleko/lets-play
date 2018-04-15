@@ -1,6 +1,6 @@
 import {Children, Component, ValidationMap} from "react";
 
-import {PropTypes} from "prop-types";
+import {object} from "prop-types";
 
 import {Client} from "./Client";
 export {Client};
@@ -14,7 +14,7 @@ export interface HttpClientContext {
 }
 
 export const httpContextValidationMap: ValidationMap<any> = {
-	httpClient: PropTypes.object.isRequired
+	httpClient: object.isRequired
 };
 
 export class HttpClientProvider extends Component<ProviderProps, {}> {

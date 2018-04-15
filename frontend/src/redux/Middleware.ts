@@ -3,26 +3,21 @@ import {Action, Dispatch} from "./Action";
 
 export {Action, Dispatch};
 
-export type ReduceResultType = ReduceResult;
-
 export class ReduceResult {
-	public static BREAK = new ReduceResult("BREAK");
-	public static DONT_STORE = new ReduceResult("DONT_STORE");
-	public static STORE = new ReduceResult("STORE");
-
-	private constructor(private value: any) {
-	}
+	public static BREAK = new ReduceResult();
+	public static DONT_STORE = new ReduceResult();
+	public static STORE = new ReduceResult();
 }
 
 /** handle action, return true if dispatch chain should be broken */
-export type Handler<S> = (action: Action, dispatch: Dispatch, getState: () => S) => ReduceResultType;
+export type Handler<S> = (action: Action, dispatch: Dispatch, getState: () => S) => ReduceResult;
 
 export interface HandlerMap<S> {
 	[actionType: string]: Handler<S>;
 }
 
 export interface Middleware<S> {
-	reduce(action: Action, dispatch: Dispatch, getState: () => S): ReduceResultType;
+	reduce(action: Action, dispatch: Dispatch, getState: () => S): ReduceResult;
 }
 
 export function aggregateMiddlewares<S>(...middlewares: Array<Middleware<S>>): ReduxMiddleware {
@@ -37,7 +32,7 @@ export function aggregateMiddlewares<S>(...middlewares: Array<Middleware<S>>): R
 	};
 
 	return <IS>(api: MiddlewareAPI<IS>) => {
-		return <A>(next: ReduxDispatch<IS>) => {
+		return (next: ReduxDispatch<IS>) => {
 			return (action) => {
 				if (reduce(action, api.dispatch, api.getState)) {
 					next(action);

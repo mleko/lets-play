@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {AppBar, Button, Divider, FormControl, Tab, Tabs, TextField } from "material-ui";
+import {AppBar, Tab, Tabs} from "material-ui";
 
 import {LoginForm} from "./LoginForm";
 import {RegisterForm} from "./RegisterForm";
@@ -25,8 +25,8 @@ export class LoginScreen extends React.PureComponent<LoginProps, State> {
 			<div style={{textAlign: "center"}}>
 				<AppBar position="static">
 					<Tabs value={this.state.selectedTab} onChange={this.changeTab}>
-						<Tab label="Login" />
-						<Tab label="Register" />
+						<Tab label="Login"/>
+						<Tab label="Register"/>
 					</Tabs>
 				</AppBar>
 				{this.renderTabContent()}
@@ -35,7 +35,7 @@ export class LoginScreen extends React.PureComponent<LoginProps, State> {
 	}
 
 	private renderTabContent() {
-		if(1 === this.state.selectedTab) {
+		if (1 === this.state.selectedTab) {
 			return (
 				<RegisterForm
 					onRegister={this.props.onRegister}
@@ -45,7 +45,7 @@ export class LoginScreen extends React.PureComponent<LoginProps, State> {
 		return (
 			<LoginForm
 				onLogin={this.props.onLogin}
-				onReset={this.props.onReset}	
+				onReset={this.props.onReset}
 			/>
 		);
 	}

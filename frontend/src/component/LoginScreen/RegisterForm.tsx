@@ -63,7 +63,7 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 
 	private validate = (): boolean => {
 		let error = false;
-		const errors = {nameError: null, emailError: null, passwordError: null};
+		const errors: Errors = {nameError: null, emailError: null, passwordError: null};
 		if (0 === this.state.name.length) {
 			errors.nameError = "Name cannot be empty";
 			error = true;
@@ -75,7 +75,7 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 			errors.emailError = "Email must be valid email address";
 			error = true;
 		}
-		if(this.state.password.length < 6) {
+		if (this.state.password.length < 6) {
 			errors.passwordError = "Password must at least 7 characters long";
 			error = true;
 		}
@@ -101,10 +101,13 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 	}
 }
 
-interface State {
+interface State extends Errors {
 	name: string;
 	email: string;
 	password: string;
+}
+
+interface Errors {
 	nameError?: string;
 	emailError?: string;
 	passwordError?: string;

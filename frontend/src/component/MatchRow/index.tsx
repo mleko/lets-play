@@ -26,9 +26,10 @@ const paperStyle: CSSProperties = {
 
 export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowActions, {}> {
 	public render(): JSX.Element[] {
-		const {match, onChange} = this.props;
+		const {match} = this.props;
+		const editable = !!this.props.onChange;
 		const removable = !!this.props.onRemove;
-		const gridSize = removable ? 4 : 6;
+		const gridSize = removable ? 4 : 5;
 		const elements = [
 			(
 				<TeamGrid
@@ -37,7 +38,7 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 					gridSize={gridSize}
 					style={paperStyle}
 					key={"home"}
-					onChange={onChange ? this.editTeam : undefined}
+					onChange={editable ? this.editTeam : undefined}
 				/>
 			),
 			(
@@ -47,19 +48,11 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 					gridSize={gridSize}
 					style={paperStyle}
 					key={"away"}
-					onChange={onChange ? this.editTeam : undefined}
+					onChange={editable ? this.editTeam : undefined}
 				/>
 			)
 		];
-		elements.push((
-			<Grid item={true} xs={3} style={paperStyle} key={"dateTimePicker"}>
-				<TextField
-					type="datetime-local"
-					value={match.startDate}
-					onChange={this.updateDate}
-				/>
-			</Grid>
-		));
+		elements.push(this.renderDate(editable));
 		if (removable) {
 			elements.push((
 				<Grid item={true} xs={1} style={{textAlign: "right", ...paperStyle}} key={"remove"}>
@@ -68,6 +61,30 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 			));
 		}
 		return elements;
+	}
+
+	private renderDate(editable: boolean) {
+		if (editable) {
+			return (
+				<Grid item={true} xs={3} style={paperStyle} key={"dateTimePicker"}>
+					<TextField
+						type="datetime-local"
+						value={this.props.match.startDate}
+						onChange={this.updateDate}
+					/>
+				</Grid>
+			);
+		}
+		return (
+			<Grid item={true} xs={2} style={paperStyle} key={"dateTime"}>
+				<TextField
+					type="text"
+					value={this.props.match.startDate}
+					onChange={this.updateDate}
+					disabled={true}
+				/>
+			</Grid>
+		);
 	}
 
 	private remove = () => {
