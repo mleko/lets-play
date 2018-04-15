@@ -1,10 +1,10 @@
 import * as React from "react";
+import {merge} from "typescript-object-utils";
 import {MatchSetView as Component} from "../component/MatchSetView";
 import {Client} from "../infrastructure/http/Client";
 import {httpContextValidationMap} from "../infrastructure/http/Provider";
 import {Response} from "../infrastructure/http/Response";
 import {Match, MatchSet} from "../model/models";
-import {merge} from "typescript-object-utils";
 
 export interface MatchSetViewProps {
 	matchId?: string;

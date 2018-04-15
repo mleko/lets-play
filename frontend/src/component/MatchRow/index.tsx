@@ -4,10 +4,10 @@ import {ChangeEvent, CSSProperties} from "react";
 import {Delete as DeleteIcon} from "material-ui-icons";
 import Grid from "material-ui/Grid";
 import IconButton from "material-ui/IconButton";
+import TextField from "material-ui/TextField";
 import {shallowMerge} from "typescript-object-utils";
 import {Match, MatchTeam} from "../../model/models";
 import {TeamGrid} from "./TeamGrid";
-import TextField from "material-ui/TextField";
 
 export interface MatchRowProps {
 	match: Match;

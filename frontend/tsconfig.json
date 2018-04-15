@@ -12,10 +12,7 @@
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "experimentalDecorators": true,
-    "baseUrl": "./frontend/src",
-    "paths": {
-      "*": ["*"]
-    }
+    "baseUrl": "./frontend/src"
   },
   "filesGlob": [
     "./**/*.ts",

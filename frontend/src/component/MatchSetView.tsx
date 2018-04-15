@@ -9,8 +9,8 @@ import Input from "material-ui/Input";
 import {replace, without} from "typescript-array-utils";
 
 import {Match, MatchSet} from "../model/models";
-import {MatchRow} from "./MatchRow";
 import {DateTime} from "../utility/DateTime";
+import {MatchRow} from "./MatchRow";
 
 export interface MatchSetViewProps {
 	matchId?: string;

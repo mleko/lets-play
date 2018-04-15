@@ -17,3 +17,7 @@ export interface MatchSet extends Model {
 	name: string;
 	matches: Match[];
 }
+
+export interface Game extends Model {
+
+}

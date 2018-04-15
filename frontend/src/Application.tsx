@@ -7,6 +7,7 @@ import {HashRouter as Router} from "react-router-dom";
 import {GameView} from "./component/GameView";
 import {MainMenu} from "./component/MainMenu";
 import {TopBar} from "./component/TopBar";
+import {GameList} from "./container/GameList";
 import {LoginScreen} from "./container/LoginScreen";
 import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";
@@ -48,6 +49,9 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 									<Route path="/match-sets/:setId" render={this.renderMatchSetView}/>
 									<Route path="/match-sets" render={this.renderMatchSetList}/>
 								</Switch>
+								<Switch>
+									<Route path={"/games"} render={this.renderGameList}/>
+								</Switch>
 								<Route path="/game/:gameId" render={this.renderGameView}/>
 							</Paper>
 						</div>
@@ -67,6 +71,9 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 				gameId={p.match.params.gameId}
 			/>
 		);
+	};
+	private renderGameList = (p: RouteComponentProps<any>) => {
+		return (<GameList/>);
 	};
 
 	private renderMatchSetView = (p: RouteComponentProps<any>) => {

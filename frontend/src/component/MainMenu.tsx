@@ -33,6 +33,12 @@ export class MainMenu extends React.PureComponent<MainMenuProps, {}> {
 							<ListItemIcon><ListIcon/></ListItemIcon>
 							<ListItemText primary="Mecze"/>
 						</ListItem>
+						<Link to={"/games"}>
+							<ListItem>
+								<ListItemIcon><ListIcon/></ListItemIcon>
+								<ListItemText primary="Rozgrywki"/>
+							</ListItem>
+						</Link>
 						<Divider/>
 						<Link to={"/match-sets"}>
 							<ListItem>
