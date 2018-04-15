@@ -5,6 +5,7 @@ namespace Mleko\LetsPlay\Normalizer;
 
 
 use Mleko\Alchemist\Normalizer\NormalizerAware;
+use Mleko\Alchemist\Type;
 
 abstract class PartialNormalizer implements \Mleko\Alchemist\Normalizer, NormalizerAware
 {
@@ -21,9 +22,16 @@ abstract class PartialNormalizer implements \Mleko\Alchemist\Normalizer, Normali
 
     protected function subNormalize($value, string $format, array $context) {
         if (null === $this->subNormalizer) {
-            throw new \RuntimeException("Cannot normalize array without subNormalizer");
+            throw new \RuntimeException("Cannot subNormalize without subNormalizer");
         }
         return $this->subNormalizer->normalize($value, $format, $context);
+    }
+
+    protected function subDeNormalize($data, Type $type, string $format, array $context) {
+        if (null === $this->subNormalizer) {
+            throw new \RuntimeException("Cannot subDeNormalize without subNormalizer");
+        }
+        return $this->subNormalizer->denormalize($data, $type, $format, $context);
     }
 
 }

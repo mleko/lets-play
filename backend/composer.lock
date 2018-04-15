@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "alchemist/alchemist",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mleko/alchemist.git",
-                "reference": "246c5b88bf1e72f4e42a82fb412a32c406d9e704"
+                "reference": "c7b5930fb0a9c55a310267bce727ec675bcc5a72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mleko/alchemist/zipball/246c5b88bf1e72f4e42a82fb412a32c406d9e704",
-                "reference": "246c5b88bf1e72f4e42a82fb412a32c406d9e704",
+                "url": "https://api.github.com/repos/mleko/alchemist/zipball/c7b5930fb0a9c55a310267bce727ec675bcc5a72",
+                "reference": "c7b5930fb0a9c55a310267bce727ec675bcc5a72",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "serialization",
                 "serializer"
             ],
-            "time": "2018-03-25T16:05:09+00:00"
+            "time": "2018-04-15T17:17:46+00:00"
         },
         {
             "name": "doctrine/lexer",

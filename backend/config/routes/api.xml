@@ -12,4 +12,8 @@
     <route id="match-set.list" path="/match-sets" controller="Mleko\LetsPlay\Controller\MatchSetController:listAll" methods="GET"/>
     <route id="match-set.get" path="/match-sets/{setId}" controller="Mleko\LetsPlay\Controller\MatchSetController:get" methods="GET"/>
     <route id="match-set.update" path="/match-sets/{setId}" controller="Mleko\LetsPlay\Controller\MatchSetController:update" methods="PUT"/>
+
+    <route id="game.create" path="/games" controller="Mleko\LetsPlay\Controller\GameController:create" methods="POST"/>
+    <route id="game.list" path="/games" controller="Mleko\LetsPlay\Controller\GameController:listAll" methods="GET"/>
+    <route id="game.get" path="/games/{gameId}" controller="Mleko\LetsPlay\Controller\GameController:get" methods="GET"/>
 </routes>

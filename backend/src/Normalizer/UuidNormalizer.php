@@ -18,8 +18,7 @@ class UuidNormalizer extends PartialNormalizer
      * @inheritDoc
      */
     public function denormalize($data, \Mleko\Alchemist\Type $type, string $format, array $context = []) {
-        // TODO: Implement denormalize() method.
-        throw new \RuntimeException("Unimplemented method " . __CLASS__ . "::" . __METHOD__);
+        return new \Mleko\LetsPlay\ValueObject\Uuid($data);
     }
 
     public function canProcess(\Mleko\Alchemist\Type $type, string $format): bool {

@@ -12,43 +12,47 @@
         <defaults autowire="true" autoconfigure="true" public="false"/>
 
         <service id="mleko.alchemist.serializer" class="Mleko\Alchemist\Serializer\BasicSerializer">
-            <argument type="service">
-                <service class="Mleko\Alchemist\Normalizer\ChainNormalizer">
-                    <argument type="collection">
-                        <argument type="service">
-                            <service class="Mleko\Alchemist\Normalizer\ScalarNormalizer"/>
-                        </argument>
-                        <argument type="service">
-                            <service class="Mleko\Alchemist\Normalizer\ArrayNormalizer"/>
-                        </argument>
-                        <argument type="service">
-                            <service class="Mleko\Alchemist\Normalizer\ArrayNormalizer"/>
-                        </argument>
-                        <argument type="service">
-                            <service class="Mleko\LetsPlay\Normalizer\ResponseNormalizer"/>
-                        </argument>
-                        <argument type="service">
-                            <service class="Mleko\LetsPlay\Normalizer\UserNormalizer"/>
-                        </argument>
-                        <argument type="service">
-                            <service class="Mleko\LetsPlay\Normalizer\UuidNormalizer"/>
-                        </argument>
-                        <argument type="service">
-                            <service class="Mleko\LetsPlay\Normalizer\MatchSetNormalizer"/>
-                        </argument>
-                        <argument type="service">
-                            <service class="Mleko\LetsPlay\Normalizer\MatchNormalizer"/>
-                        </argument>
-                        <argument type="service">
-                            <service class="Mleko\LetsPlay\Normalizer\MatchTeamNormalizer"/>
-                        </argument>
-                    </argument>
-                </service>
-            </argument>
+            <argument type="service" id="mleko.alchemist.normalizer"/>
             <argument type="service">
                 <service class="Mleko\Alchemist\Encoder\JsonEncoder"/>
             </argument>
         </service>
+
+        <service id="mleko.alchemist.normalizer" class="Mleko\Alchemist\Normalizer\ChainNormalizer">
+            <argument type="collection">
+                <argument type="service">
+                    <service class="Mleko\Alchemist\Normalizer\ScalarNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\Alchemist\Normalizer\ArrayNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\Alchemist\Normalizer\ArrayNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\ResponseNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\UserNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\UuidNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\MatchSetNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\MatchNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\MatchTeamNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\GameNormalizer"/>
+                </argument>
+            </argument>
+        </service>
+        <service alias="mleko.alchemist.normalizer" id="Mleko\Alchemist\Normalizer"/>
     </services>
 
     <!-- ... -->
