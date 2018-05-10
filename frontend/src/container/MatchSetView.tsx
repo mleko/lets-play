@@ -1,4 +1,6 @@
 import * as React from "react";
+
+import {RouteComponentProps, withRouter} from "react-router";
 import {merge} from "typescript-object-utils";
 import {MatchSetView as Component} from "../component/MatchSetView";
 import {Client} from "../infrastructure/http/Client";
@@ -10,9 +12,9 @@ export interface MatchSetViewProps {
 	matchId?: string;
 }
 
-export class MatchSetView extends React.PureComponent<MatchSetViewProps, {}> {
+class MatchSetViewWithRouter extends React.PureComponent<MatchSetViewProps & RouteComponentProps<any>, {}> {
 
-	protected static contextTypes = httpContextValidationMap;
+	public static contextTypes = httpContextValidationMap;
 
 	public render(): JSX.Element {
 		return (
@@ -43,7 +45,13 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps, {}> {
 		if (set.id) {
 			client.request({url: "/match-sets/" + set.id, method: "PUT", data: set});
 		} else {
-			client.request({url: "/match-sets", method: "POST", data: set});
+			client
+				.request({url: "/match-sets", method: "POST", data: set})
+				.then((response: Response<MatchSet>) => {
+					this.props.history.push("/match-sets/" + response.data.id);
+				});
 		}
 	};
 }
+
+export const MatchSetView = withRouter(MatchSetViewWithRouter);

@@ -35,7 +35,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 							<TableCell style={{width: 1}}>
 								<div>Edit</div>
 							</TableCell>
-							<TableCell padding="none">Set name</TableCell>
+							<TableCell padding="none">Game name</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -55,6 +55,10 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 	}
 
 	public componentDidMount(): void {
+		this.loadGames();
+	}
+
+	private loadGames() {
 		this.props.loadGames().then((games) => {
 			this.setState({games});
 		});
@@ -80,7 +84,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 					</LinkIconButton>
 				</TableCell>
 				<TableCell>
-					<LinkIconButton to={"/match-sets/" + element.id}>
+					<LinkIconButton to={"/games/" + element.id + "/edit"}>
 						<EditIcon style={{cursor: "pointer"}}/>
 					</LinkIconButton>
 				</TableCell>
@@ -97,7 +101,10 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 	};
 	private createGame = (matchSetId: string, name: string) => {
 		this.setState({dialogVisible: false});
-		this.props.createGame(matchSetId, name);
+		this.props.createGame(matchSetId, name)
+			.then(() => {
+				this.loadGames();
+			});
 	};
 }
 

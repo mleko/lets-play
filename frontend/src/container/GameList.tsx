@@ -20,14 +20,11 @@ export class GameList extends React.PureComponent<{}, {}> {
 	}
 
 	private loadGames = (): Promise<Game[]> => {
-		// const client: Client = this.context.httpClient;
-		return new Promise<Game[]>((resolve, reject) => {
-			resolve([]);
-		});
-		// return client.request({url: "/match-sets", method: "GET"})
-		// 	.then((response: Response<MatchSet[]>) => {
-		// 		return response.data;
-		// 	});
+		const client: Client = this.context.httpClient;
+		return client.request({url: "/games", method: "GET"})
+			.then((response: Response<Game[]>) => {
+				return response.data;
+			});
 	};
 	private loadSets = (): Promise<MatchSet[]> => {
 		const client: Client = this.context.httpClient;

@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
-import {Add as AddIcon, Edit as EditIcon, PlayArrow as PlayIcon} from "material-ui-icons";
+import {Add as AddIcon, Edit as EditIcon} from "material-ui-icons";
 import {MatchSet} from "../../model/models";
 import {LinkButton} from "../LinkButton";
 import {LinkIconButton} from "../LinkIconButton";
@@ -25,9 +25,6 @@ export class MatchSetList extends React.PureComponent<MatchSetListProps, State> 
 				<Table>
 					<TableHead>
 						<TableRow>
-							<TableCell style={{width: 1}}>
-								<div>Play</div>
-							</TableCell>
 							<TableCell style={{width: 1}}>
 								<div>Edit</div>
 							</TableCell>
@@ -58,11 +55,6 @@ export class MatchSetList extends React.PureComponent<MatchSetListProps, State> 
 	private renderRow = (element: any, index: number) => {
 		return (
 			<TableRow key={index}>
-				<TableCell>
-					<LinkIconButton to={"/game/" + element.id}>
-						<PlayIcon style={{cursor: "pointer"}}/>
-					</LinkIconButton>
-				</TableCell>
 				<TableCell>
 					<LinkIconButton to={"/match-sets/" + element.id}>
 						<EditIcon style={{cursor: "pointer"}}/>
