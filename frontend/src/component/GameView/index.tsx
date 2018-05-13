@@ -7,6 +7,7 @@ import {MatchRow} from "../MatchRow";
 import {Results} from "../Results";
 import {Match as ViewMatch, MatchList} from "./MatchList";
 import {UserRanking} from "./UserRanking";
+import AppBar from "material-ui/AppBar";
 
 export interface GameViewProps {
 	game: Game;
@@ -26,16 +27,17 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 		return (
 			<div>
 				<h2>{this.props.game ? this.props.game.name : ""}</h2>
-				<Tabs
-					value={this.state.activeTab}
-					fullWidth={true}
-					indicatorColor={"primary"}
-					onChange={this.changeActiveTab}
-				>
-					<Tab label={"Typowanie"}/>
-					<Tab label={"Mecze"}/>
-					<Tab label={"Ranking"}/>
-				</Tabs>
+				<AppBar position={"static"}>
+					<Tabs
+						value={this.state.activeTab}
+						fullWidth={true}
+						onChange={this.changeActiveTab}
+					>
+						<Tab label={"Typowanie"}/>
+						<Tab label={"Mecze"}/>
+						<Tab label={"Ranking"}/>
+					</Tabs>
+				</AppBar>
 				{this.renderTabContent()}
 
 			</div>
@@ -53,32 +55,7 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	}
 
 	private renderTypingView() {
-		const elements: Match[] = [
-			{
-				home: {name: "Polska", score: 3},
-				away: {name: "Niemcy", score: 2}
-			},
-			{
-				home: {name: "Polska"},
-				away: {name: "Niemcy"}
-			},
-			{
-				home: {name: "Polska", score: 1},
-				away: {name: "Niemcy", score: 1}
-			},
-			{
-				home: {name: "Polska"},
-				away: {name: "Niemcy"}
-			},
-			{
-				home: {name: "Zjednoczone Emiraty Arabskie"},
-				away: {name: "Republika Południowej Afryki"}
-			},
-			{
-				home: {name: "Portugalia"},
-				away: {name: "Republika Południowej Afryki"}
-			},
-		];
+		const elements: Match[] = this.props.matchSet ? this.props.matchSet.matches : [];
 
 		return [
 			(
