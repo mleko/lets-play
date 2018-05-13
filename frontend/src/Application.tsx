@@ -4,10 +4,10 @@ import {Paper, Reboot} from "material-ui";
 import {Route, RouteComponentProps, Switch} from "react-router";
 import {HashRouter as Router} from "react-router-dom";
 
-import {GameView} from "./component/GameView";
 import {MainMenu} from "./component/MainMenu";
 import {TopBar} from "./component/TopBar";
 import {GameList} from "./container/GameList";
+import {GameView} from "./container/GameView";
 import {LoginScreen} from "./container/LoginScreen";
 import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";

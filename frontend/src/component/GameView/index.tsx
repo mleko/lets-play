@@ -2,14 +2,14 @@ import * as React from "react";
 
 import {Grid, Tab} from "material-ui";
 import Tabs from "material-ui/Tabs";
-import {Match} from "../../model/models";
+import {Game, Match} from "../../model/models";
 import {MatchRow} from "../MatchRow";
 import {Results} from "../Results";
 import {Match as ViewMatch, MatchList} from "./MatchList";
 import {UserRanking} from "./UserRanking";
 
 export interface GameViewProps {
-	gameId: string;
+	game: Game;
 }
 
 export class GameView extends React.PureComponent<GameViewProps, GameViewState> {
@@ -24,7 +24,7 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	public render(): JSX.Element {
 		return (
 			<div>
-				<h2>{this.props.gameId}</h2>
+				<h2>{this.props.game ? this.props.game.name : ""}</h2>
 				<Tabs
 					value={this.state.activeTab}
 					fullWidth={true}
