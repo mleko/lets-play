@@ -37,7 +37,7 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 	private renderRow = (m: Match, index: number) => {
 		return (
 			<TableRow key={index}>
-				<TableCell>{m.teams.join(" : ")}</TableCell>
+				<TableCell>{m.teams.join(" - ")}</TableCell>
 				<TableCell>-</TableCell>
 				<TableCell>{m.result.join(" : ")}</TableCell>
 				<TableCell>{m.bets.join(" : ")}</TableCell>

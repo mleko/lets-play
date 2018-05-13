@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {Grid, Tab} from "material-ui";
 import Tabs from "material-ui/Tabs";
-import {Game, Match} from "../../model/models";
+import {Game, Match, MatchSet} from "../../model/models";
 import {MatchRow} from "../MatchRow";
 import {Results} from "../Results";
 import {Match as ViewMatch, MatchList} from "./MatchList";
@@ -10,6 +10,7 @@ import {UserRanking} from "./UserRanking";
 
 export interface GameViewProps {
 	game: Game;
+	matchSet: MatchSet;
 }
 
 export class GameView extends React.PureComponent<GameViewProps, GameViewState> {
@@ -90,13 +91,13 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	}
 
 	private renderMatchList() {
-		const matches: ViewMatch[] = [
-			{
-				teams: ["Polska", "Niemcy"],
-				result: [1, 2],
-				bets: [1, 2]
-			}
-		];
+		const matches = this.props.matchSet.matches.map((match: Match): ViewMatch => {
+			return {
+				teams: [match.home.name, match.away.name],
+				result: [match.home.score, match.away.score],
+				bets: [null, null]
+			};
+		});
 
 		return (
 			<MatchList matches={matches}/>
