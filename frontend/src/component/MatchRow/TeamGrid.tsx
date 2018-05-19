@@ -6,7 +6,6 @@ import Grid from "material-ui/Grid";
 import {GridSize} from "material-ui/Grid/Grid";
 import Input from "material-ui/Input";
 import withStyles from "material-ui/styles/withStyles";
-import {shallowMerge} from "typescript-object-utils";
 import {MatchTeam} from "../../model/models";
 
 export interface TeamGridProps {
@@ -17,7 +16,8 @@ export interface TeamGridProps {
 }
 
 export interface TeamGridActions {
-	onChange?: (team: MatchTeam, left: boolean) => any;
+	onNameChange?: (name: string, left: boolean) => any;
+	onScoreChange?: (score: number, left: boolean) => any;
 }
 
 const inputStyle: CSSProperties = {
@@ -66,7 +66,7 @@ export const TeamGrid = withStyles(styles)(
 				return null;
 			}
 			const {team} = this.props;
-			const editable = !!this.props.onChange;
+			const editable = !!this.props.onNameChange;
 			const style = {[!left ? "marginLeft" : "marginRight"]: textMargin};
 			if (!editable) {
 				return <span style={style}>{team.name}</span>;
@@ -81,10 +81,10 @@ export const TeamGrid = withStyles(styles)(
 		}
 
 		private onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-			this.props.onChange(shallowMerge(this.props.team, {name: event.target.value}), this.props.left);
+			this.props.onNameChange(event.target.value, this.props.left);
 		};
 		private onScoreChange = (event: ChangeEvent<HTMLInputElement>) => {
-			this.props.onChange(shallowMerge(this.props.team, {score: event.target.value}), this.props.left);
+			this.props.onScoreChange(+event.target.value, this.props.left);
 		};
 	}
 );

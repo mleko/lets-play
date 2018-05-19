@@ -76,6 +76,7 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchS
 				index={index}
 				match={match}
 				editDate={true}
+				editName={true}
 				onRemove={this.removeMatch}
 				onChange={this.updateMatch}
 			/>

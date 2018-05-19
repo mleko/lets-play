@@ -50,11 +50,15 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 	}
 
 	private renderElement = (e: Match, index: number) => {
-		return (<MatchRow match={e} key={String(index)} index={index} editDate={false} onChange={this.edit}/>);
+		return (<MatchRow match={e} key={String(index)} index={index} editDate={false} editName={false} onChange={this.edit}/>);
 	};
 
 	private edit = (match: Match, index: number) => {
-		const bets = replace(this.state.bets, index, {
+		let bets = this.state.bets;
+		if(bets.length < index){
+			bets = bets.concat(new Array(index - bets.length));
+		}
+		bets = replace(bets, index, {
 			home: match.home.score,
 			away: match.away.score
 		});

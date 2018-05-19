@@ -6,12 +6,13 @@ import Grid from "material-ui/Grid";
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
 import {shallowMerge} from "typescript-object-utils";
-import {Match, MatchTeam} from "../../model/models";
+import {Match} from "../../model/models";
 import {TeamGrid} from "./TeamGrid";
 
 export interface MatchRowProps {
 	match: Match;
 	editDate: boolean;
+	editName: boolean;
 	index: number;
 }
 
@@ -39,7 +40,8 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 					gridSize={gridSize}
 					style={paperStyle}
 					key={"home"}
-					onChange={editable ? this.editTeam : undefined}
+					onNameChange={this.props.editName && editable ? this.onNameChange : undefined}
+					onScoreChange={editable ? this.onScoreChange : undefined}
 				/>
 			),
 			(
@@ -49,7 +51,8 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 					gridSize={gridSize}
 					style={paperStyle}
 					key={"away"}
-					onChange={editable ? this.editTeam : undefined}
+					onNameChange={this.props.editName && editable ? this.onNameChange : undefined}
+					onScoreChange={editable ? this.onScoreChange : undefined}
 				/>
 			)
 		];
@@ -92,8 +95,13 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 		this.props.onRemove(this.props.index);
 	};
 
-	private editTeam = (team: MatchTeam, left: boolean) => {
-		this.props.onChange(shallowMerge(this.props.match, {[left ? "home" : "away"]: team}), this.props.index);
+	private onNameChange = (name: string, left: boolean) => {
+		const mergedTeam = shallowMerge(this.props.match[left ? "home" : "away"], {name});
+		this.props.onChange(shallowMerge(this.props.match, {[left ? "home" : "away"]: mergedTeam}), this.props.index);
+	};
+	private onScoreChange = (score: number, left: boolean) => {
+		const mergedTeam = shallowMerge(this.props.match[left ? "home" : "away"], {score});
+		this.props.onChange(shallowMerge(this.props.match, {[left ? "home" : "away"]: mergedTeam}), this.props.index);
 	};
 
 	private updateDate = (event: ChangeEvent<HTMLInputElement>) => {
