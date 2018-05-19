@@ -3,7 +3,7 @@ import {GameView as Component} from "../component/GameView";
 import {Client} from "../infrastructure/http/Client";
 import {httpContextValidationMap} from "../infrastructure/http/Provider";
 import {Response} from "../infrastructure/http/Response";
-import {Game, MatchSet} from "../model/models";
+import {Bet, Game, MatchSet} from "../model/models";
 
 export interface GameViewProps {
 	gameId: string;
@@ -23,6 +23,7 @@ export class GameView extends React.PureComponent<GameViewProps, State> {
 			<Component
 				game={this.state.game}
 				matchSet={this.state.matchSet}
+				onBetSave={this.saveBets}
 			/>
 		);
 	}
@@ -48,6 +49,11 @@ export class GameView extends React.PureComponent<GameViewProps, State> {
 			.then((matchSet: MatchSet) => {
 				this.setState({matchSet});
 			});
+	};
+
+	private saveBets = (bets: Bet[]) => {
+		const client: Client = this.context.httpClient;
+		client.request({url: "/games/" + this.props.gameId + "/bets", method: "PUT", data: bets});
 	}
 }
 

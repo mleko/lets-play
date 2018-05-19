@@ -27,9 +27,6 @@
                     <service class="Mleko\Alchemist\Normalizer\ArrayNormalizer"/>
                 </argument>
                 <argument type="service">
-                    <service class="Mleko\Alchemist\Normalizer\ArrayNormalizer"/>
-                </argument>
-                <argument type="service">
                     <service class="Mleko\LetsPlay\Normalizer\ResponseNormalizer"/>
                 </argument>
                 <argument type="service">
@@ -49,6 +46,16 @@
                 </argument>
                 <argument type="service">
                     <service class="Mleko\LetsPlay\Normalizer\GameNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\BetNormalizer"/>
+                </argument>
+
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\ValueObject\MatchScoreNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\ValueObject\DateTimeNormalizer"/>
                 </argument>
             </argument>
         </service>

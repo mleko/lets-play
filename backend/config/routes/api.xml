@@ -16,4 +16,7 @@
     <route id="game.create" path="/games" controller="Mleko\LetsPlay\Controller\GameController:create" methods="POST"/>
     <route id="game.list" path="/games" controller="Mleko\LetsPlay\Controller\GameController:listAll" methods="GET"/>
     <route id="game.get" path="/games/{gameId}" controller="Mleko\LetsPlay\Controller\GameController:get" methods="GET"/>
+
+    <route id="game.bets.list" path="/games/{gameId}/bets" controller="Mleko\LetsPlay\Controller\Game\BetsController:listAll" methods="GET"/>
+    <route id="game.bets.update" path="/games/{gameId}/bets" controller="Mleko\LetsPlay\Controller\Game\BetsController:update" methods="PUT"/>
 </routes>

@@ -45,6 +45,6 @@ class BetsRepository extends StorageRepository
                 $active[$key] = $bet;
             }
         }
-        return $active;
+        return \array_values($active);
     }
 }

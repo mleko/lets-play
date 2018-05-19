@@ -27,3 +27,8 @@ export interface MatchScore {
 	home?: number;
 	away?: number;
 }
+
+export interface Bet {
+	score: MatchScore;
+	matchId: string;
+}

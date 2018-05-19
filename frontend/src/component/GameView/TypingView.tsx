@@ -3,12 +3,13 @@ import * as React from "react";
 import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
 import {replace} from "typescript-array-utils";
-import {Match, MatchScore, MatchSet} from "../../model/models";
+import {Bet, Match, MatchScore, MatchSet} from "../../model/models";
 import {MatchRow} from "../MatchRow";
 import {Results} from "../Results";
 
 export interface TypingViewProps {
 	matchSet: MatchSet;
+	onSave: (bets: Bet[]) => any;
 }
 
 export class TypingView extends React.PureComponent<TypingViewProps, State> {
@@ -42,7 +43,14 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 				<Grid container={true} spacing={16} style={{marginTop: 16}}>
 					{matches.map(this.renderElement)}
 				</Grid>
-				<Button fullWidth={true} color={"primary"} variant={"raised"}>Zapisz</Button>
+				<Button
+					fullWidth={true}
+					color={"primary"}
+					variant={"raised"}
+					onClick={this.save}
+				>
+					Zapisz
+				</Button>
 				<Results/>
 
 			</div>
@@ -55,7 +63,7 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 
 	private edit = (match: Match, index: number) => {
 		let bets = this.state.bets;
-		if(bets.length < index){
+		if (bets.length < index) {
 			bets = bets.concat(new Array(index - bets.length));
 		}
 		bets = replace(bets, index, {
@@ -63,7 +71,16 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 			away: match.away.score
 		});
 		this.setState({bets});
-	}
+	};
+	private save = () => {
+		const bets = this.props.matchSet.matches.map((match: Match, index: number): Bet => {
+			return {
+				matchId: match.id,
+				score: this.state.bets[index] ? this.state.bets[index] : {}
+			} as Bet;
+		});
+		this.props.onSave(bets);
+	};
 }
 
 interface State {
