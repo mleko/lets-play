@@ -22,3 +22,8 @@ export interface Game extends Model {
 	name: string;
 	matchSetId?: string;
 }
+
+export interface MatchScore {
+	home?: number;
+	away?: number;
+}

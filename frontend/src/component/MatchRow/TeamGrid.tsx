@@ -54,6 +54,7 @@ export const TeamGrid = withStyles(styles)(
 						style={inputStyle}
 						inputProps={{style: {textAlign: "center"}}}
 						value={team.score || ""}
+						onChange={this.onScoreChange}
 					/>
 					{this.renderLabel(false)}
 				</Grid>
@@ -81,6 +82,9 @@ export const TeamGrid = withStyles(styles)(
 
 		private onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
 			this.props.onChange(shallowMerge(this.props.team, {name: event.target.value}), this.props.left);
-		}
+		};
+		private onScoreChange = (event: ChangeEvent<HTMLInputElement>) => {
+			this.props.onChange(shallowMerge(this.props.team, {score: event.target.value}), this.props.left);
+		};
 	}
 );

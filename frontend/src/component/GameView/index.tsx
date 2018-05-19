@@ -1,13 +1,12 @@
 import * as React from "react";
 
-import {Grid, Tab} from "material-ui";
+import {Tab} from "material-ui";
+import AppBar from "material-ui/AppBar";
 import Tabs from "material-ui/Tabs";
 import {Game, Match, MatchSet} from "../../model/models";
-import {MatchRow} from "../MatchRow";
-import {Results} from "../Results";
 import {Match as ViewMatch, MatchList} from "./MatchList";
+import {TypingView} from "./TypingView";
 import {UserRanking} from "./UserRanking";
-import AppBar from "material-ui/AppBar";
 
 export interface GameViewProps {
 	game: Game;
@@ -55,16 +54,9 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	}
 
 	private renderTypingView() {
-		const elements: Match[] = this.props.matchSet ? this.props.matchSet.matches : [];
-
-		return [
-			(
-				<Grid container={true} spacing={16} style={{marginTop: 16}}>
-					{elements.map(this.renderElement)}
-				</Grid>
-			),
-			<Results/>
-		];
+		return (
+			<TypingView matchSet={this.props.matchSet}/>
+		);
 	}
 
 	private renderMatchList() {
@@ -94,10 +86,6 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 
 	private changeActiveTab = (event: React.SyntheticEvent<any>, value: number) => {
 		this.setState({activeTab: value});
-	};
-
-	private renderElement = (e: Match, index: number) => {
-		return (<MatchRow match={e} key={String(index)} index={index}/>);
 	};
 }
 

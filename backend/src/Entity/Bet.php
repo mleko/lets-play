@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Mleko\LetsPlay\Entity;
 
 
-use Mleko\LetsPlay\ValueObject\GameScore;
+use Mleko\LetsPlay\ValueObject\MatchScore;
 use Mleko\LetsPlay\ValueObject\Uuid;
 
 class Bet
@@ -17,7 +17,7 @@ class Bet
     private $matchId;
     /** @var \DateTimeImmutable */
     private $datetime;
-    /** @var GameScore */
+    /** @var MatchScore */
     private $bet;
 
     /**
@@ -25,10 +25,10 @@ class Bet
      * @param Uuid $userId
      * @param Uuid $gameId
      * @param Uuid $matchId
-     * @param GameScore $bet
+     * @param MatchScore $bet
      * @param \DateTimeImmutable|null $date
      */
-    public function __construct(Uuid $userId, Uuid $gameId, Uuid $matchId, GameScore $bet, \DateTimeImmutable $date = null) {
+    public function __construct(Uuid $userId, Uuid $gameId, Uuid $matchId, MatchScore $bet, \DateTimeImmutable $date = null) {
         $this->userId = $userId;
         $this->gameId = $gameId;
         $this->matchId = $matchId;
@@ -65,9 +65,9 @@ class Bet
     }
 
     /**
-     * @return GameScore
+     * @return MatchScore
      */
-    public function getBet(): GameScore {
+    public function getBet(): MatchScore {
         return $this->bet;
     }
 }

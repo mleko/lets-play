@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Mleko\LetsPlay\ValueObject;
 
 
-class GameScore
+class MatchScore
 {
     /** @var int */
     private $home;

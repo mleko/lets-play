@@ -11,6 +11,7 @@ import {TeamGrid} from "./TeamGrid";
 
 export interface MatchRowProps {
 	match: Match;
+	editDate: boolean;
 	index: number;
 }
 
@@ -64,7 +65,7 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 	}
 
 	private renderDate(editable: boolean) {
-		if (editable) {
+		if (editable && this.props.editDate) {
 			return (
 				<Grid item={true} xs={3} style={paperStyle} key={"dateTimePicker"}>
 					<TextField
