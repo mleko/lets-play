@@ -3,7 +3,7 @@ import * as React from "react";
 import {Tab} from "material-ui";
 import AppBar from "material-ui/AppBar";
 import Tabs from "material-ui/Tabs";
-import {Bet, Game, MatchSet} from "../../model/models";
+import {Bet, Game, MatchSet, Ranking} from "../../model/models";
 import {MatchList} from "./MatchList";
 import {TypingView} from "./TypingView";
 import {UserRanking} from "./UserRanking";
@@ -12,6 +12,7 @@ export interface GameViewProps {
 	game: Game;
 	matchSet: MatchSet;
 	bets: Bet[];
+	ranking: Ranking;
 
 	onBetSave: (bets: Bet[]) => any;
 }
@@ -77,13 +78,8 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	}
 
 	private renderRanking() {
-		const ranking = [
-			{username: "Mleko", points: 123},
-			{username: "Tadek", points: 33},
-			{username: "Zenek", points: 23},
-		];
 		return (
-			<UserRanking ranking={ranking}/>
+			<UserRanking ranking={this.props.ranking}/>
 		);
 	}
 

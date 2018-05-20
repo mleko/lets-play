@@ -1,8 +1,8 @@
 import * as React from "react";
 
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
-import {Bet, HandA, Match} from "../../model/models";
 import {isNumber} from "util";
+import {Bet, HandA, Match} from "../../model/models";
 
 export interface MatchView {
 	names: HandA<string>;
@@ -18,6 +18,13 @@ export interface MatchListProps {
 }
 
 export class MatchList extends React.PureComponent<MatchListProps, {}> {
+
+	private static scoreToString(score: HandA<number>): string {
+		if (!score || score.away === null || score.home === null) {
+			return " - ";
+		}
+		return (score.home) + " : " + (score.away);
+	}
 
 	public render(): JSX.Element {
 
@@ -63,11 +70,4 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 			</TableRow>
 		);
 	};
-
-	private static scoreToString(score: HandA<number>): string {
-		if (!score || score.away === null || score.home === null) {
-			return " - ";
-		}
-		return (score.home) + " : " + (score.away);
-	}
 }

@@ -48,6 +48,14 @@ class BetsRepository extends StorageRepository
         $this->saveElements($elements);
     }
 
+    public function getGameBets(Uuid $gameId) {
+        $bets = $this->getElements();
+        $userGameBets = \array_filter($bets, function (Bet $bet) use ($gameId) {
+            return $bet->getGameId()->getUuid() === $gameId->getUuid();
+        });
+        return \array_values($this->filterActive($userGameBets));
+    }
+
     protected function getElementClassName(): string {
         return Bet::class;
     }

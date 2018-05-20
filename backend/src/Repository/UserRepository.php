@@ -31,10 +31,10 @@ class UserRepository
         $users = $this->getUsers();
 
         $users[$user->getId()->getUuid()] = [
-            'id'    => $user->getId()->getUuid(),
-            "name"  => $user->getName(),
+            'id' => $user->getId()->getUuid(),
+            "name" => $user->getName(),
             "email" => $user->getEmail(),
-            "hash"  => $user->getPassHash()
+            "hash" => $user->getPassHash()
         ];
 
         $this->saveUsersData($users);
@@ -62,6 +62,20 @@ class UserRepository
         return \array_map(function ($data) {
             return new User($data["name"], $data["email"], $data["hash"], new Uuid($data["id"]));
         }, $data["users"] ?? []);
+    }
+
+    /**
+     * @param Uuid[] $userIds
+     * @return array|User[]
+     */
+    public function getMany(array $userIds) {
+        $userIds = \array_map(function (Uuid $id) {
+            return $id->getUuid();
+        }, $userIds);
+        $users = $this->getUsers();
+        return \array_filter($users, function (User $user) use ($userIds) {
+            return \in_array($user->getId()->getUuid(), $userIds);
+        });
     }
 
     /**

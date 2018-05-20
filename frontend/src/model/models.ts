@@ -2,6 +2,10 @@ interface Model {
 	id?: string;
 }
 
+export interface User extends Model {
+	name: string;
+}
+
 export interface MatchTeam {
 	name: string;
 	score?: number;
@@ -37,5 +41,13 @@ export interface Bet {
 
 export interface HandA<T> {
 	home: T;
-	away: T
+	away: T;
 }
+
+export interface RankingEntry {
+	userId: string;
+	user?: User;
+	points: number;
+}
+
+export type Ranking = RankingEntry[];
