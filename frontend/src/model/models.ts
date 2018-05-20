@@ -11,6 +11,7 @@ export interface Match extends Model {
 	startDate?: string;
 	home: MatchTeam;
 	away: MatchTeam;
+	locked?: boolean;
 }
 
 export interface MatchSet extends Model {
@@ -31,4 +32,9 @@ export interface MatchScore {
 export interface Bet {
 	bet: MatchScore;
 	matchId: string;
+}
+
+export interface HandA<T> {
+	home: T;
+	away: T
 }

@@ -56,4 +56,9 @@ class Match
     public function getStartDate(): \DateTimeImmutable {
         return $this->startDate;
     }
+
+    public function isLocked(\DateTimeImmutable $now = null): bool {
+        $now = $now ?: new \DateTimeImmutable();
+        return $now >= $this->startDate;
+    }
 }

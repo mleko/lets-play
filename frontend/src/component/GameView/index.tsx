@@ -3,8 +3,8 @@ import * as React from "react";
 import {Tab} from "material-ui";
 import AppBar from "material-ui/AppBar";
 import Tabs from "material-ui/Tabs";
-import {Bet, Game, Match, MatchSet} from "../../model/models";
-import {Match as ViewMatch, MatchList} from "./MatchList";
+import {Bet, Game, MatchSet} from "../../model/models";
+import {MatchList} from "./MatchList";
 import {TypingView} from "./TypingView";
 import {UserRanking} from "./UserRanking";
 
@@ -67,16 +67,12 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	}
 
 	private renderMatchList() {
-		const matches = this.props.matchSet.matches.map((match: Match): ViewMatch => {
-			return {
-				teams: [match.home.name, match.away.name],
-				result: [match.home.score, match.away.score],
-				bets: [null, null]
-			};
-		});
 
 		return (
-			<MatchList matches={matches}/>
+			<MatchList
+				matches={this.props.matchSet.matches}
+				bets={this.props.bets}
+			/>
 		);
 	}
 

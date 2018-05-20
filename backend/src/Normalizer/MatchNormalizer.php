@@ -15,7 +15,8 @@ class MatchNormalizer extends PartialNormalizer
             "id" => $this->subNormalize($value->getId(), $format, $context),
             "startDate" => $value->getStartDate()->format("c"),
             "home" => $this->subNormalize($value->getHome(), $format, $context),
-            "away" => $this->subNormalize($value->getAway(), $format, $context)
+            "away" => $this->subNormalize($value->getAway(), $format, $context),
+            "locked" => $value->isLocked()
         ];
     }
 

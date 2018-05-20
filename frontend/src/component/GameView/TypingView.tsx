@@ -6,7 +6,7 @@ import {replace} from "typescript-array-utils";
 import {shallowMergeDeep} from "typescript-object-utils";
 import {Bet, Match, MatchSet} from "../../model/models";
 import {MatchRow} from "../MatchRow";
-import {Results} from "../Results";
+import {MatchList} from "./MatchList";
 import {mergeBetsIntoMatches} from "./mergeBetsIntoMatches";
 
 export interface TypingViewProps {
@@ -28,7 +28,14 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		const elements: Match[] = this.props.matchSet ? this.props.matchSet.matches : [];
 		const bets: Bet[] = this.state.bets ? this.state.bets : [];
 
-		const matches = mergeBetsIntoMatches(elements, bets);
+		const matchesToType = elements.filter((m: Match) => {
+			return !m.locked;
+		});
+		const pastMatches = elements.filter((m: Match) => {
+			return m.locked;
+		});
+
+		const matches = mergeBetsIntoMatches(matchesToType, bets);
 
 		return (
 			<div>
@@ -43,7 +50,10 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 				>
 					Zapisz
 				</Button>
-				<Results/>
+				<MatchList
+					matches={pastMatches}
+					bets={this.props.bets}
+				/>
 
 			</div>
 		);
