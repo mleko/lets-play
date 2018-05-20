@@ -11,7 +11,9 @@ class DateTimeNormalizerTest extends TestCase
 {
 
     public function testNormalize() {
-
+        $normalizer = new DateTimeNormalizer();
+        $string = $normalizer->normalize(new \DateTimeImmutable("@1526733231", new \DateTimeZone("+00:00")), "*");
+        $this->assertEquals("2018-05-19T12:33:51+00:00", $string);
     }
 
     public function testDenormalize() {

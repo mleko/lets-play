@@ -29,7 +29,7 @@ class BetsController
         $user = $authUser->getUser();
         $gameId = new Uuid($gameId);
 
-        return new \Mleko\LetsPlay\Http\Response($this->betRepository->getUserGameBets($gameId, $user->getId()));
+        return new \Mleko\LetsPlay\Http\Response($this->betRepository->getUserGameBets($user->getId(), $gameId));
     }
 
     public function update($gameId, Request $request, UserInterface $authUser) {
@@ -39,11 +39,9 @@ class BetsController
         $gameId = new Uuid($gameId);
         $bets = $this->unserialize($data, $user->getId(), $gameId);
 
-        foreach ($bets as $bet) {
-            $this->betRepository->save($bet);
-        }
+        $this->betRepository->saveMany($bets, true);
 
-        return new \Mleko\LetsPlay\Http\Response($this->betRepository->getUserGameBets($gameId, $user->getId()));
+        return new \Mleko\LetsPlay\Http\Response($this->betRepository->getUserGameBets($user->getId(), $gameId));
     }
 
     /**
@@ -55,10 +53,10 @@ class BetsController
     private function unserialize(array $data, Uuid $userId, Uuid $gameId) {
         $bets = [];
         foreach ($data as $row) {
-            if (!isset($row["score"], $row["score"]["home"], $row["score"]["away"])) {
+            if (!isset($row["bet"], $row["bet"]["home"], $row["bet"]["away"])) {
                 continue;
             }
-            $bets[] = new Bet($userId, $gameId, new Uuid($row["matchId"]), new MatchScore($row["score"]["home"], $row["score"]["away"]));
+            $bets[] = new Bet($userId, $gameId, new Uuid($row["matchId"]), new MatchScore($row["bet"]["home"], $row["bet"]["away"]));
         }
         return $bets;
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Mleko\LetsPlay\Repository;
 
 
-class JsonStorage
+class JsonStorage implements Storage
 {
     /** @var string */
     private $filename;
@@ -17,7 +17,7 @@ class JsonStorage
         $this->filename = $filename;
     }
 
-    public function getData() {
+    public function getData(): array {
         if (!\file_exists($this->filename)) {
             \touch($this->filename);
         }

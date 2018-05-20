@@ -36,4 +36,11 @@ class Uuid
         return $this->uuid;
     }
 
+    public function equals($uuid): bool {
+        if (!($uuid instanceof Uuid)) {
+            return false;
+        }
+        return $uuid->uuid === $this->uuid;
+    }
+
 }

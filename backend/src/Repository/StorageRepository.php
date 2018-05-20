@@ -8,17 +8,17 @@ use Mleko\Alchemist\Normalizer;
 
 abstract class StorageRepository
 {
-    /** @var JsonStorage */
+    /** @var Storage */
     private $storage;
     /** @var Normalizer */
     private $normalizer;
 
     /**
      * UserRepository constructor.
-     * @param JsonStorage $storage
+     * @param Storage $storage
      * @param Normalizer $normalizer
      */
-    public function __construct(JsonStorage $storage, Normalizer $normalizer) {
+    public function __construct(Storage $storage, Normalizer $normalizer) {
         $this->storage = $storage;
         $this->normalizer = $normalizer;
     }

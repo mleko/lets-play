@@ -23,6 +23,7 @@
         <service id="Mleko\LetsPlay\Repository\JsonStorage">
             <argument>%kernel.project_dir%/var/entities.json</argument>
         </service>
+        <service id="Mleko\LetsPlay\Repository\Storage" alias="Mleko\LetsPlay\Repository\JsonStorage"/>
         <service id="Mleko\LetsPlay\Repository\UserRepository">
             <argument type="service" id="Mleko\LetsPlay\Repository\JsonStorage"/>
         </service>

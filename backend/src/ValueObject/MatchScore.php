@@ -35,4 +35,11 @@ class MatchScore
         return $this->away;
     }
 
+    public function equals($score): bool {
+        if (!($score instanceof MatchScore)) {
+            return false;
+        }
+        return $score->home === $this->home && $score->away === $this->away;
+    }
+
 }

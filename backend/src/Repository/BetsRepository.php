@@ -16,12 +16,36 @@ class BetsRepository extends StorageRepository
         $this->saveElements($bets);
     }
 
-    public function getUserGameBets(Uuid $gameId, Uuid $userId) {
+    /**
+     * @param Uuid $userId
+     * @param Uuid $gameId
+     * @return Bet[]|array
+     */
+    public function getUserGameBets(Uuid $userId, Uuid $gameId) {
         $bets = $this->getElements();
         $userGameBets = \array_filter($bets, function (Bet $bet) use ($gameId, $userId) {
             return $bet->getGameId()->getUuid() === $gameId->getUuid() && $bet->getUserId()->getUuid() === $userId->getUuid();
         });
-        return $this->filterActive($userGameBets);
+        return \array_values($this->filterActive($userGameBets));
+    }
+
+    /**
+     * @param Bet[] $bets
+     * @param bool $skipSame
+     */
+    public function saveMany($bets, bool $skipSame) {
+        if (0 === \count($bets)) {
+            return;
+        }
+        $elements = $this->getElements();
+        $activeBets = $this->filterActive($elements);
+        foreach ($bets as $bet) {
+            if ($this->shouldSkip($bet, $activeBets, $skipSame)) {
+                continue;
+            }
+            $elements[] = $bet;
+        }
+        $this->saveElements($elements);
     }
 
     protected function getElementClassName(): string {
@@ -33,18 +57,39 @@ class BetsRepository extends StorageRepository
     }
 
     /**
-     * @param Bet[] $userGameBets
+     * @param Bet[] $bets
      * @return Bet[]
      */
-    private function filterActive(array $userGameBets): array {
+    private function filterActive(array $bets): array {
         /** @var Bet[] $active */
         $active = [];
-        foreach ($userGameBets as $bet) {
-            $key = $bet->getUserId()->getUuid() . "-" . $bet->getGameId()->getUuid() . "-" . $bet->getMatchId()->getUuid();
-            if (!\array_key_exists($key, $active) || $bet->getDatetime()->getTimestamp() > $active[$key]->getDatetime()->getTimestamp()) {
+        foreach ($bets as $bet) {
+            $key = $this->buildKey($bet);
+            if (!\array_key_exists($key, $active) || $bet->getDatetime() > $active[$key]->getDatetime()) {
                 $active[$key] = $bet;
             }
         }
-        return \array_values($active);
+        return $active;
+    }
+
+    private function buildKey(Bet $bet): string {
+        return $bet->getUserId()->getUuid() . "-" . $bet->getGameId()->getUuid() . "-" . $bet->getMatchId()->getUuid();
+    }
+
+    /**
+     * @param Bet $bet
+     * @param Bet[] $activeBets
+     * @param bool $skipSame
+     * @return bool
+     */
+    private function shouldSkip(Bet $bet, array $activeBets, bool $skipSame): bool {
+        if (!$skipSame) {
+            return false;
+        }
+        $key = $this->buildKey($bet);
+        if (!\array_key_exists($key, $activeBets)) {
+            return false;
+        }
+        return $bet->getBet()->equals($activeBets[$key]->getBet());
     }
 }
