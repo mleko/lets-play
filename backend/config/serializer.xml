@@ -57,6 +57,10 @@
                 <argument type="service">
                     <service class="Mleko\LetsPlay\Normalizer\ValueObject\DateTimeNormalizer"/>
                 </argument>
+
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\View\BetViewNormalizer"/>
+                </argument>
             </argument>
         </service>
         <service alias="mleko.alchemist.normalizer" id="Mleko\Alchemist\Normalizer"/>

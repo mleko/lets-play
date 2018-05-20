@@ -4,10 +4,12 @@ declare(strict_types=1);
 namespace Mleko\LetsPlay\Repository;
 
 
+use Mleko\LetsPlay\Entity\Game;
+
 class GameRepository extends StorageRepository
 {
 
-    public function save(\Mleko\LetsPlay\Entity\Game $game) {
+    public function save(Game $game) {
         $games = $this->getElements();
         $games[$game->getId()->getUuid()] = $game;
         $this->saveElements($games);
@@ -17,13 +19,13 @@ class GameRepository extends StorageRepository
         return $this->getElements();
     }
 
-    public function getGame($gameId) {
+    public function getGame($gameId): ?Game {
         $games = $this->getElements();
         return $games[$gameId] ?? null;
     }
 
     protected function getElementClassName(): string {
-        return \Mleko\LetsPlay\Entity\Game::class;
+        return Game::class;
     }
 
     protected function getStorageKey(): string {

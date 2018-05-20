@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Mleko\LetsPlay\Entity;
 
 
+use Mleko\LetsPlay\ValueObject\MatchScore;
 use Mleko\LetsPlay\ValueObject\MatchTeam;
 use Mleko\LetsPlay\ValueObject\Uuid;
 
@@ -60,5 +61,15 @@ class Match
     public function isLocked(\DateTimeImmutable $now = null): bool {
         $now = $now ?: new \DateTimeImmutable();
         return $now >= $this->startDate;
+    }
+
+    public function getResult(): ?MatchScore {
+        if (!$this->home->getScore() || !$this->away->getScore()) {
+            return null;
+        }
+        return new MatchScore(
+            $this->home->getScore(),
+            $this->away->getScore()
+        );
     }
 }
