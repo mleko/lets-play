@@ -4,9 +4,10 @@ import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
 import {replace} from "typescript-array-utils";
 import {shallowMergeDeep} from "typescript-object-utils";
-import {Bet, Match, MatchScore, MatchSet} from "../../model/models";
+import {Bet, Match, MatchSet} from "../../model/models";
 import {MatchRow} from "../MatchRow";
 import {Results} from "../Results";
+import {mergeBetsIntoMatches} from "./mergeBetsIntoMatches";
 
 export interface TypingViewProps {
 	matchSet: MatchSet;
@@ -26,26 +27,8 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 	public render(): JSX.Element {
 		const elements: Match[] = this.props.matchSet ? this.props.matchSet.matches : [];
 		const bets: Bet[] = this.state.bets ? this.state.bets : [];
-		const matches = elements.map((m: Match) => {
-			const betIndex = bets.findIndex((bet: Bet) => {
-				return bet.matchId === m.id;
-			});
-			const score = -1 !== betIndex ? bets[betIndex].bet : {
-				home: null,
-				away: null
-			} as MatchScore;
-			return {
-				...m,
-				home: {
-					...m.home,
-					score: score.home
-				},
-				away: {
-					...m.away,
-					score: score.away
-				}
-			} as Match;
-		});
+
+		const matches = mergeBetsIntoMatches(elements, bets);
 
 		return (
 			<div>
