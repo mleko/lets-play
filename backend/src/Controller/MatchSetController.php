@@ -8,6 +8,7 @@ use Mleko\LetsPlay\Entity\Match;
 use Mleko\LetsPlay\Entity\MatchSet;
 use Mleko\LetsPlay\Repository\MatchSetRepository;
 use Mleko\LetsPlay\ValueObject\MatchTeam;
+use Mleko\LetsPlay\ValueObject\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 
 class MatchSetController
@@ -56,10 +57,11 @@ class MatchSetController
             $matches[] = new Match(
                 new MatchTeam($match["home"]["name"], $match["home"]["score"] ?? null),
                 new MatchTeam($match["away"]["name"], $match["away"]["score"] ?? null),
-                new \DateTimeImmutable($match["startDate"])
+                new \DateTimeImmutable($match["startDate"]),
+                isset($match["id"]) ? new Uuid($match["id"]) : null
             );
         }
-        $set = new MatchSet($data["name"], $matches, null === $id ? null : new \Mleko\LetsPlay\ValueObject\Uuid($id));
+        $set = new MatchSet($data["name"], $matches, null === $id ? null : new Uuid($id));
         return $set;
     }
 }
