@@ -29,6 +29,6 @@ export interface MatchScore {
 }
 
 export interface Bet {
-	score: MatchScore;
+	bet: MatchScore;
 	matchId: string;
 }

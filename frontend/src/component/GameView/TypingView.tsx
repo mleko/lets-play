@@ -3,12 +3,14 @@ import * as React from "react";
 import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
 import {replace} from "typescript-array-utils";
+import {shallowMergeDeep} from "typescript-object-utils";
 import {Bet, Match, MatchScore, MatchSet} from "../../model/models";
 import {MatchRow} from "../MatchRow";
 import {Results} from "../Results";
 
 export interface TypingViewProps {
 	matchSet: MatchSet;
+	bets: Bet[];
 	onSave: (bets: Bet[]) => any;
 }
 
@@ -17,14 +19,21 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 	public constructor(props: TypingViewProps) {
 		super(props);
 		this.state = {
-			bets: []
+			bets: props.bets
 		};
 	}
 
 	public render(): JSX.Element {
 		const elements: Match[] = this.props.matchSet ? this.props.matchSet.matches : [];
-		const matches = elements.map((m: Match, index: number) => {
-			const score = this.state.bets[index] ? this.state.bets[index] : {home: null, away: null};
+		const bets: Bet[] = this.state.bets ? this.state.bets : [];
+		const matches = elements.map((m: Match) => {
+			const betIndex = bets.findIndex((bet: Bet) => {
+				return bet.matchId === m.id;
+			});
+			const score = -1 !== betIndex ? bets[betIndex].bet : {
+				home: null,
+				away: null
+			} as MatchScore;
 			return {
 				...m,
 				home: {
@@ -57,32 +66,49 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		);
 	}
 
+	public componentWillReceiveProps(nextProps: Readonly<TypingViewProps>, nextContext: any): void {
+		if (nextProps.bets !== this.props.bets) {
+			this.setState({bets: nextProps.bets});
+		}
+	}
+
 	private renderElement = (e: Match, index: number) => {
-		return (<MatchRow match={e} key={String(index)} index={index} editDate={false} editName={false} onChange={this.edit}/>);
+		return (
+			<MatchRow
+				match={e}
+				key={String(index)}
+				index={index}
+				editDate={false}
+				editName={false}
+				onChange={this.edit}
+			/>
+		);
 	};
 
-	private edit = (match: Match, index: number) => {
+	private edit = (match: Match) => {
 		let bets = this.state.bets;
-		if (bets.length < index) {
-			bets = bets.concat(new Array(index - bets.length));
-		}
-		bets = replace(bets, index, {
-			home: match.home.score,
-			away: match.away.score
+		const betIndex = bets.findIndex((bet: Bet) => {
+			return bet.matchId === match.id;
 		});
+		if (-1 === betIndex) {
+			bets = bets.concat([{matchId: match.id, bet: {home: match.home.score, away: match.away.score}}]);
+		} else {
+			bets = replace(bets, betIndex,
+				shallowMergeDeep(bets[betIndex], {
+					bet: {
+						home: match.home.score,
+						away: match.away.score
+					}
+				})
+			);
+		}
 		this.setState({bets});
 	};
 	private save = () => {
-		const bets = this.props.matchSet.matches.map((match: Match, index: number): Bet => {
-			return {
-				matchId: match.id,
-				score: this.state.bets[index] ? this.state.bets[index] : {}
-			} as Bet;
-		});
-		this.props.onSave(bets);
+		this.props.onSave(this.state.bets);
 	};
 }
 
 interface State {
-	bets: MatchScore[];
+	bets: Bet[];
 }

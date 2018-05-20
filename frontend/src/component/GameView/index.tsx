@@ -11,6 +11,7 @@ import {UserRanking} from "./UserRanking";
 export interface GameViewProps {
 	game: Game;
 	matchSet: MatchSet;
+	bets: Bet[];
 
 	onBetSave: (bets: Bet[]) => any;
 }
@@ -59,6 +60,7 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 		return (
 			<TypingView
 				matchSet={this.props.matchSet}
+				bets={this.props.bets}
 				onSave={this.props.onBetSave}
 			/>
 		);

@@ -23,6 +23,7 @@ export class GameView extends React.PureComponent<GameViewProps, State> {
 			<Component
 				game={this.state.game}
 				matchSet={this.state.matchSet}
+				bets={this.state.bets}
 				onBetSave={this.saveBets}
 			/>
 		);
@@ -37,6 +38,10 @@ export class GameView extends React.PureComponent<GameViewProps, State> {
 			.then((game: Game) => {
 				this.setState({game});
 				this.loadMatchSet(game.matchSetId);
+			});
+		client.request({url: "/games/" + this.props.gameId + "/bets", method: "GET"})
+			.then((response: Response<Bet[]>) => {
+				this.setState({bets: response.data});
 			});
 	}
 
@@ -53,11 +58,15 @@ export class GameView extends React.PureComponent<GameViewProps, State> {
 
 	private saveBets = (bets: Bet[]) => {
 		const client: Client = this.context.httpClient;
-		client.request({url: "/games/" + this.props.gameId + "/bets", method: "PUT", data: bets});
+		client.request({url: "/games/" + this.props.gameId + "/bets", method: "PUT", data: bets})
+			.then((response: Response<Bet[]>) => {
+				this.setState({bets: response.data});
+			});
 	}
 }
 
 interface State {
 	game?: Game;
 	matchSet?: MatchSet;
+	bets?: Bet[];
 }
