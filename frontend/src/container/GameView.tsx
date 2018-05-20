@@ -39,7 +39,12 @@ export class GameView extends React.PureComponent<GameViewProps, State> {
 				this.setState({game});
 				this.loadMatchSet(game.matchSetId);
 			});
-		client.request({url: "/games/" + this.props.gameId + "/bets", method: "GET"})
+		client.request(
+			{
+				url: "/games/" + this.props.gameId + "/bets",
+				method: "GET",
+				queryData: {include_points: "true"}
+			})
 			.then((response: Response<Bet[]>) => {
 				this.setState({bets: response.data});
 			});

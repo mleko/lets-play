@@ -2,12 +2,14 @@ import * as React from "react";
 
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
 import {Bet, HandA, Match} from "../../model/models";
+import {isNumber} from "util";
 
 export interface MatchView {
 	names: HandA<string>;
 	result: HandA<number>;
 	bet: HandA<number>;
 	date: string;
+	points?: number;
 }
 
 export interface MatchListProps {
@@ -27,7 +29,8 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 				names: {home: match.home.name, away: match.away.name},
 				result: {home: match.home.score, away: match.away.score},
 				bet: {home: bet ? bet.bet.home : null, away: bet ? bet.bet.away : null},
-				date: match.startDate
+				date: match.startDate,
+				points: bet.points
 			};
 		});
 
@@ -56,7 +59,7 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 				<TableCell>{m.date}</TableCell>
 				<TableCell>{MatchList.scoreToString(m.result)}</TableCell>
 				<TableCell>{MatchList.scoreToString(m.bet)}</TableCell>
-				<TableCell>-</TableCell>
+				<TableCell>{isNumber(m.points) ? m.points : " - "}</TableCell>
 			</TableRow>
 		);
 	};

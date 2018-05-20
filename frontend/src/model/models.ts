@@ -32,6 +32,7 @@ export interface MatchScore {
 export interface Bet {
 	bet: MatchScore;
 	matchId: string;
+	points?: number;
 }
 
 export interface HandA<T> {
