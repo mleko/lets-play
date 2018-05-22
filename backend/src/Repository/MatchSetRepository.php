@@ -53,6 +53,7 @@ class MatchSetRepository
     private function normalizeSet(MatchSet $matchSet) {
         return [
             "id" => $matchSet->getId()->getUuid(),
+            "ownerId" => $matchSet->getOwnerId()->getUuid(),
             "name" => $matchSet->getName(),
             "matches" => $this->normalizeMatches($matchSet->getMatches())
         ];
@@ -77,6 +78,7 @@ class MatchSetRepository
 
     private function denormalizeSet($data): MatchSet {
         return new MatchSet($data["name"],
+            new Uuid($data["ownerId"]),
             \array_map(function ($match) {
                 return new Match(
                     new MatchTeam($match["home"]["name"], $match["home"]["score"] ?? null),

@@ -10,6 +10,8 @@ class MatchSet
 {
     /** @var Uuid */
     private $id;
+    /** @var Uuid */
+    private $ownerId;
     /** @var string */
     private $name;
     /** @var Match[] */
@@ -18,17 +20,23 @@ class MatchSet
     /**
      * MatchSet constructor.
      * @param string $name
+     * @param Uuid $ownerId
      * @param Match[] $matches
      * @param Uuid $id
      */
-    public function __construct(string $name, array $matches = [], Uuid $id = null) {
+    public function __construct(string $name, Uuid $ownerId, array $matches = [], Uuid $id = null) {
         $this->name = $name;
+        $this->ownerId = $ownerId;
         $this->matches = $matches;
         $this->id = $id ?: new Uuid();
     }
 
     public function getId(): Uuid {
         return $this->id;
+    }
+
+    public function getOwnerId(): Uuid {
+        return $this->ownerId;
     }
 
     public function getName(): string {
