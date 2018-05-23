@@ -7,6 +7,7 @@ import {Bet, Game, MatchSet, Ranking} from "../../model/models";
 import {MatchList} from "./MatchList";
 import {TypingView} from "./TypingView";
 import {UserRanking} from "./UserRanking";
+import {GameUsers} from "./GameUsers";
 
 export interface GameViewProps {
 	game: Game;
@@ -39,6 +40,7 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 						<Tab label={"Typowanie"}/>
 						<Tab label={"Mecze"}/>
 						<Tab label={"Ranking"}/>
+						<Tab label={"Użytkownicy"}/>
 					</Tabs>
 				</AppBar>
 				{this.renderTabContent()}
@@ -50,9 +52,10 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	private renderTabContent() {
 		if (this.state.activeTab === 1) {
 			return this.renderMatchList();
-		}
-		if (this.state.activeTab === 2) {
+		} else if (this.state.activeTab === 2) {
 			return this.renderRanking();
+		} else if (this.state.activeTab === 3) {
+			return this.renderUsersView();
 		}
 		return this.renderTypingView();
 	}
@@ -80,6 +83,12 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	private renderRanking() {
 		return (
 			<UserRanking ranking={this.props.ranking}/>
+		);
+	}
+
+	private renderUsersView(){
+		return (
+			<GameUsers/>
 		);
 	}
 
