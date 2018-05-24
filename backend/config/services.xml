@@ -14,8 +14,13 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false"/>
 
+        <prototype namespace="Mleko\LetsPlay\Repository\" resource="../src/Repository/*">
+            <argument type="service" id="Mleko\LetsPlay\Repository\Storage"/>
+            <argument type="service" id="mleko.alchemist.normalizer.repository"/>
+        </prototype>
+
         <prototype namespace="Mleko\LetsPlay\" resource="../src/*"
-                   exclude="../src/{Entity,Http,Migrations,Tests,Kernel.php}"/>
+                   exclude="../src/{Entity,Http,Migrations,Tests,Repository,Kernel.php}"/>
         <prototype namespace="Mleko\LetsPlay\Controller\" resource="../src/Controller">
             <tag name="controller.service_arguments"/>
         </prototype>
@@ -24,9 +29,6 @@
             <argument>%kernel.project_dir%/var/entities.json</argument>
         </service>
         <service id="Mleko\LetsPlay\Repository\Storage" alias="Mleko\LetsPlay\Repository\JsonStorage"/>
-        <service id="Mleko\LetsPlay\Repository\UserRepository">
-            <argument type="service" id="Mleko\LetsPlay\Repository\JsonStorage"/>
-        </service>
         <service id="security.user_provider.user_actor" class="Mleko\LetsPlay\Security\UserActorProvider">
             <argument type="service" id="Mleko\LetsPlay\Repository\UserRepository"/>
         </service>

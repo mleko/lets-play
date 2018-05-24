@@ -3,6 +3,9 @@ security:
     user_actor:
       id: security.user_provider.user_actor
   firewalls:
+    api_register:
+      pattern: "^/api/auth/register"
+      anonymous: ~
     api:
       pattern: "^/api/*"
       json_login:

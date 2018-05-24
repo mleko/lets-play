@@ -7,20 +7,8 @@ namespace Mleko\LetsPlay\Repository;
 use Mleko\LetsPlay\Entity\User;
 use Mleko\LetsPlay\ValueObject\Uuid;
 
-class UserRepository
+class UserRepository extends StorageRepository
 {
-
-    /** @var JsonStorage */
-    private $storage;
-
-    /**
-     * UserRepository constructor.
-     * @param JsonStorage $storage
-     */
-    public function __construct(JsonStorage $storage) {
-        $this->storage = $storage;
-    }
-
 
     public function saveUser(User $user) {
         $existingUser = $this->findUserByEmail($user->getEmail());
@@ -28,20 +16,14 @@ class UserRepository
             throw new \RuntimeException("Duplicate user");
         }
 
-        $users = $this->getUsers();
-
-        $users[$user->getId()->getUuid()] = [
-            'id' => $user->getId()->getUuid(),
-            "name" => $user->getName(),
-            "email" => $user->getEmail(),
-            "hash" => $user->getPassHash()
-        ];
-
-        $this->saveUsersData($users);
+        $users = $this->getElements();
+        $users[$user->getId()->getUuid()] = $user;
+        $this->saveElements($users);
     }
 
-    public function getUser(Uuid $id) {
-
+    public function getUser(Uuid $id): ?User {
+        $users = $this->getElements();
+        return $users[$id->getUuid()] ?? null;
     }
 
     public function findUserByEmail(string $email): ?User {
@@ -58,10 +40,7 @@ class UserRepository
      * @return User[]
      */
     public function getUsers(): array {
-        $data = $this->storage->getData();
-        return \array_map(function ($data) {
-            return new User($data["name"], $data["email"], $data["hash"], new Uuid($data["id"]));
-        }, $data["users"] ?? []);
+        return $this->getElements();
     }
 
     /**
@@ -78,13 +57,11 @@ class UserRepository
         });
     }
 
-    /**
-     * @param array[] $users
-     */
-    private function saveUsersData(array $users): void {
-        $data = $this->storage->getData();
-        $data["users"] = $users;
-        $this->storage->saveData($data);
+    protected function getElementClassName(): string {
+        return User::class;
     }
 
+    protected function getStorageKey(): string {
+        return "users";
+    }
 }
