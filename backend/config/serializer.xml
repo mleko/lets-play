@@ -50,6 +50,9 @@
                 <argument type="service">
                     <service class="Mleko\LetsPlay\Normalizer\BetNormalizer"/>
                 </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\Game\GameInviteNormalizer"/>
+                </argument>
 
                 <argument type="service">
                     <service class="Mleko\LetsPlay\Normalizer\ValueObject\MatchScoreNormalizer"/>

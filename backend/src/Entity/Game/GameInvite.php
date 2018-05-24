@@ -35,4 +35,31 @@ class GameInvite
         $this->status = $status;
     }
 
+    /**
+     * @return Uuid
+     */
+    public function getId(): Uuid {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string {
+        return $this->email;
+    }
+
+    /**
+     * @return Uuid
+     */
+    public function getGameId(): Uuid {
+        return $this->gameId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int {
+        return $this->status;
+    }
 }

@@ -51,3 +51,9 @@ export interface RankingEntry {
 }
 
 export type Ranking = RankingEntry[];
+
+export interface GameInvite extends Model{
+	email: string;
+	gameId: string;
+	status: number;
+}

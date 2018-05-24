@@ -4,10 +4,10 @@ import {Tab} from "material-ui";
 import AppBar from "material-ui/AppBar";
 import Tabs from "material-ui/Tabs";
 import {Bet, Game, MatchSet, Ranking} from "../../model/models";
+import {GameUsers} from "./GameUsers";
 import {MatchList} from "./MatchList";
 import {TypingView} from "./TypingView";
 import {UserRanking} from "./UserRanking";
-import {GameUsers} from "./GameUsers";
 
 export interface GameViewProps {
 	game: Game;
@@ -23,7 +23,8 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	public constructor(props: GameViewProps) {
 		super(props);
 		this.state = {
-			activeTab: 0
+			activeTab: 0,
+			invites: ["asd", "dasd", "asd@as.as"]
 		};
 	}
 
@@ -86,9 +87,9 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 		);
 	}
 
-	private renderUsersView(){
+	private renderUsersView() {
 		return (
-			<GameUsers/>
+			<GameUsers gameId={this.props.game.id}/>
 		);
 	}
 
@@ -99,4 +100,5 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 
 interface GameViewState {
 	activeTab: number;
+	invites: string[];
 }
