@@ -17,7 +17,8 @@ class GameNormalizer extends PartialNormalizer
         return [
             "id" => $this->subNormalize($value->getId(), $format, $context),
             "name" => $value->getName(),
-            "matchSetId" => $this->subNormalize($value->getMatchSetId(), $format, $context)
+            "matchSetId" => $this->subNormalize($value->getMatchSetId(), $format, $context),
+            "ownerId" => $this->subNormalize($value->getOwnerId(), $format, $context),
         ];
     }
 
@@ -25,10 +26,12 @@ class GameNormalizer extends PartialNormalizer
      * @inheritDoc
      */
     public function denormalize($data, Type $type, string $format, array $context = []) {
+        $uuidType = Type::fromString(Uuid::class);
         return new \Mleko\LetsPlay\Entity\Game(
             $data["name"],
-            $this->subDeNormalize($data["matchSetId"], Type::fromString(Uuid::class), $format, $context),
-            $this->subDeNormalize($data["id"], Type::fromString(Uuid::class), $format, $context)
+            $this->subDeNormalize($data["matchSetId"], $uuidType, $format, $context),
+            $this->subDeNormalize($data["ownerId"], $uuidType, $format, $context),
+            $this->subDeNormalize($data["id"], $uuidType, $format, $context)
         );
     }
 
