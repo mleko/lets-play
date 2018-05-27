@@ -22,7 +22,8 @@
 
     <route id="game.bets.ranking" path="/games/{gameId}/ranking" controller="Mleko\LetsPlay\Controller\Game\RankingController:getRanking" methods="GET"/>
 
-    <route id="game.invites.list" path="/games/{gameId}/invites" controller="Mleko\LetsPlay\Controller\Game\InvitesController:listAll" methods="GET"/>
     <route id="game.invites.create" path="/games/{gameId}/invites" controller="Mleko\LetsPlay\Controller\Game\InvitesController:inviteUser" methods="POST"/>
-    <route id="game.invites.remove" path="/games/{gameId}/invites" controller="Mleko\LetsPlay\Controller\Game\InvitesController:cancelInvite" methods="DELETE"/>
+
+    <route id="game.invitation.get" path="/invitation/{invitationId}" controller="Mleko\LetsPlay\Controller\Game\InvitesController:getInvitation" methods="GET"/>
+    <route id="game.invitation.cancel" path="/invitation/{invitationId}" controller="Mleko\LetsPlay\Controller\Game\InvitesController:cancelInvitation" methods="DELETE"/>
 </routes>

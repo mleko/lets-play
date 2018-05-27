@@ -52,7 +52,11 @@ export interface RankingEntry {
 
 export type Ranking = RankingEntry[];
 
-export interface GameInvite extends Model{
+export interface GameInvite extends Model {
 	gameId: string;
 	status: number;
+}
+
+export interface GameInvitation extends Model {
+	game: Game;
 }

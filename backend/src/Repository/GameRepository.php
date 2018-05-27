@@ -34,7 +34,7 @@ class GameRepository extends StorageRepository
         return $this->getElements();
     }
 
-    public function getGame($gameId): ?Game {
+    public function getGame(string $gameId): ?Game {
         $games = $this->getElements();
         return $games[$gameId] ?? null;
     }

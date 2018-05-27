@@ -7,7 +7,9 @@ namespace Mleko\LetsPlay\Controller\Game;
 use Mleko\LetsPlay\Entity\Game\GameInvite;
 use Mleko\LetsPlay\Http\Response;
 use Mleko\LetsPlay\Repository\Game\GameInviteRepository;
+use Mleko\LetsPlay\Repository\GameRepository;
 use Mleko\LetsPlay\ValueObject\Uuid;
+use Mleko\LetsPlay\View\GameInvitationView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -15,13 +17,24 @@ class InvitesController
 {
     /** @var GameInviteRepository */
     private $inviteRepository;
+    /** @var GameRepository */
+    private $gameRepository;
 
     /**
      * InvitesController constructor.
      * @param GameInviteRepository $inviteRepository
+     * @param GameRepository $gameRepository
      */
-    public function __construct(GameInviteRepository $inviteRepository) {
+    public function __construct(GameInviteRepository $inviteRepository, GameRepository $gameRepository) {
         $this->inviteRepository = $inviteRepository;
+        $this->gameRepository = $gameRepository;
+    }
+
+    public function getInvitation(string $invitationId) {
+        /** @var GameInvite $invitation */
+        $invitation = $this->inviteRepository->getGameInvitation($invitationId);
+        $game = $this->gameRepository->getGame($invitation->getGameId()->getUuid());
+        return new Response(new GameInvitationView($invitation, $game));
     }
 
     public function inviteUser($gameId, UserInterface $user, Request $request) {
@@ -32,18 +45,18 @@ class InvitesController
 
         $email = $data["email"];
         if ($email) {
-            // send email
+            // @todo send email
         }
 
         return new Response($invite);
     }
 
-    public function cancelInvite($gameId, UserInterface $user, Request $request) {
-        $gameId = new Uuid($gameId);
-        $data = \json_decode($request->getContent(), true);
-        $this->inviteRepository->remove($gameId, $data["email"]);
+    public function cancelInvitation(string $invitationId) {
+        /** @var GameInvite $invitation */
+        $invitation = $this->inviteRepository->getGameInvitation($invitationId);
+        $invitation->cancel();
+        $this->inviteRepository->save($invitation);
 
-        $invites = $this->inviteRepository->listGameInvites($gameId);
-        return new Response($invites);
+        return new Response(null);
     }
 }

@@ -51,4 +51,8 @@ class GameInvite
     public function getStatus(): int {
         return $this->status;
     }
+
+    public function cancel(): void {
+        $this->status = self::STATUS_CANCELED;
+    }
 }

@@ -13,23 +13,21 @@ class GameInviteRepository extends StorageRepository
 
     public function listGameInvites(Uuid $gameId) {
         $elements = $this->getElements();
-        return \array_filter($elements, function (GameInvite $invite) use ($gameId) {
+        return \array_values(\array_filter($elements, function (GameInvite $invite) use ($gameId) {
             return $invite->getGameId()->equals($gameId);
-        });
+        }));
     }
 
     public function save(GameInvite $invite) {
         $elements = $this->getElements();
-        $elements[] = $invite;
+        $elements[$invite->getId()->getUuid()] = $invite;
         $this->saveElements($elements);
     }
 
-    public function remove(Uuid $gameId, string $email) {
+    public function getGameInvitation(string $invitationId) {
+        /** @var GameInvite[] $elements */
         $elements = $this->getElements();
-        $elements = \array_values(\array_filter($elements, function (GameInvite $invite) use ($gameId, $email) {
-            return !$invite->getGameId()->equals($gameId);
-        }));
-        $this->saveElements($elements);
+        return \array_key_exists($invitationId, $elements) ? $elements[$invitationId] : null;
     }
 
     protected function getElementClassName(): string {

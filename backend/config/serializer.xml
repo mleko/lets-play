@@ -68,6 +68,9 @@
                 <argument type="service">
                     <service class="Mleko\LetsPlay\Normalizer\View\BetViewNormalizer"/>
                 </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Normalizer\View\GameInvitationViewNormalizer"/>
+                </argument>
             </argument>
         </service>
         <service alias="mleko.alchemist.normalizer" id="Mleko\Alchemist\Normalizer"/>

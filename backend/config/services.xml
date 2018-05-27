@@ -20,7 +20,7 @@
         </prototype>
 
         <prototype namespace="Mleko\LetsPlay\" resource="../src/*"
-                   exclude="../src/{Entity,Http,Migrations,Tests,Repository,Kernel.php}"/>
+                   exclude="../src/{Entity,Http,Migrations,Tests,Repository,View,Kernel.php}"/>
         <prototype namespace="Mleko\LetsPlay\Controller\" resource="../src/Controller">
             <tag name="controller.service_arguments"/>
         </prototype>
