@@ -84,7 +84,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 						rozgrywki
 					</TableCell>
 				</TableRow>
-			)
+			);
 		}
 		return (
 			games.map(this.renderRow)

@@ -24,19 +24,18 @@ class InvitesController
         $this->inviteRepository = $inviteRepository;
     }
 
-    public function listAll($gameId, UserInterface $user) {
-        $invites = $this->inviteRepository->listGameInvites(new Uuid($gameId));
-        return new Response($invites);
-    }
-
     public function inviteUser($gameId, UserInterface $user, Request $request) {
         $gameId = new Uuid($gameId);
         $data = \json_decode($request->getContent(), true);
-        $invite = new GameInvite($data["email"], $gameId);
+        $invite = new GameInvite($gameId);
         $this->inviteRepository->save($invite);
 
-        $invites = $this->inviteRepository->listGameInvites($gameId);
-        return new Response($invites);
+        $email = $data["email"];
+        if ($email) {
+            // send email
+        }
+
+        return new Response($invite);
     }
 
     public function cancelInvite($gameId, UserInterface $user, Request $request) {

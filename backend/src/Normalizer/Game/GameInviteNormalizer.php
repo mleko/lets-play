@@ -17,7 +17,6 @@ class GameInviteNormalizer extends PartialNormalizer
     public function normalize($value, string $format, array $context = []) {
         return [
             "id" => $this->subNormalize($value->getId(), $format, $context),
-            "email" => $value->getEmail(),
             "gameId" => $this->subNormalize($value->getGameId(), $format, $context),
             "status" => $value->getStatus()
         ];
@@ -28,7 +27,6 @@ class GameInviteNormalizer extends PartialNormalizer
      */
     public function denormalize($data, Type $type, string $format, array $context = []) {
         return new \Mleko\LetsPlay\Entity\Game\GameInvite(
-            $data["email"],
             $this->subDeNormalize($data["gameId"], Type::fromString(Uuid::class), $format, $context),
             $this->subDeNormalize($data["id"], Type::fromString(Uuid::class), $format, $context),
             (int)$data["status"]

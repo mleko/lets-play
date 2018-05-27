@@ -15,54 +15,28 @@ export class GameInvites extends React.PureComponent<GameViewProps, State> {
 
 	public constructor(props: GameViewProps) {
 		super(props);
-		this.state = {
-			invites: []
-		};
+		this.state = {};
 	}
 
 	public render(): JSX.Element {
 		return (
 			<Component
-				invites={this.state.invites}
+				invitation={this.state.invitation}
 				onInvite={this.invite}
-				onInviteCancel={this.cancelInvite}
 			/>
 		);
 	}
 
-	public componentDidMount() {
-		const client: Client = this.context.httpClient;
-		client.request({url: "/games/" + this.props.gameId + "/invites", method: "GET"})
-			.then((response: Response<GameInvite[]>) => {
-				this.updateState(response.data);
-			});
-	}
-
 	private invite = (email: string) => {
 		const client: Client = this.context.httpClient;
-		client.request({url: "/games/" + this.props.gameId + "/invites", method: "POST", data: {email}})
-			.then((response: Response<GameInvite[]>) => {
-				this.updateState(response.data);
+		return client.request({url: "/games/" + this.props.gameId + "/invites", method: "POST", data: {email}})
+			.then((response: Response<GameInvite>) => {
+				if (!email)
+					this.setState({invitation: response.data});
 			});
 	};
-
-	private updateState(invites: GameInvite[]) {
-		this.setState({
-			invites: invites.map((i: GameInvite) => {
-				return i.email;
-			})
-		});
-	}
-
-	private cancelInvite = (email: string) => {
-		const client: Client = this.context.httpClient;
-		client.request({url: "/games/" + this.props.gameId + "/invites", method: "DELETE", data: {email}})
-			.then((response: Response<GameInvite[]>) => {
-				this.updateState(response.data);
-			});
-	}
 }
 
 interface State {
-	invites: string[];
+	invitation?: GameInvite;
 }

@@ -1,17 +1,16 @@
 import * as React from "react";
 import {ChangeEvent} from "react";
 
-import {FormControl, InputAdornment, InputLabel} from "material-ui";
+import {FormControl, InputAdornment, InputLabel, Theme} from "material-ui";
 import Button from "material-ui/Button";
-
+import Divider from "material-ui/Divider";
 import Input from "material-ui/Input";
-import List from "material-ui/List";
-import {GameInvite} from "./GameInvite";
+import withStyles from "material-ui/styles/withStyles";
+import {GameInvite} from "../../model/models";
 
 export interface GameInvitesProps {
-	invites: string[];
-	onInvite: (email: string) => any;
-	onInviteCancel: (email: string) => any;
+	invitation: GameInvite;
+	onInvite: (email: null | string) => any;
 }
 
 export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
@@ -26,30 +25,18 @@ export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
 
 	public render(): JSX.Element {
 		return (
-			<div>
-				{this.renderInvites()}
-				{this.renderInviteForm()}
-			</div>
-		);
-	}
-
-	private renderInvites() {
-		return (
-			<List>
-				{this.props.invites.map(this.renderInvite)}
-			</List>
-		);
-	}
-
-	private renderInvite = (email: string, index: number) => {
-		return (
-			<GameInvite email={email} onCancel={this.props.onInviteCancel} key={index}/>
-		);
-	};
-
-	private renderInviteForm() {
-		return (
-			<div>
+			<div style={{width: "100%"}}>
+				<Button
+					variant={"raised"}
+					fullWidth={true}
+					color={"primary"}
+					style={{marginTop: 6}}
+					onClick={this.createInvitation}
+				>
+					Utwórz zaproszenie
+				</Button>
+				{this.renderInvitation()}
+				<Divider style={{marginTop: 6, marginBottom: 6}}/>
 				<FormControl fullWidth={true}>
 					<InputLabel htmlFor="adornment-email">Email</InputLabel>
 					<Input
@@ -69,9 +56,19 @@ export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
 					style={{marginTop: 4}}
 					onClick={this.invite}
 				>
-					Zaproś
+					Wyślij zaproszenie
 				</Button>
 			</div>
+		);
+	}
+
+	private renderInvitation() {
+		if (!this.props.invitation) {
+			return null;
+		}
+		const invitation = location.origin + "/#/invitation/" + this.props.invitation.id;
+		return (
+			<InvitationUrl text={invitation}/>
 		);
 	}
 
@@ -86,6 +83,10 @@ export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
 		if (event.key === "Enter" && this.state.email.trim().length > 0) {
 			this.invite();
 		}
+	};
+
+	private createInvitation = () => {
+		this.props.onInvite(null);
 	};
 
 	private invite = () => {
@@ -111,3 +112,20 @@ interface State {
 	email: string;
 	emailError: boolean;
 }
+
+const styles = (theme: Theme) => ({
+	root: {
+		...theme.typography.button,
+		backgroundColor: "#DCEDC8",
+		padding: theme.spacing.unit,
+		textTransform: "none",
+		textAlign: "center",
+		marginTop: 3
+	},
+});
+
+function Url(props: { classes?: any, text: string }) {
+	return <div className={props.classes.root}>{props.text}</div>;
+}
+
+const InvitationUrl = withStyles(styles)(Url);

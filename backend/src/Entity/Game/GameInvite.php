@@ -14,8 +14,6 @@ class GameInvite
 
     /** @var Uuid */
     private $id;
-    /** @var string */
-    private $email;
     /** @var Uuid */
     private $gameId;
     /** @var int */
@@ -23,14 +21,12 @@ class GameInvite
 
     /**
      * GameInvite constructor.
-     * @param string $email
      * @param Uuid $gameId
      * @param Uuid $id
      * @param int $status
      */
-    public function __construct(string $email, Uuid $gameId, Uuid $id = null, int $status = self::STATUS_PENDING) {
+    public function __construct(Uuid $gameId, Uuid $id = null, int $status = self::STATUS_PENDING) {
         $this->id = $id ?: new Uuid();
-        $this->email = $email;
         $this->gameId = $gameId;
         $this->status = $status;
     }
@@ -40,13 +36,6 @@ class GameInvite
      */
     public function getId(): Uuid {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail(): string {
-        return $this->email;
     }
 
     /**

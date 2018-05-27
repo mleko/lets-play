@@ -4,15 +4,15 @@ import {Paper, Reboot} from "material-ui";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router";
 import {HashRouter as Router} from "react-router-dom";
 
+import {Invitation} from "./component/Invitation";
 import {MainMenu} from "./component/MainMenu";
+import {PrivateRoute} from "./component/PrivateRoute";
 import {TopBar} from "./component/TopBar";
 import {GameList} from "./container/GameList";
 import {GameView} from "./container/GameView";
 import {LoginScreen} from "./container/LoginScreen";
 import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";
-import {Invitation} from "./component/Invitation";
-import {PrivateRoute} from "./component/PrivateRoute";
 
 export interface ApplicationProps {
 	authenticated: boolean;
