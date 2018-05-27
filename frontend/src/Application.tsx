@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {Paper, Reboot} from "material-ui";
-import {Route, RouteComponentProps, Switch} from "react-router";
+import {Redirect, Route, RouteComponentProps, Switch} from "react-router";
 import {HashRouter as Router} from "react-router-dom";
 
 import {MainMenu} from "./component/MainMenu";
@@ -12,6 +12,7 @@ import {LoginScreen} from "./container/LoginScreen";
 import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";
 import {Invitation} from "./component/Invitation";
+import {PrivateRoute} from "./component/PrivateRoute";
 
 export interface ApplicationProps {
 	authenticated: boolean;
@@ -31,35 +32,44 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 	}
 
 	public render(): JSX.Element {
+		const authed = this.props.authenticated;
 		return (
 			<div>
 				<Reboot/>
 				<Router>
 					<div>
 						<TopBar
-							authenticated={this.props.authenticated}
+							authenticated={authed}
 							onMenuOpen={this.openMenu}
 							onLogout={this.props.onLogout}
 						/>
-						<MainMenu open={this.state.menuOpen} onMenuClose={this.closeMenu}/>
+						{this.renderMenu()}
 						<div style={{maxWidth: 900, flex: 1, margin: "auto", paddingTop: 40}}>
 							<Paper style={{padding: 12}}>
-								<Route path="/login" render={this.renderLoginScreen}/>
 								<Switch>
-									<Route path="/match-sets/new" component={this.renderMatchSetView}/>
-									<Route path="/match-sets/:setId" render={this.renderMatchSetView}/>
-									<Route path="/match-sets" render={this.renderMatchSetList}/>
+									<Route path="/login" render={this.renderLoginScreen}/>
+									<PrivateRoute authenticated={authed} path="/match-sets/new" render={this.renderMatchSetView}/>
+									<PrivateRoute authenticated={authed} path="/match-sets/:setId" render={this.renderMatchSetView}/>
+									<PrivateRoute authenticated={authed} path="/match-sets" render={this.renderMatchSetList}/>
+									<PrivateRoute authenticated={authed} path={"/games"} render={this.renderGameList}/>
+									<PrivateRoute authenticated={authed} path="/game/:gameId" render={this.renderGameView}/>
+									<Route path="/invitation/:invitationId" render={this.renderInvitation}/>
+									<Route render={this.renderDefaultRoute}/>
 								</Switch>
-								<Switch>
-									<Route path={"/games"} render={this.renderGameList}/>
-								</Switch>
-								<Route path="/game/:gameId" render={this.renderGameView}/>
-								<Route path="/invitation/:invitationId" render={this.renderInvitation}/>
 							</Paper>
 						</div>
 					</div>
 				</Router>
 			</div>
+		);
+	}
+
+	private renderMenu() {
+		if (!this.props.authenticated) {
+			return null;
+		}
+		return (
+			<MainMenu open={this.state.menuOpen} onMenuClose={this.closeMenu}/>
 		);
 	}
 
@@ -89,6 +99,14 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 	};
 	private renderInvitation = (p: RouteComponentProps<any>) => {
 		return (<Invitation invitationId={p.match.params.invitationId}/>);
+	};
+
+	private renderDefaultRoute = () => {
+		if (this.props.authenticated) {
+			return <Redirect to={"/"}/>;
+		} else {
+			return <div>Redirect<Redirect to={"/login"}/></div>;
+		}
 	};
 
 	private openMenu = () => {
