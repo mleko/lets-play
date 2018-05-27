@@ -7,6 +7,7 @@ namespace Mleko\LetsPlay\Controller;
 use Mleko\LetsPlay\Entity\Game;
 use Mleko\LetsPlay\Entity\User;
 use Mleko\LetsPlay\Repository\GameRepository;
+use Mleko\LetsPlay\Security\UserActor;
 use Mleko\LetsPlay\ValueObject\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -31,7 +32,7 @@ class GameController
         return new \Mleko\LetsPlay\Http\Response($game);
     }
 
-    public function update(Request $request, $gameId) {
+    public function update(Request $request, $gameId, UserInterface $user) {
         $data = \json_decode($request->getContent(), true);
         $game = $this->gameRepository->getGame($gameId);
         $game->setName($data["name"]);
@@ -39,8 +40,9 @@ class GameController
         return new \Mleko\LetsPlay\Http\Response($game);
     }
 
-    public function listAll() {
-        return new \Mleko\LetsPlay\Http\Response(\array_values($this->gameRepository->getGames()));
+    public function listAll(UserInterface $user) {
+        $input = $this->gameRepository->getUserGames($user->getUser()->getId());
+        return new \Mleko\LetsPlay\Http\Response(\array_values($input));
     }
 
     public function get($gameId) {

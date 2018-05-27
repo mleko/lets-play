@@ -23,7 +23,6 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 	}
 
 	public render(): JSX.Element {
-		const games = this.state.games;
 		return (
 			<div>
 				<Table>
@@ -39,7 +38,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{games.map(this.renderRow)}
+						{this.renderRows()}
 					</TableBody>
 				</Table>
 				<Button
@@ -72,6 +71,23 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 				onClose={this.closeDialog}
 				onCreate={this.createGame}
 			/>
+		);
+	}
+
+	private renderRows() {
+		const games = this.state.games;
+		if (games.length === 0) {
+			return (
+				<TableRow>
+					<TableCell colSpan={3}>
+						Nie uczestniczysz w żadnej grze, utwórz nową lub poproś przyjaciół o zaproszenie do istniejącej
+						rozgrywki
+					</TableCell>
+				</TableRow>
+			)
+		}
+		return (
+			games.map(this.renderRow)
 		);
 	}
 

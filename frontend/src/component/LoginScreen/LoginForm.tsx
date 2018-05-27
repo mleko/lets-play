@@ -36,6 +36,7 @@ export class LoginForm extends React.PureComponent<LoginFormProps, State> {
 					type="email"
 					value={this.state.email}
 					onChange={this.updateEmail}
+					onKeyDown={this.inputKeyDown}
 				/>
 				<TextField
 					label="Password"
@@ -43,6 +44,7 @@ export class LoginForm extends React.PureComponent<LoginFormProps, State> {
 					name="password"
 					value={this.state.password}
 					onChange={this.updatePassword}
+					onKeyDown={this.inputKeyDown}
 				/>
 				<Button
 					color="primary"
@@ -117,6 +119,12 @@ export class LoginForm extends React.PureComponent<LoginFormProps, State> {
 
 	private reset = () => {
 		this.props.onReset(this.state.email);
+	};
+
+	private inputKeyDown = (event: React.KeyboardEvent<HTMLInputElement | HTMLDivElement>) => {
+		if (event.key === "Enter") {
+			this.login();
+		}
 	};
 }
 
