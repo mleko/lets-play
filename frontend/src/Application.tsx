@@ -11,6 +11,7 @@ import {GameView} from "./container/GameView";
 import {LoginScreen} from "./container/LoginScreen";
 import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";
+import {Invitation} from "./component/Invitation";
 
 export interface ApplicationProps {
 	authenticated: boolean;
@@ -53,6 +54,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 									<Route path={"/games"} render={this.renderGameList}/>
 								</Switch>
 								<Route path="/game/:gameId" render={this.renderGameView}/>
+								<Route path="/invitation/:invitationId" render={this.renderInvitation}/>
 							</Paper>
 						</div>
 					</div>
@@ -84,6 +86,9 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 
 	private renderMatchSetList = () => {
 		return <MatchSetList/>;
+	};
+	private renderInvitation = (p: RouteComponentProps<any>) => {
+		return (<Invitation invitationId={p.match.params.invitationId}/>);
 	};
 
 	private openMenu = () => {
