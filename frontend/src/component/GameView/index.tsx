@@ -4,7 +4,7 @@ import {Tab} from "material-ui";
 import AppBar from "material-ui/AppBar";
 import Tabs from "material-ui/Tabs";
 import {Bet, Game, MatchSet, Ranking} from "../../model/models";
-import {GameUsers} from "./GameUsers";
+import {GameUsersTab} from "./GameUsersTab";
 import {MatchList} from "./MatchList";
 import {TypingView} from "./TypingView";
 import {UserRanking} from "./UserRanking";
@@ -89,7 +89,7 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 
 	private renderUsersView() {
 		return (
-			<GameUsers gameId={this.props.game.id}/>
+			<GameUsersTab gameId={this.props.game.id}/>
 		);
 	}
 

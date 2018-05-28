@@ -1,38 +1,27 @@
 import * as React from "react";
 
-import {ExpansionPanelDetails, ExpansionPanelSummary} from "material-ui";
-import {ExpandMore as ExpandMoreIcon} from "material-ui-icons";
-import Divider from "material-ui/Divider";
-import ExpansionPanel from "material-ui/ExpansionPanel";
-import {GameInvites} from "../../container/GameInvites";
+import {ListItem} from "material-ui";
+import List from "material-ui/List";
+import {User} from "../../model/models";
 
 export interface GameUsersProps {
-	gameId: string;
+	users: User[];
 }
 
 export class GameUsers extends React.PureComponent<GameUsersProps, {}> {
-
-	public constructor(props: GameUsersProps) {
-		super(props);
-	}
-
 	public render(): JSX.Element {
 		return (
-			<div>
-				GameUsers
-				<div>
-					<Divider/>
-					<ExpansionPanel>
-						<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
-							Zaproszenia
-						</ExpansionPanelSummary>
-						<ExpansionPanelDetails>
-							<GameInvites gameId={this.props.gameId}/>
-						</ExpansionPanelDetails>
-					</ExpansionPanel>
-				</div>
-			</div>
+			<List>
+				{this.props.users.map(this.renderUser)}
+			</List>
 		);
 	}
 
+	private renderUser = (user: User) => {
+		return (
+			<ListItem>
+				{user.name}
+			</ListItem>
+		);
+	}
 }

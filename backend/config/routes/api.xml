@@ -27,4 +27,6 @@
     <route id="game.invitation.get" path="/invitation/{invitationId}" controller="Mleko\LetsPlay\Controller\Game\InvitesController:getInvitation" methods="GET"/>
     <route id="game.invitation.cancel" path="/invitation/{invitationId}" controller="Mleko\LetsPlay\Controller\Game\InvitesController:cancelInvitation" methods="DELETE"/>
     <route id="game.invitation.accept" path="/invitation/{invitationId}/accept" controller="Mleko\LetsPlay\Controller\Game\InvitesController:acceptInvitation" methods="POST"/>
+
+    <route id="game.users.list" path="/games/{gameId}/users" controller="Mleko\LetsPlay\Controller\Game\GameUserController:listUsers" methods="GET"/>
 </routes>

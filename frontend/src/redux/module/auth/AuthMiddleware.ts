@@ -1,8 +1,8 @@
 import {Client} from "../../../infrastructure/http/Client";
 import {Response} from "../../../infrastructure/http/Response";
+import {StandardAction} from "../../Action";
 import {Action, Dispatch, HandlerMap, Middleware, ReduceResult} from "../../Middleware";
 import {AuthActions, authActions, Login, Register, Reset} from "./index";
-import {StandardAction} from "../../Action";
 
 export class AuthMiddleware implements Middleware<any> {
 

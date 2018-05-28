@@ -48,6 +48,18 @@ class GameUserRepository extends StorageRepository
         $this->saveElements($elements);
     }
 
+    /**
+     * @param Uuid $gameId
+     * @return GameUser[]
+     */
+    public function getGameUsers(Uuid $gameId) {
+        /** @var GameUser[] $elements */
+        $elements = $this->getElements();
+        return \array_values(\array_filter($elements, function (GameUser $e) use ($gameId) {
+            return $e->getGameId()->equals($gameId);
+        }));
+    }
+
     protected function getElementClassName(): string {
         return GameUser::class;
     }

@@ -66,15 +66,27 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 							<Paper style={{padding: 12}}>
 								<Switch>
 									<Route path="/login" render={this.renderLoginScreen}/>
-									<PrivateRoute authenticated={authed} path="/match-sets/new"
-												  render={this.renderMatchSetView}/>
-									<PrivateRoute authenticated={authed} path="/match-sets/:setId"
-												  render={this.renderMatchSetView}/>
-									<PrivateRoute authenticated={authed} path="/match-sets"
-												  render={this.renderMatchSetList}/>
+									<PrivateRoute
+										authenticated={authed}
+										path="/match-sets/new"
+										render={this.renderMatchSetView}
+									/>
+									<PrivateRoute
+										authenticated={authed}
+										path="/match-sets/:setId"
+										render={this.renderMatchSetView}
+									/>
+									<PrivateRoute
+										authenticated={authed}
+										path="/match-sets"
+										render={this.renderMatchSetList}
+									/>
 									<PrivateRoute authenticated={authed} path={"/games"} render={this.renderGameList}/>
-									<PrivateRoute authenticated={authed} path="/game/:gameId"
-												  render={this.renderGameView}/>
+									<PrivateRoute
+										authenticated={authed}
+										path="/game/:gameId"
+										render={this.renderGameView}
+									/>
 									<Route path="/invitation/:invitationId" render={this.renderInvitation}/>
 									<Route render={this.renderDefaultRoute}/>
 								</Switch>

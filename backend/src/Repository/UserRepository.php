@@ -52,9 +52,9 @@ class UserRepository extends StorageRepository
             return $id->getUuid();
         }, $userIds);
         $users = $this->getUsers();
-        return \array_filter($users, function (User $user) use ($userIds) {
+        return \array_values(\array_filter($users, function (User $user) use ($userIds) {
             return \in_array($user->getId()->getUuid(), $userIds);
-        });
+        }));
     }
 
     protected function getElementClassName(): string {
