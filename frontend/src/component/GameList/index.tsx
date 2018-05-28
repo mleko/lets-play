@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
-import {Add as AddIcon, Edit as EditIcon, PlayArrow as PlayIcon} from "material-ui-icons";
+import {Add as AddIcon, PlayArrow as PlayIcon} from "material-ui-icons";
 import Button from "material-ui/Button";
 import {Game, MatchSet} from "../../model/models";
 import {LinkIconButton} from "../LinkIconButton";
@@ -30,9 +30,6 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 						<TableRow>
 							<TableCell style={{width: 1}}>
 								<div>Play</div>
-							</TableCell>
-							<TableCell style={{width: 1}}>
-								<div>Edit</div>
 							</TableCell>
 							<TableCell padding="none">Game name</TableCell>
 						</TableRow>
@@ -79,7 +76,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 		if (games.length === 0) {
 			return (
 				<TableRow>
-					<TableCell colSpan={3}>
+					<TableCell colSpan={2}>
 						Nie uczestniczysz w żadnej grze, utwórz nową lub poproś przyjaciół o zaproszenie do istniejącej
 						rozgrywki
 					</TableCell>
@@ -97,11 +94,6 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 				<TableCell>
 					<LinkIconButton to={"/game/" + element.id}>
 						<PlayIcon style={{cursor: "pointer"}}/>
-					</LinkIconButton>
-				</TableCell>
-				<TableCell>
-					<LinkIconButton to={"/games/" + element.id + "/edit"}>
-						<EditIcon style={{cursor: "pointer"}}/>
 					</LinkIconButton>
 				</TableCell>
 				<TableCell padding="none">{element.name}</TableCell>

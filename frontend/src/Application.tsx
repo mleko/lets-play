@@ -81,7 +81,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 										path="/match-sets"
 										render={this.renderMatchSetList}
 									/>
-									<PrivateRoute authenticated={authed} path={"/games"} render={this.renderGameList}/>
+									<PrivateRoute authenticated={authed} path={"/"} exact={true} render={this.renderGameList}/>
 									<PrivateRoute
 										authenticated={authed}
 										path="/game/:gameId"

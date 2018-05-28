@@ -25,17 +25,9 @@ export class MainMenu extends React.PureComponent<MainMenuProps, {}> {
 					style={{width: 250}}
 				>
 					<List component="nav">
-						<ListItem>
-							<ListItemIcon><PlayIcon/></ListItemIcon>
-							<ListItemText primary="Typowanie"/>
-						</ListItem>
-						<ListItem>
-							<ListItemIcon><ListIcon/></ListItemIcon>
-							<ListItemText primary="Mecze"/>
-						</ListItem>
-						<Link to={"/games"}>
+						<Link to={"/"}>
 							<ListItem>
-								<ListItemIcon><ListIcon/></ListItemIcon>
+								<ListItemIcon><PlayIcon/></ListItemIcon>
 								<ListItemText primary="Rozgrywki"/>
 							</ListItem>
 						</Link>

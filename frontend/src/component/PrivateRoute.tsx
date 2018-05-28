@@ -5,6 +5,7 @@ export interface PrivateRouteProps {
 	path: string;
 	render: ((props: RouteComponentProps<any>) => React.ReactNode);
 	authenticated: boolean;
+	exact?: boolean;
 }
 
 export class PrivateRoute extends React.PureComponent<PrivateRouteProps, {}> {
@@ -15,7 +16,7 @@ export class PrivateRoute extends React.PureComponent<PrivateRouteProps, {}> {
 			);
 		}
 		return (
-			<Route path={this.props.path} render={this.props.render}/>
+			<Route exact={this.props.exact} path={this.props.path} render={this.props.render}/>
 		);
 	}
 }

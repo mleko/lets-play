@@ -17,9 +17,9 @@ export class GameUsers extends React.PureComponent<GameUsersProps, {}> {
 		);
 	}
 
-	private renderUser = (user: User) => {
+	private renderUser = (user: User, index: number) => {
 		return (
-			<ListItem>
+			<ListItem key={index}>
 				{user.name}
 			</ListItem>
 		);
