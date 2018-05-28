@@ -2,10 +2,12 @@ import * as React from "react";
 
 import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
+import {Redirect} from "react-router";
 import {GameInvitation} from "../model/models";
 
 export interface InvitationProps {
 	invitation: GameInvitation;
+	accepted: boolean;
 	onAccept: (invitationId: string) => any;
 	onReject: (invitationId: string) => any;
 }
@@ -14,6 +16,11 @@ export class Invitation extends React.PureComponent<InvitationProps, {}> {
 	public render(): JSX.Element {
 		if (!this.props.invitation) {
 			return null;
+		}
+		if (this.props.accepted) {
+			return (
+				<Redirect to={"/games/" + this.props.invitation.game.id}/>
+			);
 		}
 		return (
 			<Grid container={true} spacing={24}>

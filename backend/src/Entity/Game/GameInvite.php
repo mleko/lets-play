@@ -55,4 +55,8 @@ class GameInvite
     public function cancel(): void {
         $this->status = self::STATUS_CANCELED;
     }
+
+    public function markAccepted(): void {
+        $this->status = self::STATUS_ACCEPTED;
+    }
 }

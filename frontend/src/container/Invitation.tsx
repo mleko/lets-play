@@ -15,13 +15,16 @@ export class Invitation extends React.PureComponent<GameViewProps, State> {
 
 	public constructor(props: GameViewProps) {
 		super(props);
-		this.state = {};
+		this.state = {
+			accepted: false
+		};
 	}
 
 	public render(): JSX.Element {
 		return (
 			<Component
 				invitation={this.state.invitation}
+				accepted={this.state.accepted}
 				onAccept={this.accept}
 				onReject={this.reject}
 			/>
@@ -38,10 +41,9 @@ export class Invitation extends React.PureComponent<GameViewProps, State> {
 
 	private accept = (invitationId: string) => {
 		const client: Client = this.context.httpClient;
-		return client.request({url: "/invitation/" + invitationId, method: "DELETE"})
-			.then((response: Response<GameInvitation>) => {
-				this.setState({invitation: response.data});
-				return null;
+		client.request({url: "/invitation/" + invitationId + "/accept", method: "POST"})
+			.then(() => {
+				this.setState({accepted: true});
 			});
 	};
 	private reject = (invitationId: string) => {
@@ -49,11 +51,11 @@ export class Invitation extends React.PureComponent<GameViewProps, State> {
 		return client.request({url: "/invitation/" + invitationId, method: "DELETE"})
 			.then((response: Response<GameInvitation>) => {
 				this.setState({invitation: response.data});
-				return null;
 			});
 	}
 }
 
 interface State {
 	invitation?: GameInvitation;
+	accepted?: boolean;
 }

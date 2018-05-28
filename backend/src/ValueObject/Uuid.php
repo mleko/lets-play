@@ -6,6 +6,8 @@ namespace Mleko\LetsPlay\ValueObject;
 
 class Uuid
 {
+    /** @var Uuid[] */
+    private static $uuids = [];
     /** @var string */
     private $uuid;
 
@@ -21,8 +23,16 @@ class Uuid
             if (!\Ramsey\Uuid\Uuid::isValid($uuid)) {
                 throw new \InvalidArgumentException("Invalid UUID: $uuid");
             }
-            $this->uuid = $uuid;
+            $this->uuid = \Ramsey\Uuid\Uuid::fromString($uuid)->toString();
         }
+    }
+
+    public static function fromString(string $uuid): Uuid {
+        $normalized = \Ramsey\Uuid\Uuid::fromString($uuid)->toString();
+        if (!\array_key_exists($normalized, self::$uuids)) {
+            self::$uuids[$normalized] = new Uuid($normalized);
+        }
+        return self::$uuids[$normalized];
     }
 
     /**
