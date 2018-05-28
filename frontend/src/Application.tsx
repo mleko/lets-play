@@ -108,6 +108,9 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 	}
 
 	private renderLoginScreen = () => {
+		if(this.props.authenticated){
+			return (<Redirect to={"/"}/>);
+		}
 		return (<LoginScreen/>);
 	};
 

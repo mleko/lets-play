@@ -39,17 +39,7 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 
 		return (
 			<div>
-				<Grid container={true} spacing={16} style={{marginTop: 16}}>
-					{matches.map(this.renderElement)}
-				</Grid>
-				<Button
-					fullWidth={true}
-					color={"primary"}
-					variant={"raised"}
-					onClick={this.save}
-				>
-					Zapisz
-				</Button>
+				{this.renderMatchesToType(matches)}
 				<MatchList
 					matches={pastMatches}
 					bets={this.props.bets}
@@ -63,6 +53,27 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		if (nextProps.bets !== this.props.bets) {
 			this.setState({bets: nextProps.bets});
 		}
+	}
+
+	private renderMatchesToType(matches: Match[]) {
+		if (matches.length === 0) {
+			return (<div style={{textAlign: "center", margin: 10}}>Brak meczy do typowania</div>);
+		}
+		return (
+			<div>
+				<Grid container={true} spacing={16} style={{marginTop: 16}}>
+					{matches.map(this.renderElement)}
+				</Grid>
+				<Button
+					fullWidth={true}
+					color={"primary"}
+					variant={"raised"}
+					onClick={this.save}
+				>
+					Zapisz
+				</Button>
+			</div>
+		);
 	}
 
 	private renderElement = (e: Match, index: number) => {
