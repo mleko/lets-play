@@ -2,6 +2,7 @@ import {Client} from "../../../infrastructure/http/Client";
 import {Response} from "../../../infrastructure/http/Response";
 import {Action, Dispatch, HandlerMap, Middleware, ReduceResult} from "../../Middleware";
 import {AuthActions, authActions, Login, Register, Reset} from "./index";
+import {StandardAction} from "../../Action";
 
 export class AuthMiddleware implements Middleware<any> {
 
@@ -29,6 +30,17 @@ export class AuthMiddleware implements Middleware<any> {
 				data: action.payload
 			}).then((response: Response<any>) => {
 				dispatch(AuthActions.loggedIn(response.data.id, response.data.name));
+			});
+			return ReduceResult.DONT_STORE;
+		},
+		[authActions.check]: (action: StandardAction<void>, dispatch: Dispatch) => {
+			this.client.request({
+				method: "GET",
+				url: "/auth"
+			}).then((response: Response<any>) => {
+				dispatch(AuthActions.loggedIn(response.data.id, response.data.name));
+			}).catch(() => {
+				dispatch(AuthActions.logout());
 			});
 			return ReduceResult.DONT_STORE;
 		}

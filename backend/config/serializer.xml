@@ -19,7 +19,7 @@
         </service>
 
 
-        <service id="mleko.alchemist.normalizer" class="Mleko\Alchemist\Normalizer\ChainNormalizer">
+        <service id="mleko.alchemist.normalizer.base" class="Mleko\Alchemist\Normalizer\ChainNormalizer" shared="false" public="false">
             <argument type="collection">
                 <argument type="service">
                     <service class="Mleko\Alchemist\Normalizer\ScalarNormalizer"/>
@@ -73,10 +73,15 @@
                 </argument>
             </argument>
         </service>
+        <service id="mleko.alchemist.normalizer" class="Mleko\Alchemist\Normalizer\ChainNormalizer">
+            <argument type="collection">
+                <argument type="service" id="mleko.alchemist.normalizer.base"/>
+            </argument>
+        </service>
         <service alias="mleko.alchemist.normalizer" id="Mleko\Alchemist\Normalizer"/>
         <service id="mleko.alchemist.normalizer.repository" class="Mleko\Alchemist\Normalizer\ChainNormalizer">
             <argument type="collection">
-                <argument type="service" id="mleko.alchemist.normalizer"/>
+                <argument type="service" id="mleko.alchemist.normalizer.base"/>
                 <argument type="service">
                     <service class="Mleko\LetsPlay\Repository\Normalizer\UserNormalizer"/>
                 </argument>

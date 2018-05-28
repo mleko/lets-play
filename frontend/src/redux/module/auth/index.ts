@@ -5,7 +5,8 @@ export const authActions = {
 	login: "auth/Login",
 	logout: "auth/Logout",
 	reset: "auth/Reset",
-	loggedIn: "auth/LoggedIn"
+	loggedIn: "auth/LoggedIn",
+	check: "auth/Check"
 };
 
 export class AuthActions {
@@ -41,6 +42,13 @@ export class AuthActions {
 		return {
 			type: authActions.loggedIn,
 			payload: {id, name}
+		};
+	}
+
+	public static check(): StandardAction<void> {
+		return {
+			type: authActions.check,
+			payload: undefined
 		};
 	}
 }

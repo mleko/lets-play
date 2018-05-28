@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {Paper, Reboot} from "material-ui";
+import {CircularProgress, Paper, Reboot} from "material-ui";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router";
 import {HashRouter as Router} from "react-router-dom";
 
@@ -15,7 +15,7 @@ import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";
 
 export interface ApplicationProps {
-	authenticated: boolean;
+	authenticated?: boolean;
 }
 
 export interface ApplicationActions {
@@ -33,6 +33,24 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 
 	public render(): JSX.Element {
 		const authed = this.props.authenticated;
+		if (null === authed) {
+			const loadingStyle: React.CSSProperties = {
+				display: "flex",
+				alignItems: "center",
+				justifyContent: "center",
+				position: "absolute",
+				left: 0,
+				right: 0,
+				top: 0,
+				bottom: 0,
+				backgroundColor: "#fafafa"
+			};
+			return (
+				<div style={loadingStyle}>
+					<CircularProgress size={150}/>
+				</div>
+			);
+		}
 		return (
 			<div>
 				<Reboot/>
@@ -48,11 +66,15 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 							<Paper style={{padding: 12}}>
 								<Switch>
 									<Route path="/login" render={this.renderLoginScreen}/>
-									<PrivateRoute authenticated={authed} path="/match-sets/new" render={this.renderMatchSetView}/>
-									<PrivateRoute authenticated={authed} path="/match-sets/:setId" render={this.renderMatchSetView}/>
-									<PrivateRoute authenticated={authed} path="/match-sets" render={this.renderMatchSetList}/>
+									<PrivateRoute authenticated={authed} path="/match-sets/new"
+												  render={this.renderMatchSetView}/>
+									<PrivateRoute authenticated={authed} path="/match-sets/:setId"
+												  render={this.renderMatchSetView}/>
+									<PrivateRoute authenticated={authed} path="/match-sets"
+												  render={this.renderMatchSetList}/>
 									<PrivateRoute authenticated={authed} path={"/games"} render={this.renderGameList}/>
-									<PrivateRoute authenticated={authed} path="/game/:gameId" render={this.renderGameView}/>
+									<PrivateRoute authenticated={authed} path="/game/:gameId"
+												  render={this.renderGameView}/>
 									<Route path="/invitation/:invitationId" render={this.renderInvitation}/>
 									<Route render={this.renderDefaultRoute}/>
 								</Switch>

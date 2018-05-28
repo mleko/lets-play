@@ -9,6 +9,7 @@ import {HttpClientProvider} from "./infrastructure/http/Provider";
 import {Application} from "./container/Application";
 import {appReducer, initialAppState} from "./redux";
 import {aggregateMiddlewares} from "./redux/Middleware";
+import {AuthActions} from "./redux/module/auth";
 import {AuthMiddleware} from "./redux/module/auth/AuthMiddleware";
 
 const httpClient = new AxiosHttpClient({}, {baseUrl: "/api"});
@@ -29,5 +30,9 @@ export class AppContext extends React.PureComponent<{}, {}> {
 				</StoreProvider>
 			</HttpClientProvider>
 		);
+	}
+
+	public componentWillMount(): void {
+		store.dispatch(AuthActions.check());
 	}
 }

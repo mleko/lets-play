@@ -6,16 +6,17 @@ import {authActions, LoggedIn} from "./index";
 export interface AuthState {
 	id?: string;
 	name?: string;
+	established: boolean;
 }
 
-export const initialAuthState: AuthState = {};
+export const initialAuthState: AuthState = {established: false};
 
 const handlers = {
 	[authActions.loggedIn]: (state: AuthState, action: LoggedIn) => {
-		return shallowMerge(state, action.payload);
+		return shallowMerge(shallowMerge(state, action.payload), {established: true});
 	},
 	[authActions.logout]: (state: AuthState) => {
-		return initialAuthState;
+		return {established: true};
 	}
 };
 
