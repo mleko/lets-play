@@ -127,7 +127,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 
 	private renderMatchSetView = (p: RouteComponentProps<any>) => {
 		return (
-			<MatchSetView matchId={p.match.params.setId}/>
+			<MatchSetView setId={p.match.params.setId}/>
 		);
 	};
 

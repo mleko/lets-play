@@ -21,6 +21,7 @@ export interface Match extends Model {
 export interface MatchSet extends Model {
 	name: string;
 	matches: Match[];
+	ownerId: string;
 }
 
 export interface Game extends Model {

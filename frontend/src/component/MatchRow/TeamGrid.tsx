@@ -54,7 +54,8 @@ export const TeamGrid = withStyles(styles)(
 						style={inputStyle}
 						inputProps={{style: {textAlign: "center"}}}
 						value={team.score || ""}
-						onChange={this.onScoreChange}
+						onChange={this.props.onScoreChange ? this.onScoreChange : undefined}
+						disabled={!this.props.onScoreChange}
 					/>
 					{this.renderLabel(false)}
 				</Grid>

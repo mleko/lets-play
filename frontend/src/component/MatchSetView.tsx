@@ -7,43 +7,62 @@ import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
 import Input from "material-ui/Input";
 import {replace, without} from "typescript-array-utils";
+import {merge} from "typescript-object-utils";
 
-import {Match, MatchSet} from "../model/models";
+import {Match, MatchSet, User} from "../model/models";
 import {DateTime} from "../utility/DateTime";
 import {MatchRow} from "./MatchRow";
 
 export interface MatchSetViewProps {
-	matchId?: string;
-	loadMatchSet: (matchId: string) => Promise<MatchSet>;
+	set: MatchSet;
+	user: User;
 }
 
 export interface MatchSetViewActions {
-	onSave?: (set: MatchSet) => any;
+	onUpdate?: (set: MatchSet) => any;
+	onSave?: () => any;
 }
 
-export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchSetViewActions, MatchSetViewState> {
-
-	public constructor(props: MatchSetViewProps) {
-		super(props);
-		this.state = {
-			name: "",
-			matches: []
-		};
-	}
+export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchSetViewActions, {}> {
 
 	public render(): JSX.Element {
+		const editable = this.isEditable();
 		return (
 			<div>
 				<FormControl fullWidth={true} style={{marginBottom: 16}}>
 					<InputLabel>Name</InputLabel>
 					<Input
-						value={this.state.name}
-						onChange={this.changeName}
+						value={this.props.set.name}
+						onChange={editable ? this.changeName : undefined}
+						disabled={!editable}
 					/>
 				</FormControl>
 				{this.renderMatches()}
+				{this.renderButtons()}
+			</div>
+		);
+	}
+
+	private isEditable = (): boolean => {
+		return null != this.props.onUpdate && null != this.props.onSave;
+	};
+
+	private renderMatches() {
+		return (
+			<Grid container={true} spacing={16}>
+				{this.props.set.matches.map(this.renderMatch)}
+			</Grid>
+		);
+	}
+
+	private renderButtons() {
+		if (!this.isEditable()) {
+			return null;
+		}
+		return (
+			<div>
 				<FormControl fullWidth={true} style={{marginTop: 8}}>
-					<Button variant={"raised"} color={"primary"} onClick={this.save}><SaveIcon/>Save</Button>
+					<Button variant={"raised"} color={"primary"} onClick={this.props.onSave}><SaveIcon/>Save</Button>
 				</FormControl>
 				<Button variant={"fab"} style={{position: "absolute", bottom: 20, right: 20}} onClick={this.addMatch}>
 					<AddIcon/>
@@ -52,63 +71,53 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchS
 		);
 	}
 
-	public componentDidMount(): void {
-		if (this.props.matchId) {
-			this.props.loadMatchSet(this.props.matchId)
-				.then((set: MatchSet) => {
-					this.setState(set);
-				});
-		}
-	}
-
-	private renderMatches() {
-		return (
-			<Grid container={true} spacing={16}>
-				{this.state.matches.map(this.renderMatch)}
-			</Grid>
-		);
-	}
-
 	private renderMatch = (match: Match, index: number) => {
+		const editable = this.isEditable();
 		return (
 			<MatchRow
 				key={match.id || String(index)}
 				index={index}
 				match={match}
-				editDate={true}
-				editName={true}
-				onRemove={this.removeMatch}
-				onChange={this.updateMatch}
+				editDate={editable}
+				editName={editable}
+				onRemove={editable ? this.removeMatch : undefined}
+				onChange={editable ? this.updateMatch : undefined}
 			/>
 		);
 	};
 
 	private addMatch = () => {
-		this.setState({
-			matches: this.state.matches.concat({
-				id: "",
-				startDate: DateTime.toInputString(new Date()),
-				home: {name: ""},
-				away: {name: ""}
+		this.props.onUpdate(merge(this.props.set,
+			{
+				matches: this.props.set.matches.concat({
+					id: "",
+					startDate: DateTime.toInputString(new Date()),
+					home: {name: ""},
+					away: {name: ""}
+				})
 			})
-		});
+		);
 	};
 
-	private save = () => {
-		this.props.onSave({id: this.props.matchId, name: this.state.name, matches: this.state.matches});
-	};
 	private removeMatch = (index: number) => {
-		this.setState({matches: without(this.state.matches, index)});
+		this.props.onUpdate(merge(this.props.set,
+			{
+				matches: without(this.props.set.matches, index)
+			})
+		);
 	};
 	private updateMatch = (match: Match, index: number) => {
-		this.setState({matches: replace(this.state.matches, index, match)});
+		this.props.onUpdate(merge(this.props.set,
+			{
+				matches: replace(this.props.set.matches, index, match)
+			})
+		);
 	};
 	private changeName = (event: ChangeEvent<HTMLInputElement>) => {
-		this.setState({name: event.currentTarget.value});
+		this.props.onUpdate(merge(this.props.set,
+			{
+				name: event.currentTarget.value
+			})
+		);
 	};
-}
-
-interface MatchSetViewState {
-	name: string;
-	matches: Match[];
 }
