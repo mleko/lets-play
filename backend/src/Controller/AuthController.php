@@ -8,9 +8,9 @@ namespace Mleko\LetsPlay\Controller;
 use Mleko\LetsPlay\Entity\User;
 use Mleko\LetsPlay\Http\Response;
 use Mleko\LetsPlay\Repository\UserRepository;
+use Mleko\LetsPlay\Security\UserActor;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class AuthController
 {
@@ -25,7 +25,7 @@ class AuthController
         $this->userRepository = $userRepository;
     }
 
-    public function getAuth(UserInterface $user) {
+    public function getAuth(UserActor $user) {
         /** @var User $user */
         $user = $user->getUser();
         return new Response($user);
@@ -41,7 +41,7 @@ class AuthController
             [
                 "data" =>
                     [
-                        "id"   => $user->getId()->getUuid(),
+                        "id" => $user->getId()->getUuid(),
                         "name" => $user->getName(),
                     ]
             ]
@@ -57,7 +57,7 @@ class AuthController
             [
                 "data" =>
                     [
-                        "id"   => $user->getId()->getUuid(),
+                        "id" => $user->getId()->getUuid(),
                         "name" => $user->getName(),
                     ]
             ]

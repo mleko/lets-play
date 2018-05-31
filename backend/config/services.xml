@@ -19,8 +19,6 @@
             <argument type="service" id="mleko.alchemist.normalizer.repository"/>
         </prototype>
 
-        <prototype namespace="Mleko\LetsPlay\" resource="../src/*"
-                   exclude="../src/{Entity,Http,Migrations,Tests,Repository,View,Kernel.php}"/>
         <prototype namespace="Mleko\LetsPlay\Controller\" resource="../src/Controller">
             <tag name="controller.service_arguments"/>
         </prototype>
@@ -35,6 +33,10 @@
         <service class="Mleko\LetsPlay\Http\ResponseListener" id="mleko.lets_play.http.response_listener">
             <argument type="service" id="mleko.alchemist.serializer"/>
             <tag name="kernel.event_subscriber"/>
+        </service>
+        <service id="Mleko\LetsPlay\Security\UserActorResolver" class="Mleko\LetsPlay\Security\UserActorResolver">
+            <argument type="service" id="security.token_storage"/>
+            <tag name="controller.argument_value_resolver" priority="50" />
         </service>
     </services>
 

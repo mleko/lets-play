@@ -7,10 +7,10 @@ namespace Mleko\LetsPlay\Controller;
 use Mleko\LetsPlay\Entity\Match;
 use Mleko\LetsPlay\Entity\MatchSet;
 use Mleko\LetsPlay\Repository\MatchSetRepository;
+use Mleko\LetsPlay\Security\UserActor;
 use Mleko\LetsPlay\ValueObject\MatchTeam;
 use Mleko\LetsPlay\ValueObject\Uuid;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class MatchSetController
 {
@@ -25,14 +25,14 @@ class MatchSetController
         $this->matchSetRepository = $matchSetRepository;
     }
 
-    public function create(Request $request, UserInterface $user) {
+    public function create(Request $request, UserActor $user) {
         $data = \json_decode($request->getContent(), true);
-        $set = $this->denormalize($data,$user->getUser()->getId());
+        $set = $this->denormalize($data, $user->getUser()->getId());
         $this->matchSetRepository->save($set);
         return new \Mleko\LetsPlay\Http\Response($set);
     }
 
-    public function update(Request $request, $setId, UserInterface $user) {
+    public function update(Request $request, $setId, UserActor $user) {
         $data = \json_decode($request->getContent(), true);
         $set = $this->denormalize($data, $user->getUser()->getId(), $setId);
         $this->matchSetRepository->save($set);

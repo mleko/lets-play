@@ -9,8 +9,8 @@ use Mleko\LetsPlay\Http\Response;
 use Mleko\LetsPlay\Repository\Game\GameUserRepository;
 use Mleko\LetsPlay\Repository\GameRepository;
 use Mleko\LetsPlay\Repository\UserRepository;
+use Mleko\LetsPlay\Security\UserActor;
 use Mleko\LetsPlay\ValueObject\Uuid;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class GameUserController
 {
@@ -34,7 +34,7 @@ class GameUserController
     }
 
 
-    public function listUsers($gameId, UserInterface $user) {
+    public function listUsers($gameId, UserActor $user) {
         $game = $this->gameRepository->getGame($gameId);
         $gameUsers = $this->gameUserRepository->getGameUsers(Uuid::fromString($gameId));
         $userIds = \array_map(function (GameUser $gu) {

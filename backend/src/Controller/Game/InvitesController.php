@@ -10,11 +10,11 @@ use Mleko\LetsPlay\Http\Response;
 use Mleko\LetsPlay\Repository\Game\GameInviteRepository;
 use Mleko\LetsPlay\Repository\Game\GameUserRepository;
 use Mleko\LetsPlay\Repository\GameRepository;
+use Mleko\LetsPlay\Security\UserActor;
 use Mleko\LetsPlay\ValueObject\Uuid;
 use Mleko\LetsPlay\View\GameInvitationView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class InvitesController
 {
@@ -47,7 +47,7 @@ class InvitesController
         return new Response(new GameInvitationView($invitation, $game));
     }
 
-    public function inviteUser($gameId, UserInterface $user, Request $request) {
+    public function inviteUser($gameId, UserActor $user, Request $request) {
         $gameId = new Uuid($gameId);
         $data = \json_decode($request->getContent(), true);
         $invite = new GameInvite($gameId);
@@ -70,7 +70,7 @@ class InvitesController
         return new Response(null);
     }
 
-    public function acceptInvitation(string $invitationId, UserInterface $user) {
+    public function acceptInvitation(string $invitationId, UserActor $user) {
         $invitation = $this->inviteRepository->getGameInvitation($invitationId);
         if ($invitation->getStatus() !== GameInvite::STATUS_PENDING) {
             throw new NotFoundHttpException();

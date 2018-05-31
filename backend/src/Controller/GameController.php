@@ -9,6 +9,7 @@ use Mleko\LetsPlay\Entity\User;
 use Mleko\LetsPlay\Repository\GameRepository;
 use Mleko\LetsPlay\Security\UserActor;
 use Mleko\LetsPlay\ValueObject\Uuid;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -25,14 +26,14 @@ class GameController
         $this->gameRepository = $gameRepository;
     }
 
-    public function create(Request $request, UserInterface $user) {
+    public function create(Request $request, UserActor $user) {
         $data = \json_decode($request->getContent(), true);
-        $game = $this->denormalize($data, $user->getUser()->getId());
+        $game = $this->denormalize($data, $user->getUser());
         $this->gameRepository->save($game);
         return new \Mleko\LetsPlay\Http\Response($game);
     }
 
-    public function update(Request $request, $gameId, UserInterface $user) {
+    public function update(Request $request, $gameId, UserActor $user) {
         $data = \json_decode($request->getContent(), true);
         $game = $this->gameRepository->getGame($gameId);
         $game->setName($data["name"]);
@@ -40,7 +41,7 @@ class GameController
         return new \Mleko\LetsPlay\Http\Response($game);
     }
 
-    public function listAll(UserInterface $user) {
+    public function listAll(UserActor $user) {
         $input = $this->gameRepository->getUserGames($user->getUser()->getId());
         return new \Mleko\LetsPlay\Http\Response(\array_values($input));
     }

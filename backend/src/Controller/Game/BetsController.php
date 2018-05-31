@@ -11,11 +11,11 @@ use Mleko\LetsPlay\Entity\User;
 use Mleko\LetsPlay\Repository\BetsRepository;
 use Mleko\LetsPlay\Repository\GameRepository;
 use Mleko\LetsPlay\Repository\MatchSetRepository;
+use Mleko\LetsPlay\Security\UserActor;
 use Mleko\LetsPlay\ValueObject\MatchScore;
 use Mleko\LetsPlay\ValueObject\Uuid;
 use Mleko\LetsPlay\View\BetView;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class BetsController
 {
@@ -38,7 +38,7 @@ class BetsController
         $this->gameRepository = $gameRepository;
     }
 
-    public function listAll($gameId, UserInterface $authUser, Request $request) {
+    public function listAll($gameId, UserActor $authUser, Request $request) {
         /** @var User $user */
         $user = $authUser->getUser();
         $gameId = new Uuid($gameId);
@@ -52,7 +52,7 @@ class BetsController
         return new \Mleko\LetsPlay\Http\Response($bets);
     }
 
-    public function update($gameId, Request $request, UserInterface $authUser) {
+    public function update($gameId, Request $request, UserActor $authUser) {
         $data = \json_decode($request->getContent(), true);
         /** @var User $user */
         $user = $authUser->getUser();
