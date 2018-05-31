@@ -26,7 +26,6 @@ class AuthController
     }
 
     public function getAuth(UserActor $user) {
-        /** @var User $user */
         $user = $user->getUser();
         return new Response($user);
     }
