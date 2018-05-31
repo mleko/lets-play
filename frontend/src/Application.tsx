@@ -84,7 +84,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 									<PrivateRoute authenticated={authed} path={"/"} exact={true} render={this.renderGameList}/>
 									<PrivateRoute
 										authenticated={authed}
-										path="/game/:gameId"
+										path="/games/:gameId"
 										render={this.renderGameView}
 									/>
 									<Route path="/invitation/:invitationId" render={this.renderInvitation}/>

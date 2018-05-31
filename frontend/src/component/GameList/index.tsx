@@ -92,7 +92,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 		return (
 			<TableRow key={index}>
 				<TableCell>
-					<LinkIconButton to={"/game/" + element.id}>
+					<LinkIconButton to={"/games/" + element.id}>
 						<PlayIcon style={{cursor: "pointer"}}/>
 					</LinkIconButton>
 				</TableCell>
