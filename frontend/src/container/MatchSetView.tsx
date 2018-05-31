@@ -33,7 +33,7 @@ class MatchSetViewWithRouter extends React.PureComponent<CombinedProps, State> {
 	}
 
 	public render(): JSX.Element {
-		const editable = this.props.setId === "" || (this.state.set && this.props.user && this.state.set.ownerId === this.props.user.id);
+		const editable = !this.props.setId || (this.state.set && this.props.user && this.state.set.ownerId === this.props.user.id);
 		return (
 			<Component
 				set={this.state.set}

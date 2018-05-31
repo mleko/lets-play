@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "jsx": "react",
     "declaration": false,
@@ -12,7 +12,8 @@
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "experimentalDecorators": true,
-    "baseUrl": "./frontend/src"
+    "baseUrl": "./frontend/src",
+    "lib": ["es5", "es6", "dom"]
   },
   "filesGlob": [
     "./**/*.ts",

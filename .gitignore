@@ -2,3 +2,4 @@
 node_modules
 frontend/.coverage
 frontend/.nyc_output
+frontend/dist

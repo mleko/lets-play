@@ -1,6 +1,9 @@
 import * as webpack from "webpack";
+import * as path from "path";
 
 const isProduction = process.env.NODE_ENV === "production";
+
+console.log(process.env.NODE_ENV);
 
 const config = {
 	resolve: {
@@ -28,6 +31,10 @@ const config = {
 		// Set index.tsx as application entry point.
 		"./index.tsx"
 	],
+	output: {
+		path: path.resolve(__dirname) + "/dist",
+		filename: "bundle.js"
+	},
 	devServer: {
 		proxy: {
 			"/api": {
@@ -56,7 +63,9 @@ if (!isProduction) {
 			minimize: true,
 			debug: false
 		}),
-		new webpack.optimize.UglifyJsPlugin()
+		new webpack.optimize.UglifyJsPlugin({
+			extractComments: true
+		})
 	);
 }
 

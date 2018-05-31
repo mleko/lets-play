@@ -4,6 +4,8 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
+    <route id="index" path="/" controller="Mleko\LetsPlay\Controller\IndexController:index"/>
+
     <route id="auth.register" path="/auth/register" controller="Mleko\LetsPlay\Controller\AuthController:register" methods="POST"/>
     <route id="auth.login" path="/auth/login" controller="Mleko\LetsPlay\Controller\AuthController:login" methods="POST"/>
     <route id="auth.get" path="/auth" controller="Mleko\LetsPlay\Controller\AuthController:getAuth" methods="GET"/>

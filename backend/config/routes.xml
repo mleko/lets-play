@@ -5,6 +5,4 @@
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <import resource="routes/api.xml" prefix="/api"/>
-
-    <route id="index" path="/" controller="Mleko\LetsPlay\Controller\IndexController:index"/>
 </routes>
