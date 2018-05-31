@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {Avatar, Divider, Menu, MenuItem} from "material-ui";
+import {Avatar, Menu, MenuItem} from "material-ui";
 import {LinkButton} from "./LinkButton";
 
 export interface AuthenticationBadgeProps {
@@ -28,8 +28,8 @@ export class AuthenticationBadge extends React.PureComponent<AuthenticationBadge
 			<div>
 				<Avatar style={{cursor: "pointer"}} onClick={this.openMenu}>M</Avatar>
 				<Menu open={null !== this.state.anchorElement} anchorEl={this.state.anchorElement} onClose={this.closeMenu}>
-					<MenuItem>Profil</MenuItem>
-					<Divider/>
+					{/*<MenuItem>Profil</MenuItem>*/}
+					{/*<Divider/>*/}
 					<MenuItem onClick={this.logOut}>Wyloguj</MenuItem>
 				</Menu>
 			</div>
