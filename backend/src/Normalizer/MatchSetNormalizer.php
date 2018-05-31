@@ -14,7 +14,8 @@ class MatchSetNormalizer extends PartialNormalizer
         return [
             "id" => $this->subNormalize($value->getId(), $format, $context),
             "name" => $value->getName(),
-            "matches" => $this->subNormalize($value->getMatches(), $format, $context)
+            "matches" => $this->subNormalize($value->getMatches(), $format, $context),
+            "ownerId" => $this->subNormalize($value->getOwnerId(), $format, $context)
         ];
     }
 

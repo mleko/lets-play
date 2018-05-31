@@ -26,7 +26,7 @@ export class MatchSetList extends React.PureComponent<MatchSetListProps, State> 
 					<TableHead>
 						<TableRow>
 							<TableCell style={{width: 1}}>
-								<div>Edit</div>
+								<div>Details</div>
 							</TableCell>
 							<TableCell padding="none">Set name</TableCell>
 						</TableRow>
