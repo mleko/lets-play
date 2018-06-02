@@ -11,6 +11,8 @@ security:
       json_login:
         check_path: /api/auth/login
         username_path: email
+      logout:
+        path: "/api/auth/logout"
   encoders:
     Mleko\LetsPlay\Security\UserActor:
       algorithm:            bcrypt

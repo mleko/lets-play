@@ -43,6 +43,13 @@ export class AuthMiddleware implements Middleware<any> {
 				dispatch(AuthActions.logout());
 			});
 			return ReduceResult.DONT_STORE;
+		},
+		[authActions.logout]: (action: StandardAction<void>, dispatch: Dispatch) => {
+			this.client.request({
+				method: "GET",
+				url: "/auth/logout"
+			});
+			return ReduceResult.STORE;
 		}
 	};
 
