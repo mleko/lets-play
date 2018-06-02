@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {connect} from "react-redux";
-import {RouteComponentProps, withRouter} from "react-router";
+import {bindActionCreators} from "redux";
 import {merge, shallowMerge} from "typescript-object-utils";
 import {MatchSetView as Component} from "../component/MatchSetView";
 import {Client} from "../infrastructure/http/Client";
@@ -9,12 +9,18 @@ import {httpContextValidationMap} from "../infrastructure/http/Provider";
 import {Response} from "../infrastructure/http/Response";
 import {Match, MatchSet, User} from "../model/models";
 import {AppState} from "../redux";
+import {Dispatch} from "../redux/Action";
+import {RoutingActions} from "../redux/module/routing";
 
 export interface MatchSetViewProps {
 	setId?: string;
 }
 
-type CombinedProps = MatchSetViewProps & RouteComponentProps<any> & { user: User };
+interface MatchSetViewActions {
+	onRedirect: (url: string) => any;
+}
+
+type CombinedProps = MatchSetViewProps & { user: User } & MatchSetViewActions;
 
 class MatchSetViewWithRouter extends React.PureComponent<CombinedProps, State> {
 
@@ -76,7 +82,8 @@ class MatchSetViewWithRouter extends React.PureComponent<CombinedProps, State> {
 			client
 				.request({url: "/match-sets", method: "POST", data: set})
 				.then((response: Response<MatchSet>) => {
-					this.props.history.push("/match-sets/" + response.data.id);
+					this.setState({set: response.data});
+					this.props.onRedirect("/match-sets/" + response.data.id);
 				});
 		}
 	};
@@ -91,5 +98,10 @@ function mapStateToProps(state: AppState) {
 		user: state.auth.user ? state.auth.user : null
 	};
 }
+function mapDispatchToProps(dispatch: Dispatch) {
+	return bindActionCreators({
+		onRedirect: RoutingActions.redirect,
+	}, dispatch);
+}
 
-export const MatchSetView = connect(mapStateToProps)(withRouter(MatchSetViewWithRouter));
+export const MatchSetView = connect(mapStateToProps, mapDispatchToProps)(MatchSetViewWithRouter);

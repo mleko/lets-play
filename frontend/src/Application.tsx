@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {CircularProgress, Paper, Reboot} from "material-ui";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router";
-import {HashRouter as Router} from "react-router-dom";
+import {Router} from "react-router-dom";
 
 import {MainMenu} from "./component/MainMenu";
 import {PrivateRoute} from "./component/PrivateRoute";
@@ -13,6 +13,7 @@ import {Invitation} from "./container/Invitation";
 import {LoginScreen} from "./container/LoginScreen";
 import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";
+import {history} from "./context";
 
 export interface ApplicationProps {
 	authenticated?: boolean;
@@ -54,7 +55,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 		return (
 			<div>
 				<Reboot/>
-				<Router>
+				<Router history={history}>
 					<div>
 						<TopBar
 							authenticated={authed}

@@ -40,7 +40,7 @@ class RankingController
 
     public function getRanking($gameId) {
         $game = $this->gameRepository->getGame($gameId);
-        $set = $this->matchSetRepository->getSet($game->getMatchSetId()->getUuid());
+        $set = $this->matchSetRepository->getSet($game->getMatchSetId());
         $bets = $this->betRepository->getGameBets($game->getId());
 
         $calculator = new ScoreCalculator();

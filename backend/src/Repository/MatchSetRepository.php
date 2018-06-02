@@ -42,7 +42,7 @@ class MatchSetRepository
         if (!isset($data["matchSets"][$setId->getUuid()])) {
             return null;
         }
-        return $this->denormalizeSet($data["matchSets"][$setId]);
+        return $this->denormalizeSet($data["matchSets"][$setId->getUuid()]);
     }
 
     public function getUserSets(User $user) {
