@@ -41,12 +41,12 @@ class BetsController
     public function listAll($gameId, UserActor $authUser, Request $request) {
         /** @var User $user */
         $user = $authUser->getUser();
-        $gameId = new Uuid($gameId);
+        $gameId = Uuid::fromString($gameId);
 
         $bets = $this->betRepository->getUserGameBets($user->getId(), $gameId);
         if ($request->query->get("include_points")) {
             $game = $this->gameRepository->getGame($gameId->getUuid());
-            $set = $this->matchSetRepository->getSet($game->getMatchSetId()->getUuid());
+            $set = $this->matchSetRepository->getSet($game->getMatchSetId());
             $bets = $this->createBetViews($bets, $set);
         }
         return new \Mleko\LetsPlay\Http\Response($bets);

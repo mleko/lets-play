@@ -4,6 +4,7 @@ export const authActions = {
 	register: "auth/Register",
 	login: "auth/Login",
 	logout: "auth/Logout",
+	loggedOut: "auth/LoggedOut",
 	reset: "auth/Reset",
 	loggedIn: "auth/LoggedIn",
 	check: "auth/Check"
@@ -27,6 +28,13 @@ export class AuthActions {
 	public static logout(): StandardAction<void> {
 		return {
 			type: authActions.logout,
+			payload: undefined
+		};
+	}
+
+	public static loggedOut(): StandardAction<void> {
+		return {
+			type: authActions.loggedOut,
 			payload: undefined
 		};
 	}

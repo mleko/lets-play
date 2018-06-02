@@ -5,9 +5,9 @@ import {AppState} from "../redux";
 import {Dispatch} from "../redux/Action";
 import {AuthActions} from "../redux/module/auth";
 
-function mapStateToProps(state: AppState): ApplicationProps {
+function mapStateToProps(state: AppState): Partial<ApplicationProps> {
 	return {
-		authenticated: state.auth.established ? state.auth.id && state.auth.id.length > 0 : null
+		authenticated: state.auth.established ? null !== state.auth.user : null
 	};
 }
 

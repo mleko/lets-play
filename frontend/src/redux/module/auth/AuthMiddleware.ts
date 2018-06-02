@@ -40,7 +40,7 @@ export class AuthMiddleware implements Middleware<any> {
 			}).then((response: Response<any>) => {
 				dispatch(AuthActions.loggedIn(response.data.id, response.data.name));
 			}).catch(() => {
-				dispatch(AuthActions.logout());
+				dispatch(AuthActions.loggedOut());
 			});
 			return ReduceResult.DONT_STORE;
 		},
@@ -48,8 +48,10 @@ export class AuthMiddleware implements Middleware<any> {
 			this.client.request({
 				method: "GET",
 				url: "/auth/logout"
+			}).then(() => {
+				dispatch(AuthActions.loggedOut());
 			});
-			return ReduceResult.STORE;
+			return ReduceResult.DONT_STORE;
 		}
 	};
 

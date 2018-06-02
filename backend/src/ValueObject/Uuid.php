@@ -28,11 +28,14 @@ class Uuid
     }
 
     public static function fromString(string $uuid): Uuid {
-        $normalized = \Ramsey\Uuid\Uuid::fromString($uuid)->toString();
-        if (!\array_key_exists($normalized, self::$uuids)) {
-            self::$uuids[$normalized] = new Uuid($normalized);
+        if (!\array_key_exists($uuid, self::$uuids)) {
+            $normalized = \Ramsey\Uuid\Uuid::fromString($uuid)->toString();
+            if (!\array_key_exists($normalized, self::$uuids)) {
+                self::$uuids[$normalized] = new Uuid($normalized);
+            }
+            self::$uuids[$uuid] = self::$uuids[$normalized];
         }
-        return self::$uuids[$normalized];
+        return self::$uuids[$uuid];
     }
 
     /**

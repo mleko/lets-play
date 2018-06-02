@@ -5,8 +5,6 @@ import {reducerFactory} from "../../ReducerFactory";
 import {authActions, LoggedIn} from "./index";
 
 export interface AuthState {
-	id?: string;
-	name?: string;
 	established: boolean;
 	user?: User;
 }
@@ -17,8 +15,8 @@ const handlers = {
 	[authActions.loggedIn]: (state: AuthState, action: LoggedIn) => {
 		return shallowMerge(shallowMerge(state, {...action.payload, user: action.payload}), {established: true});
 	},
-	[authActions.logout]: (state: AuthState) => {
-		return {established: true};
+	[authActions.loggedOut]: (state: AuthState): AuthState => {
+		return {established: true, user: null};
 	}
 };
 
