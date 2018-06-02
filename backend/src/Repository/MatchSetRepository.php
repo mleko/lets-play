@@ -6,6 +6,7 @@ namespace Mleko\LetsPlay\Repository;
 
 use Mleko\LetsPlay\Entity\Match;
 use Mleko\LetsPlay\Entity\MatchSet;
+use Mleko\LetsPlay\Entity\User;
 use Mleko\LetsPlay\ValueObject\MatchTeam;
 use Mleko\LetsPlay\ValueObject\Uuid;
 
@@ -36,12 +37,20 @@ class MatchSetRepository
         return \array_map([$this, "denormalizeSet"], $data["matchSets"] ?? []);
     }
 
-    public function getSet($setId): ?MatchSet {
+    public function getSet(Uuid $setId): ?MatchSet {
         $data = $this->storage->getData();
-        if (!isset($data["matchSets"][$setId])) {
+        if (!isset($data["matchSets"][$setId->getUuid()])) {
             return null;
         }
         return $this->denormalizeSet($data["matchSets"][$setId]);
+    }
+
+    public function getUserSets(User $user) {
+        $data = $this->storage->getData();
+        $sets = \array_map([$this, "denormalizeSet"], $data["matchSets"] ?? []);
+        return \array_values(\array_filter($sets, function (MatchSet $set) use ($user) {
+            return $set->getOwnerId()->equals($user->getId());
+        }));
     }
 
     private function saveMatchSets($sets) {

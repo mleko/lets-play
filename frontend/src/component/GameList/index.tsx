@@ -18,7 +18,8 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 		super(props);
 		this.state = {
 			games: [],
-			dialogVisible: false
+			dialogVisible: false,
+			sets: null
 		};
 	}
 
@@ -64,7 +65,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 		return (
 			<NewGameDialog
 				open={this.state.dialogVisible}
-				loadSets={this.props.loadSets}
+				sets={this.state.sets}
 				onClose={this.closeDialog}
 				onCreate={this.createGame}
 			/>
@@ -102,6 +103,13 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 	};
 
 	private showNewGameDialog = () => {
+		if(null === this.state.sets){
+			this.setState({sets: []});
+			this.props.loadSets()
+				.then((sets) => {
+					this.setState({sets});
+				});
+		}
 		this.setState({dialogVisible: true});
 	};
 	private closeDialog = () => {
@@ -118,5 +126,6 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 
 interface State {
 	games: Game[];
+	sets: MatchSet[];
 	dialogVisible: boolean;
 }

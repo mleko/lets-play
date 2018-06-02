@@ -11,6 +11,7 @@ use Mleko\LetsPlay\Security\UserActor;
 use Mleko\LetsPlay\ValueObject\MatchTeam;
 use Mleko\LetsPlay\ValueObject\Uuid;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MatchSetController
 {
@@ -33,18 +34,26 @@ class MatchSetController
     }
 
     public function update(Request $request, $setId, UserActor $user) {
+        $set = $this->matchSetRepository->getSet(Uuid::fromString($setId));
+        if (!$set || !$set->getOwnerId()->equals($user->getUser()->getId())) {
+            throw new NotFoundHttpException();
+        }
         $data = \json_decode($request->getContent(), true);
         $set = $this->denormalize($data, $user->getUser()->getId(), $setId);
         $this->matchSetRepository->save($set);
         return new \Mleko\LetsPlay\Http\Response($set);
     }
 
-    public function listAll() {
-        return new \Mleko\LetsPlay\Http\Response(\array_values($this->matchSetRepository->getSets()));
+    public function listAll(UserActor $actor) {
+        return new \Mleko\LetsPlay\Http\Response(\array_values($this->matchSetRepository->getUserSets($actor->getUser())));
     }
 
-    public function get($setId) {
-        return new \Mleko\LetsPlay\Http\Response($this->matchSetRepository->getSet($setId));
+    public function get($setId, UserActor $user) {
+        $matchSet = $this->matchSetRepository->getSet(Uuid::fromString($setId));
+        if (!$matchSet || !$matchSet->getOwnerId()->equals($user->getUser()->getId())) {
+            throw new NotFoundHttpException();
+        }
+        return new \Mleko\LetsPlay\Http\Response($matchSet);
     }
 
     /**

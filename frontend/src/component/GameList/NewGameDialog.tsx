@@ -16,7 +16,7 @@ import {Option, Select} from "../Select";
 
 export interface NewGameDialogProps {
 	open: boolean;
-	loadSets: () => Promise<MatchSet[]>;
+	sets: MatchSet[];
 	onCreate: (matchSetId: string, name: string) => any;
 	onClose: () => any;
 }
@@ -27,8 +27,7 @@ export class NewGameDialog extends React.PureComponent<NewGameDialogProps, State
 		super(props);
 		this.state = {
 			name: "",
-			matchSetId: "",
-			sets: []
+			matchSetId: ""
 		};
 	}
 
@@ -73,20 +72,13 @@ export class NewGameDialog extends React.PureComponent<NewGameDialogProps, State
 		);
 	}
 
-	public componentDidMount(): void {
-		this.props.loadSets()
-			.then((sets) => {
-				this.setState({sets});
-			});
-	}
-
 	private getOptions(): Option[] {
-		return this.state.sets.map((set) => {
+		return this.props.sets ? this.props.sets.map((set) => {
 			return {
 				label: set.name,
 				value: set.id
 			};
-		});
+		}) : [];
 	}
 
 	private changeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -103,5 +95,4 @@ export class NewGameDialog extends React.PureComponent<NewGameDialogProps, State
 interface State {
 	name: string;
 	matchSetId: string;
-	sets: MatchSet[];
 }
