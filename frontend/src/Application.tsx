@@ -1,9 +1,10 @@
 import * as React from "react";
 
-import {CircularProgress, Paper, Reboot} from "material-ui";
+import {Paper, Reboot} from "material-ui";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router";
 import {Router} from "react-router-dom";
 
+import {LoadingOverlay} from "./component/LoadingOverlay";
 import {MainMenu} from "./component/MainMenu";
 import {PrivateRoute} from "./component/PrivateRoute";
 import {TopBar} from "./component/TopBar";
@@ -35,22 +36,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 	public render(): JSX.Element {
 		const authed = this.props.authenticated;
 		if (null === authed) {
-			const loadingStyle: React.CSSProperties = {
-				display: "flex",
-				alignItems: "center",
-				justifyContent: "center",
-				position: "absolute",
-				left: 0,
-				right: 0,
-				top: 0,
-				bottom: 0,
-				backgroundColor: "#fafafa"
-			};
-			return (
-				<div style={loadingStyle}>
-					<CircularProgress size={150}/>
-				</div>
-			);
+			return (<LoadingOverlay size={150}/>);
 		}
 		return (
 			<div>
@@ -82,7 +68,12 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 										path="/match-sets"
 										render={this.renderMatchSetList}
 									/>
-									<PrivateRoute authenticated={authed} path={"/"} exact={true} render={this.renderGameList}/>
+									<PrivateRoute
+										authenticated={authed}
+										path={"/"}
+										exact={true}
+										render={this.renderGameList}
+									/>
 									<PrivateRoute
 										authenticated={authed}
 										path="/games/:gameId"
@@ -109,7 +100,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 	}
 
 	private renderLoginScreen = () => {
-		if(this.props.authenticated){
+		if (this.props.authenticated) {
 			return (<Redirect to={"/"}/>);
 		}
 		return (<LoginScreen/>);
