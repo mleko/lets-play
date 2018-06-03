@@ -34,6 +34,9 @@
             <argument type="service" id="mleko.alchemist.serializer"/>
             <tag name="kernel.event_subscriber"/>
         </service>
+        <service class="Mleko\LetsPlay\Http\ExceptionListener" id="mleko.lets_play.http.exception_listener">
+            <tag name="kernel.event_listener" event="kernel.exception"/>
+        </service>
         <service id="Mleko\LetsPlay\Security\UserActorResolver" class="Mleko\LetsPlay\Security\UserActorResolver">
             <argument type="service" id="security.token_storage"/>
             <tag name="controller.argument_value_resolver" priority="50" />
