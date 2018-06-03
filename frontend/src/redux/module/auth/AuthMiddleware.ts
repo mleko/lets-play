@@ -3,6 +3,7 @@ import {Response} from "../../../infrastructure/http/Response";
 import {StandardAction} from "../../Action";
 import {Action, Dispatch, HandlerMap, Middleware, ReduceResult} from "../../Middleware";
 import {AuthActions, authActions, Login, Register, Reset} from "./index";
+import {SnackbarActions} from "../snackbar";
 
 export class AuthMiddleware implements Middleware<any> {
 
@@ -50,6 +51,7 @@ export class AuthMiddleware implements Middleware<any> {
 				url: "/auth/logout"
 			}).then(() => {
 				dispatch(AuthActions.loggedOut());
+				dispatch(SnackbarActions.message("Wylogowano"));
 			});
 			return ReduceResult.DONT_STORE;
 		}

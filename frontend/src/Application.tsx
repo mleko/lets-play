@@ -14,6 +14,7 @@ import {Invitation} from "./container/Invitation";
 import {LoginScreen} from "./container/LoginScreen";
 import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";
+import {Snackbars} from "./container/Snackbars";
 import {history} from "./context";
 
 export interface ApplicationProps {
@@ -41,6 +42,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 		return (
 			<div>
 				<Reboot/>
+				<Snackbars/>
 				<Router history={history}>
 					<div>
 						<TopBar
