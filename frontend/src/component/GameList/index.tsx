@@ -3,10 +3,10 @@ import * as React from "react";
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
 import {Add as AddIcon, PlayArrow as PlayIcon} from "material-ui-icons";
 import Button from "material-ui/Button";
+import {Trans} from "react-i18next";
 import {Game, MatchSet} from "../../model/models";
 import {LinkIconButton} from "../LinkIconButton";
 import {NewGameDialog} from "./NewGameDialog";
-import {Trans} from "react-i18next";
 
 export interface GameListProps {
 	loadGames: () => Promise<Game[]>;

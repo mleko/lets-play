@@ -13,6 +13,16 @@ export interface SnackbarsProps {
 
 export class Snackbars extends React.PureComponent<SnackbarsProps, {}> {
 	public render(): JSX.Element {
+		const button = (
+			<IconButton
+				key="close"
+				aria-label="Close"
+				color="inherit"
+				onClick={this.close}
+			>
+				<CloseIcon/>
+			</IconButton>
+		);
 		return (
 			<Snackbar
 				anchorOrigin={{vertical: "bottom", horizontal: "left"}}
@@ -21,16 +31,7 @@ export class Snackbars extends React.PureComponent<SnackbarsProps, {}> {
 				message={<span id="message-id">{this.props.message}</span>}
 				onClose={this.props.onClose}
 				onExited={this.props.onExited}
-				action={[
-					<IconButton
-						key="close"
-						aria-label="Close"
-						color="inherit"
-						onClick={this.close}
-					>
-						<CloseIcon/>
-					</IconButton>,
-				]}
+				action={button}
 			/>
 		);
 	}
