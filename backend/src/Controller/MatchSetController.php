@@ -69,7 +69,7 @@ class MatchSetController
                 new MatchTeam($match["home"]["name"], $match["home"]["score"] ?? null),
                 new MatchTeam($match["away"]["name"], $match["away"]["score"] ?? null),
                 new \DateTimeImmutable($match["startDate"]),
-                isset($match["id"]) ? new Uuid($match["id"]) : null
+                isset($match["id"]) && $match["id"] ? new Uuid($match["id"]) : null
             );
         }
         $set = new MatchSet($data["name"], $userId, $matches, null === $id ? null : new Uuid($id));
