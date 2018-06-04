@@ -11,11 +11,15 @@ use Mleko\LetsPlay\Repository\UserRepository;
 use Mleko\LetsPlay\Security\UserActor;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Guard\AuthenticatorInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 class AuthController
 {
     /** @var UserRepository */
     private $userRepository;
+    /** @var AuthenticatorInterface */
+    private $authenticator;
 
     /**
      * AuthController constructor.
@@ -52,6 +56,14 @@ class AuthController
 
         $user = new User($data["name"], $data["email"], password_hash($data["password"], PASSWORD_BCRYPT));
         $this->userRepository->saveUser($user);
+        $this->authenticator->createAuthenticatedToken(new UserActor($user), "test");
+        /** @var GuardAuthenticatorHandler $h */
+        $h = null;
+        $h->authenticateUserAndHandleSuccess(
+            new UserActor($user),
+            $request
+        );
+
         return new \Symfony\Component\HttpFoundation\JsonResponse(
             [
                 "data" =>

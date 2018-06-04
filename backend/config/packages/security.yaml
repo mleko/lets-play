@@ -8,9 +8,16 @@ security:
       anonymous: ~
     api:
       pattern: "^/api/*"
+      stateless: true
       json_login:
         check_path: /api/auth/login
         username_path: email
+        success_handler:          lexik_jwt_authentication.handler.authentication_success
+        failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+        require_previous_session: false
+      guard:
+        authenticators:
+          - lexik_jwt_authentication.jwt_token_authenticator
       logout:
         path: "/api/auth/logout"
   encoders:

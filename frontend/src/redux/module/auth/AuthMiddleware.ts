@@ -29,12 +29,18 @@ export class AuthMiddleware implements Middleware<any> {
 				method: "POST",
 				url: "/auth/login",
 				data: action.payload
-			}).then((response: Response<any>) => {
-				dispatch(AuthActions.loggedIn(response.data.id, response.data.name));
+			}).then((response: { token: string }) => {
+				this.client.requestDefaults.headers["Authorization"] = "Bearer " + response.token;
+				localStorage.setItem("authToken", response.token);
+				dispatch(AuthActions.check());
 			});
 			return ReduceResult.DONT_STORE;
 		},
 		[authActions.check]: (action: StandardAction<void>, dispatch: Dispatch) => {
+			const token = localStorage.getItem("authToken");
+			if (token) {
+				this.client.requestDefaults.headers["Authorization"] = "Bearer " + token;
+			}
 			this.client.request({
 				method: "GET",
 				url: "/auth"
