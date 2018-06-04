@@ -40,7 +40,8 @@ const config = {
 			"/api": {
 				target: "http://localhost:8000"
 			}
-		}
+		},
+		contentBase: path.resolve(__dirname) + "/public"
 	},
 	plugins: [
 		new webpack.DefinePlugin({

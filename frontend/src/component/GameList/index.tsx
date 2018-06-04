@@ -6,6 +6,7 @@ import Button from "material-ui/Button";
 import {Game, MatchSet} from "../../model/models";
 import {LinkIconButton} from "../LinkIconButton";
 import {NewGameDialog} from "./NewGameDialog";
+import {Trans} from "react-i18next";
 
 export interface GameListProps {
 	loadGames: () => Promise<Game[]>;
@@ -30,9 +31,9 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 					<TableHead>
 						<TableRow>
 							<TableCell style={{width: 1}}>
-								<div>Play</div>
+								<div><Trans>Play</Trans></div>
 							</TableCell>
-							<TableCell padding="none">Game name</TableCell>
+							<TableCell padding="none"><Trans>Game name</Trans></TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
