@@ -13,8 +13,7 @@ class UserNormalizer extends PartialNormalizer
     public function normalize($value, string $format, array $context = []) {
         return [
             "id" => $this->subNormalize($value->getId(), $format, $context),
-            "name" => $value->getName(),
-            "email" => $value->getEmail()
+            "name" => $value->getName()
         ];
     }
 

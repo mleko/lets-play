@@ -11,7 +11,7 @@ class UserRepository extends StorageRepository
 {
 
     public function saveUser(User $user) {
-        $existingUser = $this->findUserByEmail($user->getEmail());
+        $existingUser = $this->findUserByEmail($user->getEmailHash());
         if (null !== $existingUser && $existingUser->getId()->getUuid() !== $user->getId()->getUuid()) {
             throw new \RuntimeException("Duplicate user");
         }
@@ -27,9 +27,12 @@ class UserRepository extends StorageRepository
     }
 
     public function findUserByEmail(string $email): ?User {
+        if (false !== \strpos($email, "@")) {
+            $email = User::hashEmail($email);
+        }
         $users = $this->getUsers();
         foreach ($users as $user) {
-            if (\mb_strtolower($email) === \mb_strtolower($user->getEmail())) {
+            if ($email === $user->getEmailHash()) {
                 return $user;
             }
         }

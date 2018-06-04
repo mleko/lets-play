@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace Mleko\LetsPlay\Controller;
 
 
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mleko\LetsPlay\Entity\User;
 use Mleko\LetsPlay\Http\Response;
 use Mleko\LetsPlay\Repository\UserRepository;
 use Mleko\LetsPlay\Security\UserActor;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Guard\AuthenticatorInterface;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 class AuthController
 {
     /** @var UserRepository */
     private $userRepository;
-    /** @var AuthenticatorInterface */
-    private $authenticator;
 
     /**
      * AuthController constructor.
@@ -51,27 +48,14 @@ class AuthController
         );
     }
 
-    public function register(Request $request) {
+    public function register(Request $request, JWTTokenManagerInterface $manager) {
         $data = \json_decode($request->getContent(), true);
 
-        $user = new User($data["name"], $data["email"], password_hash($data["password"], PASSWORD_BCRYPT));
+        $user = new User($data["name"], User::hashEmail($data["email"]), password_hash($data["password"], PASSWORD_BCRYPT));
         $this->userRepository->saveUser($user);
-        $this->authenticator->createAuthenticatedToken(new UserActor($user), "test");
-        /** @var GuardAuthenticatorHandler $h */
-        $h = null;
-        $h->authenticateUserAndHandleSuccess(
-            new UserActor($user),
-            $request
-        );
 
-        return new \Symfony\Component\HttpFoundation\JsonResponse(
-            [
-                "data" =>
-                    [
-                        "id" => $user->getId()->getUuid(),
-                        "name" => $user->getName(),
-                    ]
-            ]
-        );
+        $token = $manager->create(new UserActor($user));
+
+        return new \Symfony\Component\HttpFoundation\JsonResponse(["token" => $token]);
     }
 }

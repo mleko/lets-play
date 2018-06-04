@@ -52,7 +52,7 @@ class UserActor implements UserInterface
      * @inheritDoc
      */
     public function getUsername() {
-        return $this->user->getEmail();
+        return $this->user->getEmailHash();
     }
 
     /**

@@ -8,11 +8,15 @@ import {SnackbarActions} from "../snackbar";
 export class AuthMiddleware implements Middleware<any> {
 
 	private handlers: HandlerMap<any> = {
-		[authActions.register]: (action: Register) => {
+		[authActions.register]: (action: Register, dispatch: Dispatch) => {
 			this.client.request({
 				method: "POST",
 				url: "/auth/register",
 				data: action.payload
+			}).then((response: { token: string }) => {
+				this.client.requestDefaults.headers["Authorization"] = "Bearer " + response.token;
+				localStorage.setItem("authToken", response.token);
+				dispatch(AuthActions.check());
 			});
 			return ReduceResult.DONT_STORE;
 		},
@@ -52,6 +56,8 @@ export class AuthMiddleware implements Middleware<any> {
 			return ReduceResult.DONT_STORE;
 		},
 		[authActions.logout]: (action: StandardAction<void>, dispatch: Dispatch) => {
+			localStorage.removeItem("authToken");
+			this.client.requestDefaults.headers["Authorization"] = undefined;
 			this.client.request({
 				method: "GET",
 				url: "/auth/logout"

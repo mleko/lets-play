@@ -19,7 +19,7 @@ class UserNormalizer extends PartialNormalizer
         return [
             "id" => $this->subNormalize($value->getId(), $format, $context),
             "name" => $value->getName(),
-            "email" => $value->getEmail(),
+            "emailHash" => $value->getEmailHash(),
             "hash" => $value->getPassHash()
         ];
     }
@@ -30,7 +30,7 @@ class UserNormalizer extends PartialNormalizer
     public function denormalize($data, \Mleko\Alchemist\Type $type, string $format, array $context = []) {
         return new User(
             $data["name"],
-            $data["email"],
+            isset($data["emailHash"]) ? $data["emailHash"] : User::hashEmail($data["email"]),
             $data["hash"],
             $this->subDeNormalize($data["id"], Type::fromString(Uuid::class), $format, $context)
         );

@@ -13,22 +13,30 @@ class User
     /** @var string */
     private $name;
     /** @var string */
-    private $email;
-    /** @var string */
     private $passHash;
+    /** @var string */
+    private $emailHash;
 
     /**
      * User constructor.
-     * @param Uuid $id
      * @param string $name
-     * @param string $email
+     * @param string $emailHash
      * @param string $passHash
+     * @param Uuid $id
      */
-    public function __construct(string $name, string $email, string $passHash, Uuid $id = null) {
+    public function __construct(string $name, string $emailHash, string $passHash, Uuid $id = null) {
         $this->name = $name;
-        $this->email = $email;
+        $this->emailHash = $emailHash;
         $this->passHash = $passHash;
         $this->id = $id ?: new Uuid();
+    }
+
+    /**
+     * @param string $email
+     * @return string
+     */
+    public static function hashEmail(string $email): string {
+        return \base64_encode(\sha1("a8698a7e853559622396e39813bc58ba" . \mb_strtolower($email), true));
     }
 
     /**
@@ -48,8 +56,8 @@ class User
     /**
      * @return string
      */
-    public function getEmail(): string {
-        return $this->email;
+    public function getEmailHash(): string {
+        return $this->emailHash;
     }
 
     /**
