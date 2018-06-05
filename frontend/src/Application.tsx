@@ -103,6 +103,11 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 
 	private renderLoginScreen = () => {
 		if (this.props.authenticated) {
+			const invitationId = sessionStorage.getItem("invitation");
+			if (invitationId) {
+				sessionStorage.removeItem("invitation");
+				return (<Redirect to={"/invitation/" + invitationId}/>);
+			}
 			return (<Redirect to={"/"}/>);
 		}
 		return (<LoginScreen/>);

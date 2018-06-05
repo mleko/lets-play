@@ -1,19 +1,26 @@
 import * as React from "react";
+import {connect} from "react-redux";
+import {Redirect} from "react-router";
 import {Invitation as Component} from "../component/Invitation";
 import {Client} from "../infrastructure/http/Client";
 import {httpContextValidationMap} from "../infrastructure/http/Provider";
 import {Response} from "../infrastructure/http/Response";
 import {GameInvitation} from "../model/models";
+import {AppState} from "../redux";
 
 export interface GameViewProps {
 	invitationId: string;
 }
 
-export class Invitation extends React.PureComponent<GameViewProps, State> {
+type CombinedProps = GameViewProps & {
+	authenticated: boolean;
+};
 
-	protected static contextTypes = httpContextValidationMap;
+class InvitationRaw extends React.PureComponent<CombinedProps, State> {
 
-	public constructor(props: GameViewProps) {
+	public static contextTypes = httpContextValidationMap;
+
+	public constructor(props: CombinedProps) {
 		super(props);
 		this.state = {
 			accepted: false
@@ -21,14 +28,18 @@ export class Invitation extends React.PureComponent<GameViewProps, State> {
 	}
 
 	public render(): JSX.Element {
-		return (
-			<Component
-				invitation={this.state.invitation}
-				accepted={this.state.accepted}
-				onAccept={this.accept}
-				onReject={this.reject}
-			/>
-		);
+		if (this.props.authenticated) {
+			return (
+				<Component
+					invitation={this.state.invitation}
+					accepted={this.state.accepted}
+					onAccept={this.accept}
+					onReject={this.reject}
+				/>
+			);
+		}
+		sessionStorage.setItem("invitation", this.props.invitationId);
+		return (<Redirect to={"/login"}/>);
 	}
 
 	public componentWillMount() {
@@ -54,6 +65,14 @@ export class Invitation extends React.PureComponent<GameViewProps, State> {
 			});
 	}
 }
+
+function mapStateToProps(state: AppState) {
+	return {
+		authenticated: state.auth.established ? null !== state.auth.user : null
+	};
+}
+
+export const Invitation = connect(mapStateToProps)(InvitationRaw);
 
 interface State {
 	invitation?: GameInvitation;
