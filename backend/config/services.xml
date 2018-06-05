@@ -41,6 +41,23 @@
             <argument type="service" id="security.token_storage"/>
             <tag name="controller.argument_value_resolver" priority="50" />
         </service>
+        <service id="mail.transport" class="Zend\Mail\Transport\Smtp">
+            <argument type="service">
+                <service class="Zend\Mail\Transport\SmtpOptions">
+                    <argument type="collection">
+                        <argument key="host">%env(MAIL_SMTP_HOST)%</argument>
+                        <argument key="port">%env(MAIL_SMTP_PORT)%</argument>
+                        <argument key="connection_class">login</argument>
+                        <argument key="connection_config" type="collection">
+                            <argument key="username">%env(MAIL_SMTP_USERNAME)%</argument>
+                            <argument key="password">%env(MAIL_SMTP_PASSWORD)%</argument>
+                            <argument key="ssl">%env(MAIL_SMTP_SSL)%</argument>
+                        </argument>
+                    </argument>
+                </service>
+            </argument>
+        </service>
+        <service id="Zend\Mail\Transport\TransportInterface" alias="mail.transport"/>
     </services>
 
     <!-- ... -->

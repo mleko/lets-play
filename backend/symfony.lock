@@ -2,6 +2,9 @@
     "alchemist/alchemist": {
         "version": "v0.1.0"
     },
+    "container-interop/container-interop": {
+        "version": "1.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -358,5 +361,23 @@
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.0"
+    },
+    "zendframework/zend-loader": {
+        "version": "2.6.0"
+    },
+    "zendframework/zend-mail": {
+        "version": "2.9.0"
+    },
+    "zendframework/zend-mime": {
+        "version": "2.7.1"
+    },
+    "zendframework/zend-servicemanager": {
+        "version": "3.3.2"
+    },
+    "zendframework/zend-stdlib": {
+        "version": "3.2.0"
+    },
+    "zendframework/zend-validator": {
+        "version": "2.10.2"
     }
 }

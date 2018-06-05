@@ -15,6 +15,9 @@ use Mleko\LetsPlay\ValueObject\Uuid;
 use Mleko\LetsPlay\View\GameInvitationView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Sendmail;
+use Zend\Mail\Transport\TransportInterface;
 
 class InvitesController
 {
@@ -47,7 +50,7 @@ class InvitesController
         return new Response(new GameInvitationView($invitation, $game));
     }
 
-    public function inviteUser($gameId, UserActor $user, Request $request) {
+    public function inviteUser($gameId, UserActor $user, Request $request, TransportInterface $transport) {
         $gameId = new Uuid($gameId);
         $data = \json_decode($request->getContent(), true);
         $invite = new GameInvite($gameId);
@@ -55,7 +58,18 @@ class InvitesController
 
         $email = $data["email"];
         if ($email) {
-            // @todo send email
+            $game = $this->gameRepository->getGame($invite->getGameId()->getUuid());
+            $message = new Message();
+            $message->setTo($email);
+            $message->addFrom("no-reply@lets-play.pl", "Lets Play");
+            $message->setSubject("Lets-Play - Zaproszenie - " . $game->getName());
+            $message->setBody(sprintf(
+                "Cześć\n\n%s zaprasza Cię do udziału w rozgrywce: %s.\nPoniżej link z zaproszeniem\n%s\n\nDobrej zabawy",
+                $user->getUser()->getName(),
+                $game->getName(),
+                $request->getUriForPath("/#/invitation/" . $invite->getId())
+            ));
+            $transport->send($message);
         }
 
         return new Response($invite);
