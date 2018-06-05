@@ -51,7 +51,11 @@ class MatchSet
      * @return Match[]
      */
     public function getMatches(): array {
-        return $this->matches;
+        $matches = $this->matches;
+        \usort($matches, function (Match $a, Match $b) {
+            return $a->getStartDate() <=> $b->getStartDate();
+        });
+        return $matches;
     }
 
     public function addMatch(Match $match, int $position = -1): void {

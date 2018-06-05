@@ -1,27 +1,12 @@
-interface Model {
+export {Match, MatchTeam} from "./Match";
+export {MatchSet} from "./MatchSet";
+
+export interface Model {
 	id?: string;
 }
 
 export interface User extends Model {
 	name: string;
-}
-
-export interface MatchTeam {
-	name: string;
-	score?: number;
-}
-
-export interface Match extends Model {
-	startDate?: string;
-	home: MatchTeam;
-	away: MatchTeam;
-	locked?: boolean;
-}
-
-export interface MatchSet extends Model {
-	name: string;
-	matches: Match[];
-	ownerId: string;
 }
 
 export interface Game extends Model {

@@ -36,7 +36,7 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 				names: {home: match.home.name, away: match.away.name},
 				result: {home: match.home.score, away: match.away.score},
 				bet: {home: bet ? bet.bet.home : null, away: bet ? bet.bet.away : null},
-				date: match.startDate,
+				date: match.startDate.toLocaleString(),
 				points: bet ? bet.points : 0
 			};
 		});

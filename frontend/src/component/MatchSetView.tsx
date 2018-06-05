@@ -10,7 +10,6 @@ import {replace, without} from "typescript-array-utils";
 import {merge} from "typescript-object-utils";
 
 import {Match, MatchSet, User} from "../model/models";
-import {DateTime} from "../utility/DateTime";
 import {MatchRow} from "./MatchRow";
 
 export interface MatchSetViewProps {
@@ -87,11 +86,13 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchS
 	};
 
 	private addMatch = () => {
+		const now = new Date();
+		now.setMinutes(0, 0, 0);
 		this.props.onUpdate(merge(this.props.set,
 			{
 				matches: this.props.set.matches.concat({
 					id: "",
-					startDate: DateTime.toInputString(new Date()),
+					startDate: now,
 					home: {name: ""},
 					away: {name: ""}
 				})

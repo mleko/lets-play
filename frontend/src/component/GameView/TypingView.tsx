@@ -40,10 +40,7 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		return (
 			<div>
 				{this.renderMatchesToType(matches)}
-				<MatchList
-					matches={pastMatches}
-					bets={this.props.bets}
-				/>
+				{this.renderPastMatches(pastMatches)}
 
 			</div>
 		);
@@ -53,6 +50,18 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		if (nextProps.bets !== this.props.bets) {
 			this.setState({bets: nextProps.bets});
 		}
+	}
+
+	private renderPastMatches(matches: Match[]) {
+		if (matches.length === 0) {
+			return null;
+		}
+		return (
+			<MatchList
+				matches={matches}
+				bets={this.props.bets}
+			/>
+		);
 	}
 
 	private renderMatchesToType(matches: Match[]) {

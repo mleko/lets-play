@@ -3,7 +3,8 @@ import {GameView as Component} from "../component/GameView";
 import {Client} from "../infrastructure/http/Client";
 import {httpContextValidationMap} from "../infrastructure/http/Provider";
 import {Response} from "../infrastructure/http/Response";
-import {Bet, Game, MatchSet, Ranking} from "../model/models";
+import {MatchSet, MatchSetRepository} from "../model/MatchSet";
+import {Bet, Game, Ranking} from "../model/models";
 
 export interface GameViewProps {
 	gameId: string;
@@ -60,13 +61,9 @@ export class GameView extends React.PureComponent<GameViewProps, State> {
 	}
 
 	private loadMatchSet = (matchSetId: string) => {
-		const client: Client = this.context.httpClient;
-		client.request({url: "/match-sets/" + matchSetId})
+		MatchSetRepository.fetch(matchSetId, this.context.httpClient)
 			.then((response: Response<MatchSet>) => {
-				return response.data;
-			})
-			.then((matchSet: MatchSet) => {
-				this.setState({matchSet});
+				this.setState({matchSet: response.data});
 			});
 	};
 

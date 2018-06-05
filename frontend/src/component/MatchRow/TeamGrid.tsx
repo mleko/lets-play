@@ -6,7 +6,7 @@ import Grid from "material-ui/Grid";
 import {GridSize} from "material-ui/Grid/Grid";
 import Input from "material-ui/Input";
 import withStyles from "material-ui/styles/withStyles";
-import {MatchTeam} from "../../model/models";
+import {MatchTeam} from "../../model/Match";
 
 export interface TeamGridProps {
 	team: MatchTeam;

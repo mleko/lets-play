@@ -6,7 +6,8 @@ import Grid from "material-ui/Grid";
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";
 import {shallowMerge} from "typescript-object-utils";
-import {Match} from "../../model/models";
+import {Match} from "../../model/Match";
+import {DateTime} from "../../utility/DateTime";
 import {TeamGrid} from "./TeamGrid";
 
 export interface MatchRowProps {
@@ -31,7 +32,7 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 		const {match} = this.props;
 		const editable = !!this.props.onChange;
 		const removable = !!this.props.onRemove;
-		const gridSize = removable ? 4 : 5;
+		const gridSize = 4;
 		const elements = [
 			(
 				<TeamGrid
@@ -63,6 +64,8 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 					<IconButton onClick={this.remove}><DeleteIcon/></IconButton>
 				</Grid>
 			));
+		} else {
+			elements.push((<Grid item={true} xs={1} style={paperStyle} key={"empty"}/>));
 		}
 		return elements;
 	}
@@ -73,18 +76,17 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 				<Grid item={true} xs={3} style={paperStyle} key={"dateTimePicker"}>
 					<TextField
 						type="datetime-local"
-						value={this.props.match.startDate}
+						value={DateTime.toInputString(this.props.match.startDate)}
 						onChange={this.updateDate}
 					/>
 				</Grid>
 			);
 		}
 		return (
-			<Grid item={true} xs={2} style={paperStyle} key={"dateTime"}>
+			<Grid item={true} xs={3} style={paperStyle} key={"dateTime"}>
 				<TextField
 					type="text"
-					value={this.props.match.startDate}
-					onChange={this.updateDate}
+					value={this.props.match.startDate.toLocaleString()}
 					disabled={true}
 				/>
 			</Grid>
@@ -105,6 +107,6 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 	};
 
 	private updateDate = (event: ChangeEvent<HTMLInputElement>) => {
-		this.props.onChange(shallowMerge(this.props.match, {startDate: event.target.value}), this.props.index);
+		this.props.onChange(shallowMerge(this.props.match, {startDate: new Date(event.target.value)}), this.props.index);
 	}
 }
