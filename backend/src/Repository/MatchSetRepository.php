@@ -45,11 +45,11 @@ class MatchSetRepository
         return $this->denormalizeSet($data["matchSets"][$setId->getUuid()]);
     }
 
-    public function getUserSets(User $user) {
+    public function getUserSets(User $user, $includePublic = false) {
         $data = $this->storage->getData();
         $sets = \array_map([$this, "denormalizeSet"], $data["matchSets"] ?? []);
-        return \array_values(\array_filter($sets, function (MatchSet $set) use ($user) {
-            return $set->getOwnerId()->equals($user->getId());
+        return \array_values(\array_filter($sets, function (MatchSet $set) use ($user, $includePublic) {
+            return ($includePublic && $set->isPublic()) || $set->getOwnerId()->equals($user->getId());
         }));
     }
 
@@ -64,7 +64,8 @@ class MatchSetRepository
             "id" => $matchSet->getId()->getUuid(),
             "ownerId" => $matchSet->getOwnerId()->getUuid(),
             "name" => $matchSet->getName(),
-            "matches" => $this->normalizeMatches($matchSet->getMatches())
+            "matches" => $this->normalizeMatches($matchSet->getMatches()),
+            "public" => $matchSet->isPublic()
         ];
     }
 
@@ -96,7 +97,8 @@ class MatchSetRepository
                     new Uuid($match["id"])
                 );
             }, $data["matches"])
-            , new Uuid($data["id"])
+            , new Uuid($data["id"]),
+            $data["public"] ?? false
         );
     }
 

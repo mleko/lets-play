@@ -45,12 +45,12 @@ class MatchSetController
     }
 
     public function listAll(UserActor $actor) {
-        return new \Mleko\LetsPlay\Http\Response(\array_values($this->matchSetRepository->getUserSets($actor->getUser())));
+        return new \Mleko\LetsPlay\Http\Response(\array_values($this->matchSetRepository->getUserSets($actor->getUser(), true)));
     }
 
     public function get($setId, UserActor $user) {
         $matchSet = $this->matchSetRepository->getSet(Uuid::fromString($setId));
-        if (!$matchSet || !$matchSet->getOwnerId()->equals($user->getUser()->getId())) {
+        if (!$matchSet || (!$matchSet->getOwnerId()->equals($user->getUser()->getId()) && !$matchSet->isPublic())) {
             throw new NotFoundHttpException();
         }
         return new \Mleko\LetsPlay\Http\Response($matchSet);

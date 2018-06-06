@@ -16,6 +16,8 @@ class MatchSet
     private $name;
     /** @var Match[] */
     private $matches = [];
+    /** @var boolean */
+    private $public;
 
     /**
      * MatchSet constructor.
@@ -23,12 +25,14 @@ class MatchSet
      * @param Uuid $ownerId
      * @param Match[] $matches
      * @param Uuid $id
+     * @param bool $public
      */
-    public function __construct(string $name, Uuid $ownerId, array $matches = [], Uuid $id = null) {
+    public function __construct(string $name, Uuid $ownerId, array $matches = [], Uuid $id = null, bool $public = false) {
         $this->name = $name;
         $this->ownerId = $ownerId;
         $this->matches = $matches;
         $this->id = $id ?: new Uuid();
+        $this->public = $public;
     }
 
     public function getId(): Uuid {
@@ -45,6 +49,14 @@ class MatchSet
 
     public function setName(string $name): void {
         $this->name = $name;
+    }
+
+    public function isPublic(): bool {
+        return $this->public;
+    }
+
+    public function setPublic(bool $public): void {
+        $this->public = $public;
     }
 
     /**
