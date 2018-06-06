@@ -5,6 +5,7 @@ export const authActions = {
 	login: "auth/Login",
 	logout: "auth/Logout",
 	loggedOut: "auth/LoggedOut",
+	initReset: "auth/initReset",
 	reset: "auth/Reset",
 	loggedIn: "auth/LoggedIn",
 	check: "auth/Check"
@@ -39,10 +40,17 @@ export class AuthActions {
 		};
 	}
 
-	public static reset(email: string): Reset {
+	public static initReset(email: string): InitReset {
+		return {
+			type: authActions.initReset,
+			payload: {email}
+		};
+	}
+
+	public static reset(token: string, password: string): Reset {
 		return {
 			type: authActions.reset,
-			payload: {email}
+			payload: {token, password}
 		};
 	}
 
@@ -63,5 +71,6 @@ export class AuthActions {
 
 export type Register = StandardAction<{ name: string, email: string, password: string }>;
 export type Login = StandardAction<{ email: string, password: string }>;
-export type Reset = StandardAction<{ email: string }>;
+export type InitReset = StandardAction<{ email: string }>;
+export type Reset = StandardAction<{ token: string, password: string }>;
 export type LoggedIn = StandardAction<{ name: string, id: string }>;

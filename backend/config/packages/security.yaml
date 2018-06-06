@@ -4,7 +4,7 @@ security:
       id: security.user_provider.user_actor
   firewalls:
     api_register:
-      pattern: "^/api/auth/register"
+      pattern: "^/api/auth/(register|reset)"
       anonymous: ~
     login:
       pattern: "/api/auth/login"

@@ -39,6 +39,10 @@ class User
         return \base64_encode(\sha1("a8698a7e853559622396e39813bc58ba" . \mb_strtolower($email), true));
     }
 
+    public static function hashPassword(string $password): string {
+        return password_hash($password, \PASSWORD_BCRYPT);
+    }
+
     /**
      * @return Uuid
      */
@@ -65,6 +69,10 @@ class User
      */
     public function getPassHash(): string {
         return $this->passHash;
+    }
+
+    public function setPassHash(string $passHash): void {
+        $this->passHash = $passHash;
     }
 
 }

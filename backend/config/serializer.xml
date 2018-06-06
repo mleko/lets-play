@@ -19,7 +19,8 @@
         </service>
 
 
-        <service id="mleko.alchemist.normalizer.base" class="Mleko\Alchemist\Normalizer\ChainNormalizer" shared="false" public="false">
+        <service id="mleko.alchemist.normalizer.base" class="Mleko\Alchemist\Normalizer\ChainNormalizer" shared="false"
+                 public="false">
             <argument type="collection">
                 <argument type="service">
                     <service class="Mleko\Alchemist\Normalizer\ScalarNormalizer"/>
@@ -84,6 +85,9 @@
                 <argument type="service" id="mleko.alchemist.normalizer.base"/>
                 <argument type="service">
                     <service class="Mleko\LetsPlay\Repository\Normalizer\UserNormalizer"/>
+                </argument>
+                <argument type="service">
+                    <service class="Mleko\LetsPlay\Repository\Normalizer\PasswordResetTokenNormalizer"/>
                 </argument>
             </argument>
         </service>

@@ -11,10 +11,15 @@ class Response
 
     /** @var mixed */
     private $data;
+    /**
+     * @var int
+     */
+    private $statusCode;
 
-    public function __construct($data, bool $success = true) {
+    public function __construct($data, bool $success = true, int $statusCode = 200) {
         $this->success = $success;
         $this->data = $data;
+        $this->statusCode = $statusCode;
     }
 
     public function isSuccess(): bool {
@@ -28,4 +33,10 @@ class Response
         return $this->data;
     }
 
+    /**
+     * @return int
+     */
+    public function getStatusCode(): int {
+        return $this->statusCode;
+    }
 }

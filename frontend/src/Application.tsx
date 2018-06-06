@@ -16,6 +16,7 @@ import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";
 import {Snackbars} from "./container/Snackbars";
 import {history} from "./context";
+import {ResetForm} from "./container/ResetForm";
 
 export interface ApplicationProps {
 	authenticated?: boolean;
@@ -54,6 +55,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 						<div style={{maxWidth: 900, flex: 1, margin: "auto", paddingTop: 40}}>
 							<Paper style={{padding: 12}}>
 								<Switch>
+									<Route path="/login/reset/:token" render={this.renderResetForm}/>
 									<Route path="/login" render={this.renderLoginScreen}/>
 									<PrivateRoute
 										authenticated={authed}
@@ -111,6 +113,13 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 			return (<Redirect to={"/"}/>);
 		}
 		return (<LoginScreen/>);
+	};
+
+	private renderResetForm = (p: RouteComponentProps<any>) => {
+		if (this.props.authenticated) {
+			return (<Redirect to={"/"}/>);
+		}
+		return (<ResetForm token={p.match.params.token}/>);
 	};
 
 	private renderGameView = (p: RouteComponentProps<any>) => {

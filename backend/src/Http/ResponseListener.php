@@ -36,7 +36,7 @@ class ResponseListener implements EventSubscriberInterface
         if ($result instanceof Response) {
             $event->setResponse(
                 new \Symfony\Component\HttpFoundation\Response(
-                    $this->serializer->serialize($result, "json")
+                    $this->serializer->serialize($result, "json"), $result->getStatusCode()
                 )
             );
         }

@@ -2,8 +2,9 @@ import {Client} from "../../../infrastructure/http/Client";
 import {Response} from "../../../infrastructure/http/Response";
 import {StandardAction} from "../../Action";
 import {Action, Dispatch, HandlerMap, Middleware, ReduceResult} from "../../Middleware";
+import {RoutingActions} from "../routing";
 import {SnackbarActions} from "../snackbar";
-import {AuthActions, authActions, Login, Register, Reset} from "./index";
+import {AuthActions, authActions, InitReset, Login, Register, Reset} from "./index";
 
 export class AuthMiddleware implements Middleware<any> {
 
@@ -20,12 +21,25 @@ export class AuthMiddleware implements Middleware<any> {
 			});
 			return ReduceResult.DONT_STORE;
 		},
-		[authActions.reset]: (action: Reset) => {
+		[authActions.initReset]: (action: InitReset) => {
 			this.client.request({
 				method: "POST",
 				url: "/auth/reset",
 				data: action.payload
 			});
+			return ReduceResult.DONT_STORE;
+		},
+		[authActions.reset]: (action: Reset, dispatch: Dispatch) => {
+			this.client
+				.request({
+					method: "PUT",
+					url: "/auth/reset",
+					data: action.payload
+				})
+				.then(() => {
+					dispatch(SnackbarActions.message("Hasło zresetowane"));
+					dispatch(RoutingActions.redirect("/login"));
+				});
 			return ReduceResult.DONT_STORE;
 		},
 		[authActions.login]: (action: Login, dispatch: Dispatch) => {
