@@ -3,10 +3,12 @@ import * as React from "react";
 import {AppBar, IconButton, Toolbar, Typography} from "material-ui";
 import {Menu as MenuIcon} from "material-ui-icons";
 import {Link} from "react-router-dom";
+import {User} from "../model/models";
 import {AuthenticationBadge} from "./AuthenticationBadge";
 
 export interface TopBarProps {
 	authenticated: boolean;
+	user?: User;
 	onLogout: () => any;
 	onMenuOpen: () => any;
 }
@@ -22,7 +24,7 @@ export class TopBar extends React.PureComponent<TopBarProps, {}> {
 							Lets Play
 						</Link>
 					</Typography>
-					<AuthenticationBadge authenticated={this.props.authenticated} onLogout={this.props.onLogout}/>
+					<AuthenticationBadge user={this.props.user} authenticated={this.props.authenticated} onLogout={this.props.onLogout}/>
 				</Toolbar>
 			</AppBar>
 		);

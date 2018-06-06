@@ -7,7 +7,8 @@ import {AuthActions} from "../redux/module/auth";
 
 function mapStateToProps(state: AppState): Partial<ApplicationProps> {
 	return {
-		authenticated: state.auth.established ? null !== state.auth.user : null
+		authenticated: state.auth.established ? null !== state.auth.user : null,
+		user: state.auth.user
 	};
 }
 

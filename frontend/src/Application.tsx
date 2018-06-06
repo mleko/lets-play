@@ -14,12 +14,14 @@ import {Invitation} from "./container/Invitation";
 import {LoginScreen} from "./container/LoginScreen";
 import {MatchSetList} from "./container/MatchSetList";
 import {MatchSetView} from "./container/MatchSetView";
+import {ResetForm} from "./container/ResetForm";
 import {Snackbars} from "./container/Snackbars";
 import {history} from "./context";
-import {ResetForm} from "./container/ResetForm";
+import {User} from "./model/models";
 
 export interface ApplicationProps {
 	authenticated?: boolean;
+	user?: User;
 }
 
 export interface ApplicationActions {
@@ -48,6 +50,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 					<div>
 						<TopBar
 							authenticated={authed}
+							user={this.props.user}
 							onMenuOpen={this.openMenu}
 							onLogout={this.props.onLogout}
 						/>

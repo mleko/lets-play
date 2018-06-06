@@ -1,10 +1,13 @@
 import * as React from "react";
 
 import {Avatar, Menu, MenuItem} from "material-ui";
+import Divider from "material-ui/Divider";
+import {User} from "../model/models";
 import {LinkButton} from "./LinkButton";
 
 export interface AuthenticationBadgeProps {
 	authenticated: boolean;
+	user: User;
 
 	onLogout: () => any;
 }
@@ -26,10 +29,19 @@ export class AuthenticationBadge extends React.PureComponent<AuthenticationBadge
 		}
 		return (
 			<div>
-				<Avatar style={{cursor: "pointer"}} onClick={this.openMenu}>M</Avatar>
-				<Menu open={null !== this.state.anchorElement} anchorEl={this.state.anchorElement} onClose={this.closeMenu}>
-					{/*<MenuItem>Profil</MenuItem>*/}
-					{/*<Divider/>*/}
+				<Avatar
+					style={{cursor: "pointer"}}
+					onClick={this.openMenu}
+				>
+					{this.props.user.name.substring(0, 1)}
+				</Avatar>
+				<Menu
+					open={null !== this.state.anchorElement}
+					anchorEl={this.state.anchorElement}
+					onClose={this.closeMenu}
+				>
+					<MenuItem disabled={true}>{this.props.user.name}</MenuItem>
+					<Divider/>
 					<MenuItem onClick={this.logOut}>Wyloguj</MenuItem>
 				</Menu>
 			</div>
