@@ -5,6 +5,8 @@
         "php": "^7.1.3",
         "ext-iconv": "*",
         "alchemist/alchemist": "^0.1.0",
+        "doctrine/doctrine-bundle": "^1.9",
+        "doctrine/orm": "^2.6",
         "firebase/php-jwt": "^5.0",
         "lexik/jwt-authentication-bundle": "^2.4",
         "ramsey/uuid": "^3.7",
@@ -15,7 +17,6 @@
         "symfony/monolog-bundle": "^3.1",
         "symfony/security": "^4.0",
         "symfony/security-bundle": "^4.0",
-        "symfony/swiftmailer-bundle": "^3.1",
         "symfony/yaml": "^4.0",
         "zendframework/zend-mail": "^2.9",
         "zendframework/zend-servicemanager": "^3.3"

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd
+        http://symfony.com/schema/dic/doctrine
+        http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd">
+
+    <doctrine:config>
+
+        <doctrine:dbal default-connection="default">
+            <doctrine:connection
+                    name="default"
+                    url="%env(DATABASE_URL)%"
+                    logging="%kernel.debug%"
+                    profiling="%kernel.debug%"
+            >
+
+                <!-- example -->
+                <doctrine:default-table-option name="charset">utf8</doctrine:default-table-option>
+                <doctrine:default-table-option name="collate">utf8_unicode_ci</doctrine:default-table-option>
+
+            </doctrine:connection>
+
+        </doctrine:dbal>
+
+        <!-- auto-generate-proxy-classes: Auto generate mode possible values are: "NEVER", "ALWAYS", "FILE_NOT_EXISTS", "EVAL" -->
+        <doctrine:orm
+                default-entity-manager="default"
+                auto-generate-proxy-classes="false"
+                proxy-dir="%kernel.cache_dir%/doctrine/orm/Proxies"
+                proxy-namespace="Proxies"
+        >
+
+            <!-- example -->
+            <doctrine:entity-manager
+                    name="default"
+                    connection="default"
+                    class-metadata-factory-name="Doctrine\ORM\Mapping\ClassMetadataFactory"
+                    default-repository-class="Doctrine\ORM\EntityRepository"
+                    auto-mapping="false"
+                    naming-strategy="doctrine.orm.naming_strategy.default"
+                    quote-strategy="doctrine.orm.quote_strategy.default"
+                    entity-listener-resolver="null"
+                    repository-factory="null"
+            >
+                <doctrine:mapping
+                        name="lets-play"
+                        type="xml"
+                        prefix="Mleko\LetsPlay\Entity"
+                        dir="%kernel.root_dir%/../config/doctrine"
+                />
+
+            </doctrine:entity-manager>
+
+        </doctrine:orm>
+
+    </doctrine:config>
+</container>
