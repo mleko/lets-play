@@ -6,6 +6,7 @@ namespace Mleko\LetsPlay\Repository;
 
 use Mleko\Alchemist\Normalizer;
 use Mleko\LetsPlay\Entity\Game;
+use Mleko\LetsPlay\Persistence\Storage;
 use Mleko\LetsPlay\Repository\Game\GameUserRepository;
 use Mleko\LetsPlay\ValueObject\Uuid;
 

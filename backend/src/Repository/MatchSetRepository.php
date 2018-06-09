@@ -7,6 +7,7 @@ namespace Mleko\LetsPlay\Repository;
 use Mleko\LetsPlay\Entity\Match;
 use Mleko\LetsPlay\Entity\MatchSet;
 use Mleko\LetsPlay\Entity\User;
+use Mleko\LetsPlay\Persistence\Storage\JsonStorage;
 use Mleko\LetsPlay\ValueObject\MatchTeam;
 use Mleko\LetsPlay\ValueObject\Uuid;
 

@@ -5,6 +5,7 @@ namespace Mleko\LetsPlay\Repository;
 
 
 use Mleko\Alchemist\Normalizer;
+use Mleko\LetsPlay\Persistence\Storage;
 
 abstract class StorageRepository
 {

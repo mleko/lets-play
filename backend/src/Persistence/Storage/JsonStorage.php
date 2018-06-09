@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Mleko\LetsPlay\Repository;
+namespace Mleko\LetsPlay\Persistence\Storage;
 
+
+use Mleko\LetsPlay\Persistence\Storage;
 
 class JsonStorage implements Storage
 {

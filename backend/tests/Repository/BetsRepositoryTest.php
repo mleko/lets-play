@@ -6,7 +6,6 @@ namespace Mleko\LetsPlay\Tests\Repository;
 use Mleko\LetsPlay\Entity\Bet;
 use Mleko\LetsPlay\Normalizer\DummyNormalizer;
 use Mleko\LetsPlay\Repository\BetsRepository;
-use Mleko\LetsPlay\Repository\InMemoryStorage;
 use Mleko\LetsPlay\ValueObject\MatchScore;
 use Mleko\LetsPlay\ValueObject\Uuid;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +14,7 @@ class BetsRepositoryTest extends TestCase
 {
 
     public function testSaveMany() {
-        $repository = new BetsRepository(new InMemoryStorage([]), new DummyNormalizer());
+        $repository = new BetsRepository(new \Mleko\LetsPlay\Persistence\Storage\InMemoryStorage([]), new DummyNormalizer());
 
         $bet = new Bet($userId = new Uuid(), $gameId = new Uuid(), $matchId = new Uuid(), new MatchScore(1, 1));
         $repository->saveMany([$bet], true);
@@ -30,7 +29,7 @@ class BetsRepositoryTest extends TestCase
     }
 
     public function testGetUserGameBets() {
-        $repository = new BetsRepository(new InMemoryStorage([]), new DummyNormalizer());
+        $repository = new BetsRepository(new \Mleko\LetsPlay\Persistence\Storage\InMemoryStorage([]), new DummyNormalizer());
         $userId = new Uuid();
         $gameId = new Uuid();
         $repository->saveMany([
