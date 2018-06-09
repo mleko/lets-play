@@ -9,9 +9,7 @@ use Mleko\LetsPlay\Entity\User;
 use Mleko\LetsPlay\Repository\GameRepository;
 use Mleko\LetsPlay\Security\UserActor;
 use Mleko\LetsPlay\ValueObject\Uuid;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class GameController
 {

@@ -5,6 +5,7 @@ namespace Mleko\LetsPlay\Repository;
 
 
 use Mleko\LetsPlay\Entity\PasswordResetToken;
+use Mleko\LetsPlay\Persistence\Repository\Storage\StorageRepository;
 
 class PasswordResetTokenRepository extends StorageRepository
 {

@@ -5,6 +5,7 @@ namespace Mleko\LetsPlay\Repository;
 
 
 use Mleko\LetsPlay\Entity\Bet;
+use Mleko\LetsPlay\Persistence\Repository\Storage\StorageRepository;
 use Mleko\LetsPlay\ValueObject\Uuid;
 
 class BetsRepository extends StorageRepository

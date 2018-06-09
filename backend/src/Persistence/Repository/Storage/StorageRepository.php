@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Mleko\LetsPlay\Repository;
+namespace Mleko\LetsPlay\Persistence\Repository\Storage;
 
 
 use Mleko\Alchemist\Normalizer;

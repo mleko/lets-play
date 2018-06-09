@@ -5,7 +5,7 @@ namespace Mleko\LetsPlay\Repository\Game;
 
 
 use Mleko\LetsPlay\Entity\Game\GameInvite;
-use Mleko\LetsPlay\Repository\StorageRepository;
+use Mleko\LetsPlay\Persistence\Repository\Storage\StorageRepository;
 use Mleko\LetsPlay\ValueObject\Uuid;
 
 class GameInviteRepository extends StorageRepository

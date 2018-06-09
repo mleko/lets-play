@@ -19,6 +19,11 @@
             <argument type="service" id="mleko.alchemist.normalizer.repository"/>
         </prototype>
 
+        <prototype namespace="Mleko\LetsPlay\Persistence\Repository\Storage\" resource="../src/Persistence/Repository/Storage/*">
+            <argument type="service" id="Mleko\LetsPlay\Persistence\Storage"/>
+            <argument type="service" id="mleko.alchemist.normalizer.repository"/>
+        </prototype>
+
         <prototype namespace="Mleko\LetsPlay\Controller\" resource="../src/Controller">
             <tag name="controller.service_arguments"/>
         </prototype>
@@ -27,6 +32,9 @@
             <argument>%kernel.project_dir%/var/entities.json</argument>
         </service>
         <service id="Mleko\LetsPlay\Persistence\Storage" alias="Mleko\LetsPlay\Persistence\Storage\JsonStorage"/>
+
+        <service id="Mleko\LetsPlay\Repository\UserRepository" alias="Mleko\LetsPlay\Persistence\Repository\Storage\UserRepository"/>
+
         <service id="security.user_provider.user_actor" class="Mleko\LetsPlay\Security\UserActorProvider">
             <argument type="service" id="Mleko\LetsPlay\Repository\UserRepository"/>
         </service>
