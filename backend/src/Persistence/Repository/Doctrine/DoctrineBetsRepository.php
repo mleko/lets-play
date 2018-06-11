@@ -42,7 +42,7 @@ class DoctrineBetsRepository implements BetsRepository
         $query = $this->entityRepository->createQueryBuilder("bets")
             ->leftJoin(Bet::class, "bets2", Join::WITH,
                 "bets.userId = bets2.userId AND bets.gameId = bets2.gameId AND bets.matchId = bets2.matchId AND bets.datetime > bets2.datetime")
-            ->where("bets.userId = :userId AND bets.gameId = :gameId")
+            ->where("bets.userId = :userId AND bets.gameId = :gameId AND bets2.id IS NULL")
             ->getQuery();
         return $query
             ->setParameters([
@@ -79,10 +79,10 @@ class DoctrineBetsRepository implements BetsRepository
     }
 
     public function getGameBets(Uuid $gameId) {
-        $this->entityRepository->createQueryBuilder("bets")
+        return $this->entityRepository->createQueryBuilder("bets")
             ->leftJoin(Bet::class, "bets2", Join::WITH,
                 "bets.userId = bets2.userId AND bets.gameId = bets2.gameId AND bets.matchId = bets2.matchId AND bets.datetime > bets2.datetime")
-            ->where("bets.gameId = :gameId")
+            ->where("bets.gameId = :gameId AND bets2.id IS NULL")
             ->getQuery()
             ->setParameters([
                 "gameId" => $gameId

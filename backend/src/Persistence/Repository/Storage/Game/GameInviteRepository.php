@@ -37,4 +37,11 @@ class GameInviteRepository extends StorageRepository implements \Mleko\LetsPlay\
     protected function getStorageKey(): string {
         return "game.invites";
     }
+
+    /**
+     * @return GameInvite[]
+     */
+    public function getAll() {
+        return $this->getElements();
+    }
 }

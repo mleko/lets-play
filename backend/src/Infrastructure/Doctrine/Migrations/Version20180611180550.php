@@ -12,14 +12,16 @@ final class Version20180611180550 extends AbstractMigration
 {
     public function up(Schema $schema): void {
         $table = $schema->createTable("bets");
-        $table->addColumn("userId", "string");
-        $table->addColumn("gameId", "string");
-        $table->addColumn("matchId", "string");
+        $table->addColumn("id", "string");
+        $table->addColumn("user_id", "string");
+        $table->addColumn("game_id", "string");
+        $table->addColumn("match_id", "string");
         $table->addColumn("datetime", "datetime");
         $table->addColumn("away", "integer");
         $table->addColumn("home", "integer");
 
-        $table->setPrimaryKey(["gameId", "userId", "matchId", "datetime"]);
+        $table->setPrimaryKey(["id"]);
+        $table->addIndex(["game_id", "user_id", "match_id", "datetime"]);
 
     }
 

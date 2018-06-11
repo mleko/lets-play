@@ -5,7 +5,7 @@ namespace Mleko\LetsPlay\Tests\Repository;
 
 use Mleko\LetsPlay\Entity\Bet;
 use Mleko\LetsPlay\Normalizer\DummyNormalizer;
-use Mleko\LetsPlay\Repository\BetsRepository;
+use Mleko\LetsPlay\Persistence\Repository\Storage\BetsRepository;
 use Mleko\LetsPlay\ValueObject\MatchScore;
 use Mleko\LetsPlay\ValueObject\Uuid;
 use PHPUnit\Framework\TestCase;

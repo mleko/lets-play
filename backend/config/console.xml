@@ -21,5 +21,29 @@
             <tag name="console.command"/>
         </service>
 
+        <service class="Mleko\LetsPlay\Command\MigrateGames" id="mleko.lets_play.command.migrate_games">
+            <argument type="collection">
+                <argument type="service" key="doctrine" id="Mleko\LetsPlay\Persistence\Repository\Doctrine\DoctrineGameRepository"/>
+                <argument type="service" key="storage" id="Mleko\LetsPlay\Persistence\Repository\Storage\GameRepository"/>
+            </argument>
+            <tag name="console.command"/>
+        </service>
+
+        <service class="Mleko\LetsPlay\Command\MigrateGameInvites" id="mleko.lets_play.command.migrate_game_invites">
+            <argument type="collection">
+                <argument type="service" key="doctrine" id="Mleko\LetsPlay\Persistence\Repository\Doctrine\Game\DoctrineGameInviteRepository"/>
+                <argument type="service" key="storage" id="Mleko\LetsPlay\Persistence\Repository\Storage\Game\GameInviteRepository"/>
+            </argument>
+            <tag name="console.command"/>
+        </service>
+
+        <service class="Mleko\LetsPlay\Command\MigrateGameUsers" id="mleko.lets_play.command.migrate_game_users">
+            <argument type="collection">
+                <argument type="service" key="doctrine" id="Mleko\LetsPlay\Persistence\Repository\Doctrine\Game\DoctrineGameUserRepository"/>
+                <argument type="service" key="storage" id="Mleko\LetsPlay\Persistence\Repository\Storage\Game\GameUserRepository"/>
+            </argument>
+            <tag name="console.command"/>
+        </service>
+
     </services>
 </container>

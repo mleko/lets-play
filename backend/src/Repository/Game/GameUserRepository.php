@@ -28,4 +28,9 @@ interface GameUserRepository
      * @return GameUser[]
      */
     public function getGameUsers(Uuid $gameId);
+
+    /**
+     * @return GameUser[]
+     */
+    public function getAll();
 }

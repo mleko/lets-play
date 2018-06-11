@@ -42,6 +42,9 @@ class UuidType extends Type
         if ($value instanceof Uuid) {
             return $value->getUuid();
         }
+        if(\is_string($value)){
+            return Uuid::fromString($value)->getUuid();
+        }
         throw new \RuntimeException("Invalid UUID");
     }
 

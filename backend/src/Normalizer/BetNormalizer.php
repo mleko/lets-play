@@ -22,7 +22,7 @@ class BetNormalizer extends PartialNormalizer
             "userId" => $this->subNormalize($value->getUserId(), $format, $context),
             "bet" => $this->subNormalize($value->getBet(), $format, $context),
             "dateTime" => $this->subNormalize($value->getDatetime(), $format, $context),
-//            "dateTime" => $value->getDatetime()->format("c")
+            "id" => $this->subNormalize($value->getId(), $format, $context)
         ];
     }
 
@@ -36,7 +36,8 @@ class BetNormalizer extends PartialNormalizer
             $this->subDeNormalize($data["gameId"], $uuidType, $format, $context),
             $this->subDeNormalize($data["matchId"], $uuidType, $format, $context),
             $this->subDeNormalize($data["bet"], Type::fromString(MatchScore::class), $format, $context),
-            $this->subDeNormalize($data["dateTime"], Type::fromString(\DateTimeImmutable::class), $format, $context)
+            $this->subDeNormalize($data["dateTime"], Type::fromString(\DateTimeImmutable::class), $format, $context),
+            isset($data["id"]) ? $this->subDeNormalize($data["id"], $uuidType, $format, $context) : null
         );
     }
 

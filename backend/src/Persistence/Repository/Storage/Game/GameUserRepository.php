@@ -67,4 +67,11 @@ class GameUserRepository extends StorageRepository implements \Mleko\LetsPlay\Re
     protected function getStorageKey(): string {
         return "game.user";
     }
+
+    /**
+     * @return GameUser[]
+     */
+    public function getAll() {
+        return $this->getElements();
+    }
 }

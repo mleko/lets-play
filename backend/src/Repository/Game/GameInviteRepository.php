@@ -8,6 +8,11 @@ use Mleko\LetsPlay\ValueObject\Uuid;
 
 interface GameInviteRepository
 {
+    /**
+     * @return GameInvite[]
+     */
+    public function getAll();
+
     public function listGameInvites(Uuid $gameId);
 
     public function save(GameInvite $invite);

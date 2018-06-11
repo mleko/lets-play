@@ -12,8 +12,8 @@ final class Version20180611172436 extends AbstractMigration
         $table = $schema->createTable("users");
         $table->addColumn("id", "string");
         $table->addColumn("name", "string");
-        $table->addColumn("passHash", "string");
-        $table->addColumn("emailHash", "string");
+        $table->addColumn("pass_hash", "string");
+        $table->addColumn("email_hash", "string");
         $table->setPrimaryKey(["id"]);
 
     }
