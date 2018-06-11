@@ -53,7 +53,7 @@ export const TeamGrid = withStyles(styles)(
 						disableUnderline={true}
 						style={inputStyle}
 						inputProps={{style: {textAlign: "center"}}}
-						value={team.score || ""}
+						value={(team.score === undefined || team.score === null) ? "" : team.score}
 						onChange={this.props.onScoreChange ? this.onScoreChange : undefined}
 						disabled={!this.props.onScoreChange}
 					/>
