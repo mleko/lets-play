@@ -23,5 +23,14 @@ interface BetsRepository
      */
     public function saveMany($bets, bool $skipSame);
 
+    /**
+     * @param Uuid $gameId
+     * @return Bet[]
+     */
     public function getGameBets(Uuid $gameId);
+
+    /**
+     * @return Bet[]
+     */
+    public function getAll();
 }

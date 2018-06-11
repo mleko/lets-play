@@ -100,4 +100,11 @@ class BetsRepository extends StorageRepository implements \Mleko\LetsPlay\Reposi
         }
         return $bet->getBet()->equals($activeBets[$key]->getBet());
     }
+
+    /**
+     * @return Bet[]
+     */
+    public function getAll() {
+        return $this->getElements();
+    }
 }

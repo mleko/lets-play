@@ -35,7 +35,7 @@
         <service id="Mleko\LetsPlay\Persistence\Storage" alias="Mleko\LetsPlay\Persistence\Storage\JsonStorage"/>
 
         <service id="Mleko\LetsPlay\Repository\UserRepository" alias="Mleko\LetsPlay\Persistence\Repository\Doctrine\DoctrineUserRepository"/>
-        <service id="Mleko\LetsPlay\Repository\BetsRepository" alias="Mleko\LetsPlay\Persistence\Repository\Storage\BetsRepository"/>
+        <service id="Mleko\LetsPlay\Repository\BetsRepository" alias="Mleko\LetsPlay\Persistence\Repository\Doctrine\DoctrineBetsRepository"/>
         <service id="Mleko\LetsPlay\Repository\GameRepository" alias="Mleko\LetsPlay\Persistence\Repository\Storage\GameRepository"/>
         <service id="Mleko\LetsPlay\Repository\MatchSetRepository" alias="Mleko\LetsPlay\Persistence\Repository\Storage\MatchSetRepository"/>
         <service id="Mleko\LetsPlay\Repository\PasswordResetTokenRepository" alias="Mleko\LetsPlay\Persistence\Repository\Storage\PasswordResetTokenRepository"/>

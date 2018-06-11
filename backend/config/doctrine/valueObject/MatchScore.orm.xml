@@ -1,0 +1,10 @@
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                    http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <embeddable name="Mleko\LetsPlay\ValueObject\MatchScore">
+        <field name="home" type="integer" />
+        <field name="away" type="integer" />
+    </embeddable>
+</doctrine-mapping>

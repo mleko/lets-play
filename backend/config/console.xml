@@ -13,5 +13,13 @@
             <tag name="console.command"/>
         </service>
 
+        <service class="Mleko\LetsPlay\Command\MigrateBets" id="mleko.lets_play.command.migrate_bets">
+            <argument type="collection">
+                <argument type="service" key="doctrine" id="Mleko\LetsPlay\Persistence\Repository\Doctrine\DoctrineBetsRepository"/>
+                <argument type="service" key="storage" id="Mleko\LetsPlay\Persistence\Repository\Storage\BetsRepository"/>
+            </argument>
+            <tag name="console.command"/>
+        </service>
+
     </services>
 </container>

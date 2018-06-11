@@ -24,6 +24,7 @@
             </doctrine:connection>
 
             <doctrine:type name="uuid">Mleko\LetsPlay\Infrastructure\Doctrine\Type\UuidType</doctrine:type>
+            <doctrine:type name="datetime_tz_m">Mleko\LetsPlay\Infrastructure\Doctrine\Type\DateTimeTzType</doctrine:type>
 
         </doctrine:dbal>
 
@@ -51,7 +52,13 @@
                         name="lets-play"
                         type="xml"
                         prefix="Mleko\LetsPlay\Entity"
-                        dir="%kernel.root_dir%/../config/doctrine"
+                        dir="%kernel.root_dir%/../config/doctrine/entity"
+                />
+                <doctrine:mapping
+                        name="lets-play-vo"
+                        type="xml"
+                        prefix="Mleko\LetsPlay\ValueObject"
+                        dir="%kernel.root_dir%/../config/doctrine/valueObject"
                 />
 
             </doctrine:entity-manager>
