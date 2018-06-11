@@ -1,6 +1,6 @@
 doctrine_migrations:
-    dir_name: "%kernel.root_dir%/Migrations"
-    namespace: "Mleko\\LetsPlay\\Migrations"
+    dir_name: "%kernel.root_dir%/Infrastructure/Doctrine/Migrations"
+    namespace: "Mleko\\LetsPlay\\Infrastructure\\Doctrine\\Migrations"
     table_name: "migration_versions"
     name: LetsPlay Migrations
     organize_migrations: false # Version >= 1.2, possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false

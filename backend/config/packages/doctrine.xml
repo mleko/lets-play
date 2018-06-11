@@ -23,6 +23,8 @@
 
             </doctrine:connection>
 
+            <doctrine:type name="uuid">Mleko\LetsPlay\Infrastructure\Doctrine\Type\UuidType</doctrine:type>
+
         </doctrine:dbal>
 
         <!-- auto-generate-proxy-classes: Auto generate mode possible values are: "NEVER", "ALWAYS", "FILE_NOT_EXISTS", "EVAL" -->
