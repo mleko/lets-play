@@ -41,7 +41,7 @@ class DoctrineBetsRepository implements BetsRepository
     public function getUserGameBets(Uuid $userId, Uuid $gameId) {
         $query = $this->entityRepository->createQueryBuilder("bets")
             ->leftJoin(Bet::class, "bets2", Join::WITH,
-                "bets.userId = bets2.userId AND bets.gameId = bets2.gameId AND bets.matchId = bets2.matchId AND bets.datetime > bets2.datetime")
+                "bets.userId = bets2.userId AND bets.gameId = bets2.gameId AND bets.matchId = bets2.matchId AND bets.datetime < bets2.datetime")
             ->where("bets.userId = :userId AND bets.gameId = :gameId AND bets2.id IS NULL")
             ->getQuery();
         return $query
@@ -69,10 +69,17 @@ class DoctrineBetsRepository implements BetsRepository
         }
         $activeBets = $this->getUserGameBets($userId, $gameId);
         foreach ($bets as $bet) {
+            $foundMatch = false;
             foreach ($activeBets as $activeBet) {
-                if ($activeBet->getMatchId()->equals($bet->getMatchId()) && !$activeBet->getBet()->equals($bet->getBet())) {
+                $sameMatch = $activeBet->getMatchId()->equals($bet->getMatchId());
+                $foundMatch = $foundMatch || $sameMatch;
+                if ($sameMatch && !$activeBet->getBet()->equals($bet->getBet())) {
                     $this->entityManager->persist($bet);
+                    continue 2;
                 }
+            }
+            if (!$foundMatch) {
+                $this->entityManager->persist($bet);
             }
         }
         $this->entityManager->flush();
@@ -81,7 +88,7 @@ class DoctrineBetsRepository implements BetsRepository
     public function getGameBets(Uuid $gameId) {
         return $this->entityRepository->createQueryBuilder("bets")
             ->leftJoin(Bet::class, "bets2", Join::WITH,
-                "bets.userId = bets2.userId AND bets.gameId = bets2.gameId AND bets.matchId = bets2.matchId AND bets.datetime > bets2.datetime")
+                "bets.userId = bets2.userId AND bets.gameId = bets2.gameId AND bets.matchId = bets2.matchId AND bets.datetime < bets2.datetime")
             ->where("bets.gameId = :gameId AND bets2.id IS NULL")
             ->getQuery()
             ->setParameters([
