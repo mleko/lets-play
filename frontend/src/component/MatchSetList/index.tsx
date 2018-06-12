@@ -3,6 +3,7 @@ import * as React from "react";
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
 import {Add as AddIcon, Edit as EditIcon} from "material-ui-icons";
 import {MatchSet} from "../../model/models";
+import {Link} from "../Link";
 import {LinkButton} from "../LinkButton";
 import {LinkIconButton} from "../LinkIconButton";
 
@@ -60,7 +61,7 @@ export class MatchSetList extends React.PureComponent<MatchSetListProps, State> 
 						<EditIcon style={{cursor: "pointer"}}/>
 					</LinkIconButton>
 				</TableCell>
-				<TableCell padding="none">{element.name}</TableCell>
+				<TableCell padding="none"><Link to={"/match-sets/" + element.id}>{element.name}</Link></TableCell>
 			</TableRow>
 		);
 	};

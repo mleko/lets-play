@@ -5,6 +5,7 @@ import {Add as AddIcon, PlayArrow as PlayIcon} from "material-ui-icons";
 import Button from "material-ui/Button";
 import {Trans} from "react-i18next";
 import {Game, MatchSet} from "../../model/models";
+import {Link} from "../Link";
 import {LinkIconButton} from "../LinkIconButton";
 import {NewGameDialog} from "./NewGameDialog";
 
@@ -98,7 +99,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 						<PlayIcon style={{cursor: "pointer"}}/>
 					</LinkIconButton>
 				</TableCell>
-				<TableCell padding="none">{element.name}</TableCell>
+				<TableCell padding="none"><Link to={"/games/" + element.id}>{element.name}</Link></TableCell>
 			</TableRow>
 		);
 	};
