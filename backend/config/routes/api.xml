@@ -12,7 +12,7 @@
     <route id="auth.logout" path="/auth/logout" controller="Mleko\LetsPlay\Controller\AuthController:logout"/>
 
     <route id="auth.reset.create" path="/auth/reset" controller="Mleko\LetsPlay\Controller\AuthResetController:createResetToken" methods="POST"/>
-    <route id="auth.reset.create" path="/auth/reset" controller="Mleko\LetsPlay\Controller\AuthResetController:resetPassword" methods="PUT"/>
+    <route id="auth.reset.doReset" path="/auth/reset" controller="Mleko\LetsPlay\Controller\AuthResetController:resetPassword" methods="PUT"/>
 
     <route id="match-set.create" path="/match-sets" controller="Mleko\LetsPlay\Controller\MatchSetController:create" methods="POST"/>
     <route id="match-set.list" path="/match-sets" controller="Mleko\LetsPlay\Controller\MatchSetController:listAll" methods="GET"/>

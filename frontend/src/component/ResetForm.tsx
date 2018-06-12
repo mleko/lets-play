@@ -6,6 +6,7 @@ import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
+import {Trans} from "react-i18next";
 
 export interface LoginProps {
 	token: string;
@@ -27,19 +28,19 @@ export class ResetForm extends React.PureComponent<LoginProps, State> {
 				<AppBar position="static">
 					<Toolbar>
 						<Typography variant="title" color="inherit">
-					Reset hasła
+							<Trans>Reset password</Trans>
 						</Typography>
 					</Toolbar>
 				</AppBar>
 				<form>
 					<FormControl style={{marginTop: 10}}>
 						<TextField
-							label="Password"
+							label={<Trans>Password</Trans>}
 							type="password"
 							name="password"
 							value={this.state.password}
 							error={!!this.state.passwordError}
-							helperText={this.state.passwordError}
+							helperText={<Trans>this.state.passwordError</Trans>}
 							onChange={this.updatePassword}
 						/>
 						<Button
@@ -59,7 +60,7 @@ export class ResetForm extends React.PureComponent<LoginProps, State> {
 	private validate = (): boolean => {
 		let error = false;
 		const errors: Errors = {passwordError: null};
-		if (this.state.password.length < 6) {
+		if (this.state.password.length < 7) {
 			errors.passwordError = "Password must at least 7 characters long";
 			error = true;
 		}

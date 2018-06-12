@@ -48,8 +48,8 @@ class AuthResetController
         $message->addFrom("no-reply@lets-play.pl", "Lets Play");
         $message->setSubject("Reset hasła - Lets-Play");
         $content = new Part(sprintf(
-            "Hej\n\nPoprosiłeś o reset hasła.\nPoniżej znajduje się link do formularza resetu\n%s\n\nDobrej zabawy",
-            $request->getUriForPath("/#/auth/reset/" . $token->getToken())
+            "Hej,\n\notrzymaliśmy prośbę o reset hasła.\nPoniżej znajduje się link do formularza resetu\n%s\n\nDobrej zabawy",
+            $request->getUriForPath("/#/login/reset/" . $token->getToken())
         ));
         $content->charset = "UTF-8";
         $content->setType(Mime::TYPE_TEXT);
@@ -71,7 +71,11 @@ class AuthResetController
         if (!$user) {
             return new Response(null, false, 404);
         }
-        $user->setPassHash(User::hashPassword($data["password"]));
+        $password = $data["password"];
+        if (\strlen($password) < 7) {
+            return new Response(["message" => "Password must be at least 7 characters long"], false, 400);
+        }
+        $user->setPassHash(User::hashPassword($password));
         $token->markAsUsed();
         $this->tokenRepository->save($token);
 

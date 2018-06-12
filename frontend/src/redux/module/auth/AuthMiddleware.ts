@@ -21,12 +21,16 @@ export class AuthMiddleware implements Middleware<any> {
 			});
 			return ReduceResult.DONT_STORE;
 		},
-		[authActions.initReset]: (action: InitReset) => {
-			this.client.request({
-				method: "POST",
-				url: "/auth/reset",
-				data: action.payload
-			});
+		[authActions.initReset]: (action: InitReset, dispatch: Dispatch) => {
+			this.client
+				.request({
+					method: "POST",
+					url: "/auth/reset",
+					data: action.payload
+				})
+				.then(() => {
+					dispatch(SnackbarActions.message("Check email"));
+				});
 			return ReduceResult.DONT_STORE;
 		},
 		[authActions.reset]: (action: Reset, dispatch: Dispatch) => {
@@ -37,8 +41,11 @@ export class AuthMiddleware implements Middleware<any> {
 					data: action.payload
 				})
 				.then(() => {
-					dispatch(SnackbarActions.message("Hasło zresetowane"));
+					dispatch(SnackbarActions.message("Password reset"));
 					dispatch(RoutingActions.redirect("/login"));
+				})
+				.catch(() => {
+					dispatch(SnackbarActions.message("Error occurred"));
 				});
 			return ReduceResult.DONT_STORE;
 		},

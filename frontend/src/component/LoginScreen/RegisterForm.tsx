@@ -46,7 +46,7 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 						name="password"
 						value={this.state.password}
 						error={!!this.state.passwordError}
-						helperText={this.state.passwordError}
+						helperText={<Trans>this.state.passwordError</Trans>}
 						onChange={this.updatePassword}
 					/>
 					<Button

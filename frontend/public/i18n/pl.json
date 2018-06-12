@@ -16,5 +16,9 @@
   "Add match": "Dodaj mecz",
   "Saved": "Zapisano",
   "Add new set": "Dodaj nowy zestaw",
-  "Create new game": "Utwórz nową rozgrywkę"
+  "Create new game": "Utwórz nową rozgrywkę",
+  "Password reset": "Hasło zresetowane",
+  "Check email": "Sprawdź pocztę",
+  "Error occurred": "Wystąpił błąd",
+  "Password must at least 7 characters long": "Hasło musi mieć conajmniej 7 znaków"
 }
