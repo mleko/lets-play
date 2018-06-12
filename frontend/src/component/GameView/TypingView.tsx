@@ -70,6 +70,7 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		}
 		return (
 			<div>
+				{matches.length > 10 ? this.renderTopButton() : null}
 				<Grid container={true} spacing={16} style={{marginTop: 16}}>
 					{matches.map(this.renderElement)}
 				</Grid>
@@ -77,11 +78,26 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 					fullWidth={true}
 					color={"primary"}
 					variant={"raised"}
+					style={{marginTop: 10}}
 					onClick={this.save}
 				>
 					Zapisz
 				</Button>
 			</div>
+		);
+	}
+
+	private renderTopButton() {
+		return (
+			<Button
+				fullWidth={true}
+				color={"primary"}
+				variant={"raised"}
+				style={{marginTop: 15}}
+				onClick={this.save}
+			>
+				Zapisz
+			</Button>
 		);
 	}
 
