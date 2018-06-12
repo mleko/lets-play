@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {AppBar, Tab, Tabs} from "material-ui";
+import {Trans} from "react-i18next";
 
 import {LoginForm} from "./LoginForm";
 import {RegisterForm} from "./RegisterForm";
@@ -25,8 +26,8 @@ export class LoginScreen extends React.PureComponent<LoginProps, State> {
 			<div style={{textAlign: "center"}}>
 				<AppBar position="static">
 					<Tabs value={this.state.selectedTab} onChange={this.changeTab}>
-						<Tab label="Login"/>
-						<Tab label="Register"/>
+						<Tab label={<Trans>Log in</Trans>}/>
+						<Tab label={<Trans>Register</Trans>}/>
 					</Tabs>
 				</AppBar>
 				{this.renderTabContent()}

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {Button, Divider, FormControl, TextField} from "material-ui";
+import {Trans} from "react-i18next";
 
 export interface LoginFormProps {
 	onLogin: (email: string, password: string) => any;
@@ -39,7 +40,7 @@ export class LoginForm extends React.PureComponent<LoginFormProps, State> {
 					onKeyDown={this.inputKeyDown}
 				/>
 				<TextField
-					label="Password"
+					label={<Trans>Password</Trans>}
 					type="password"
 					name="password"
 					value={this.state.password}
@@ -52,7 +53,7 @@ export class LoginForm extends React.PureComponent<LoginFormProps, State> {
 					style={{margin: 20}}
 					onClick={this.login}
 				>
-					Login
+					<Trans>Log in</Trans>
 				</Button>
 				<Divider/>
 				<Button
@@ -60,7 +61,7 @@ export class LoginForm extends React.PureComponent<LoginFormProps, State> {
 					style={{margin: 10, cursor: "pointer", color: "#777"}}
 					onClick={this.switchToReminder}
 				>
-					Remind password
+					<Trans>Remind password</Trans>
 				</Button>
 			</FormControl>
 		);
@@ -83,7 +84,7 @@ export class LoginForm extends React.PureComponent<LoginFormProps, State> {
 					style={{margin: 20}}
 					onClick={this.reset}
 				>
-					Reset password
+					<Trans>Reset password</Trans>
 				</Button>
 				<Divider/>
 				<Button
@@ -91,7 +92,7 @@ export class LoginForm extends React.PureComponent<LoginFormProps, State> {
 					style={{margin: 10, cursor: "pointer", color: "#777"}}
 					onClick={this.switchToLogin}
 				>
-					Back
+					<Trans>Back</Trans>
 				</Button>
 			</FormControl>
 		);

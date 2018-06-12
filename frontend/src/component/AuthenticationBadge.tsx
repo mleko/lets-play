@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {Avatar, Menu, MenuItem} from "material-ui";
 import Divider from "material-ui/Divider";
+import {Trans} from "react-i18next";
 import {User} from "../model/models";
 import {LinkButton} from "./LinkButton";
 
@@ -24,7 +25,7 @@ export class AuthenticationBadge extends React.PureComponent<AuthenticationBadge
 	public render(): JSX.Element {
 		if (!this.props.authenticated) {
 			return (
-				<LinkButton color="inherit" to="/login">Login</LinkButton>
+				<LinkButton color="inherit" to="/login"><Trans>Log in</Trans></LinkButton>
 			);
 		}
 		return (
@@ -42,7 +43,7 @@ export class AuthenticationBadge extends React.PureComponent<AuthenticationBadge
 				>
 					<MenuItem disabled={true}>{this.props.user.name}</MenuItem>
 					<Divider/>
-					<MenuItem onClick={this.logOut}>Wyloguj</MenuItem>
+					<MenuItem onClick={this.logOut}><Trans>Log out</Trans></MenuItem>
 				</Menu>
 			</div>
 		);

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {Button, FormControl, TextField} from "material-ui";
+import {Trans} from "react-i18next";
 
 export interface RegisterFormProps {
 	onRegister: (name: string, email: string, password: string) => any;
@@ -22,7 +23,7 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 			<form>
 				<FormControl>
 					<TextField
-						label="Name"
+						label={<Trans>Name</Trans>}
 						name="name"
 						style={{marginTop: 50}}
 						value={this.state.name}
@@ -40,7 +41,7 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 						onChange={this.updateEmail}
 					/>
 					<TextField
-						label="Password"
+						label={<Trans>Password</Trans>}
 						type="password"
 						name="password"
 						value={this.state.password}
@@ -54,7 +55,7 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 						style={{margin: 20}}
 						onClick={this.register}
 					>
-						Register
+						<Trans>Register</Trans>
 					</Button>
 				</FormControl>
 			</form>

@@ -1,4 +1,12 @@
 {
   "Play": "Graj",
-  "Game name": "Nazwa rozgrywki"
+  "Game name": "Nazwa rozgrywki",
+  "Log in": "Zaloguj",
+  "Log out": "Wyloguj",
+  "Register": "Zarejestruj",
+  "Remind password": "Przypomnij hasło",
+  "Password": "Hasło",
+  "Name": "Nazwa",
+  "Reset password": "Zresetuj hasło",
+  "Back": "Wróć"
 }
