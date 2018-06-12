@@ -20,5 +20,14 @@
   "Password reset": "Hasło zresetowane",
   "Check email": "Sprawdź pocztę",
   "Error occurred": "Wystąpił błąd",
-  "Password must at least 7 characters long": "Hasło musi mieć conajmniej 7 znaków"
+  "Password must at least 7 characters long": "Hasło musi mieć conajmniej 7 znaków",
+  "Rules": "Reguły",
+  "Description": "Opis",
+  "Points":"Punkty",
+  "Predicting exact match score": "Trafienie dokładnego wyniku meczu",
+  "Predicting correct match result": "Trafienie zwycięzcy meczu lub poprawne wytypowanie remisu",
+  "Missed pick": "Niepoprawny typ",
+  "Picks": "Typowanie",
+  "Matches": "Mecze",
+  "Users": "Użytkownicy"
 }

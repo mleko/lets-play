@@ -3,9 +3,11 @@ import * as React from "react";
 import {Tab} from "material-ui";
 import AppBar from "material-ui/AppBar";
 import Tabs from "material-ui/Tabs";
+import {Trans} from "react-i18next";
 import {Bet, Game, MatchSet, Ranking} from "../../model/models";
 import {GameUsersTab} from "./GameUsersTab";
 import {MatchList} from "./MatchList";
+import {Rules} from "./Rules";
 import {TypingView} from "./TypingView";
 import {UserRanking} from "./UserRanking";
 
@@ -37,10 +39,11 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 						fullWidth={true}
 						onChange={this.changeActiveTab}
 					>
-						<Tab label={"Typowanie"}/>
-						<Tab label={"Mecze"}/>
+						<Tab label={<Trans>Picks</Trans>}/>
+						<Tab label={<Trans>Matches</Trans>}/>
 						<Tab label={"Ranking"}/>
-						<Tab label={"Użytkownicy"}/>
+						<Tab label={<Trans>Users</Trans>}/>
+						<Tab label={<Trans>Rules</Trans>}/>
 					</Tabs>
 				</AppBar>
 				{this.renderTabContent()}
@@ -56,6 +59,8 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 			return this.renderRanking();
 		} else if (this.state.activeTab === 3) {
 			return this.renderUsersView();
+		} else if (this.state.activeTab === 4) {
+			return this.renderRules();
 		}
 		return this.renderTypingView();
 	}
@@ -89,6 +94,12 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	private renderUsersView() {
 		return (
 			<GameUsersTab gameId={this.props.game.id}/>
+		);
+	}
+
+	private renderRules() {
+		return (
+			<Rules/>
 		);
 	}
 
