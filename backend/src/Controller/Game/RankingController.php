@@ -5,13 +5,16 @@ namespace Mleko\LetsPlay\Controller\Game;
 
 
 use Mleko\LetsPlay\Entity\Bet;
+use Mleko\LetsPlay\Entity\Game\GameUser;
 use Mleko\LetsPlay\Entity\Match;
 use Mleko\LetsPlay\Http\Response;
 use Mleko\LetsPlay\Logic\ScoreCalculator;
 use Mleko\LetsPlay\Repository\BetsRepository;
+use Mleko\LetsPlay\Repository\Game\GameUserRepository;
 use Mleko\LetsPlay\Repository\GameRepository;
 use Mleko\LetsPlay\Repository\MatchSetRepository;
 use Mleko\LetsPlay\Repository\UserRepository;
+use Mleko\LetsPlay\ValueObject\Uuid;
 
 class RankingController
 {
@@ -38,13 +41,18 @@ class RankingController
         $this->userRepository = $userRepository;
     }
 
-    public function getRanking($gameId) {
+    public function getRanking($gameId, GameUserRepository $gameUserRepository) {
         $game = $this->gameRepository->getGame($gameId);
         $set = $this->matchSetRepository->getSet($game->getMatchSetId());
         $bets = $this->betRepository->getGameBets($game->getId());
+        $gameUsers = $gameUserRepository->getGameUsers($game->getId());
+
+        $userIds = \array_map(function (GameUser $user) {
+            return $user->getUserId();
+        }, $gameUsers);
 
         $calculator = new ScoreCalculator();
-        $ranking = $this->buildRanking($set->getMatches(), $bets, $calculator);
+        $ranking = $this->buildRanking($set->getMatches(), $bets, $calculator, $userIds);
 
         $users = $this->userRepository->getMany(\array_map(function ($entry) {
             return $entry["userId"];
@@ -65,11 +73,17 @@ class RankingController
      * @param Match[] $matches
      * @param Bet[] $bets
      * @param ScoreCalculator $calculator
+     * @param Uuid[] $userIds
      * @return array
      */
-    private function buildRanking($matches, $bets, $calculator): array {
+    private function buildRanking($matches, $bets, $calculator, $userIds): array {
         $ranking = [];
         $keyedMatches = [];
+
+        foreach ($userIds as $userId) {
+            $ranking[$userId->getUuid()] = ["userId" => $userId, "points" => 0];
+        }
+
         foreach ($matches as $match) {
             $keyedMatches[$match->getId()->getUuid()] = $match;
         }
