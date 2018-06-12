@@ -2,9 +2,9 @@ import * as React from "react";
 
 import {AppBar, IconButton, Toolbar, Typography} from "material-ui";
 import {Menu as MenuIcon} from "material-ui-icons";
-import {Link} from "react-router-dom";
 import {User} from "../model/models";
 import {AuthenticationBadge} from "./AuthenticationBadge";
+import {Link} from "./Link";
 
 export interface TopBarProps {
 	authenticated: boolean;

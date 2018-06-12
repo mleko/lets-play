@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {Divider, Drawer, List, ListItem, ListItemIcon, ListItemText} from "material-ui";
 import {List as ListIcon, PlayArrow as PlayIcon} from "material-ui-icons";
-import {Link} from "react-router-dom";
+import {Link} from "./Link";
 
 export interface MainMenuProps {
 	open: boolean;
