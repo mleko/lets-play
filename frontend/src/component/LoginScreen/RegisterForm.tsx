@@ -1,7 +1,9 @@
 import * as React from "react";
 
-import {Button, FormControl, TextField} from "material-ui";
+import {Button, FormControl, InputAdornment, TextField} from "material-ui";
+import {Info as InfoIcon} from "material-ui-icons";
 import {Trans} from "react-i18next";
+import {RodoDialog} from "./RodoDialog";
 
 export interface RegisterFormProps {
 	onRegister: (name: string, email: string, password: string) => any;
@@ -14,51 +16,67 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 		this.state = {
 			name: "",
 			email: "",
-			password: ""
+			password: "",
+			showRodoDialog: false
 		};
 	}
 
 	public render(): JSX.Element {
+
+		const inputProps = {
+			endAdornment: (
+				<InputAdornment position="end">
+					<InfoIcon
+						color={"disabled"}
+						onClick={this.showRodoDialog}
+					/>
+				</InputAdornment>
+			)
+		};
 		return (
-			<form>
-				<FormControl>
-					<TextField
-						label={<Trans>Username</Trans>}
-						name="name"
-						style={{marginTop: 50}}
-						value={this.state.name}
-						error={!!this.state.nameError}
-						helperText={this.state.nameError}
-						onChange={this.updateName}
-					/>
-					<TextField
-						label="Email"
-						name="email"
-						type="email"
-						value={this.state.email}
-						error={!!this.state.emailError}
-						helperText={this.state.emailError}
-						onChange={this.updateEmail}
-					/>
-					<TextField
-						label={<Trans>Password</Trans>}
-						type="password"
-						name="password"
-						value={this.state.password}
-						error={!!this.state.passwordError}
-						helperText={<Trans>this.state.passwordError</Trans>}
-						onChange={this.updatePassword}
-					/>
-					<Button
-						color="primary"
-						variant="raised"
-						style={{margin: 20}}
-						onClick={this.register}
-					>
-						<Trans>Register</Trans>
-					</Button>
-				</FormControl>
-			</form>
+			<div>
+				<RodoDialog open={this.state.showRodoDialog} onClose={this.hideRodoDialog}/>
+				<form>
+					<FormControl>
+						<TextField
+							label={<Trans>Username</Trans>}
+							name="name"
+							style={{marginTop: 50}}
+							value={this.state.name}
+							error={!!this.state.nameError}
+							helperText={this.state.nameError}
+							onChange={this.updateName}
+						/>
+						<TextField
+							label="Email"
+							name="email"
+							type="email"
+							value={this.state.email}
+							error={!!this.state.emailError}
+							helperText={this.state.emailError}
+							InputProps={inputProps}
+							onChange={this.updateEmail}
+						/>
+						<TextField
+							label={<Trans>Password</Trans>}
+							type="password"
+							name="password"
+							value={this.state.password}
+							error={!!this.state.passwordError}
+							helperText={<Trans>{this.state.passwordError}</Trans>}
+							onChange={this.updatePassword}
+						/>
+						<Button
+							color="primary"
+							variant="raised"
+							style={{margin: 20}}
+							onClick={this.register}
+						>
+							<Trans>Register</Trans>
+						</Button>
+					</FormControl>
+				</form>
+			</div>
 		);
 	}
 
@@ -99,13 +117,21 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 		if (this.validate()) {
 			this.props.onRegister(this.state.name, this.state.email, this.state.password);
 		}
-	}
+	};
+
+	private showRodoDialog = () => {
+		this.setState({showRodoDialog: true});
+	};
+	private hideRodoDialog = () => {
+		this.setState({showRodoDialog: false});
+	};
 }
 
 interface State extends Errors {
 	name: string;
 	email: string;
 	password: string;
+	showRodoDialog: boolean;
 }
 
 interface Errors {
