@@ -23,7 +23,7 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 			<form>
 				<FormControl>
 					<TextField
-						label={<Trans>Name</Trans>}
+						label={<Trans>Username</Trans>}
 						name="name"
 						style={{marginTop: 50}}
 						value={this.state.name}

@@ -7,6 +7,9 @@
   "Remind password": "Przypomnij hasło",
   "Password": "Hasło",
   "Name": "Nazwa",
+  "Username": "Nazwa użytkownika",
   "Reset password": "Zresetuj hasło",
-  "Back": "Wróć"
+  "Back": "Wróć",
+  "Set name": "Nazwa zestawu",
+  "Details": "Szczegóły"
 }

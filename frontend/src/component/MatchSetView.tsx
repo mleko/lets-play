@@ -6,6 +6,7 @@ import {Add as AddIcon, Save as SaveIcon} from "material-ui-icons";
 import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
 import Input from "material-ui/Input";
+import {Trans} from "react-i18next";
 import {replace, without} from "typescript-array-utils";
 import {merge} from "typescript-object-utils";
 
@@ -29,7 +30,7 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchS
 		return (
 			<div>
 				<FormControl fullWidth={true} style={{marginBottom: 16}}>
-					<InputLabel>Name</InputLabel>
+					<InputLabel><Trans>Name</Trans></InputLabel>
 					<Input
 						value={this.props.set.name}
 						onChange={editable ? this.changeName : undefined}

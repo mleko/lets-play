@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
 import {Add as AddIcon, Edit as EditIcon} from "material-ui-icons";
+import {Trans} from "react-i18next";
 import {MatchSet} from "../../model/models";
 import {Link} from "../Link";
 import {LinkButton} from "../LinkButton";
@@ -27,9 +28,9 @@ export class MatchSetList extends React.PureComponent<MatchSetListProps, State> 
 					<TableHead>
 						<TableRow>
 							<TableCell style={{width: 1}}>
-								<div>Details</div>
+								<div><Trans>Details</Trans></div>
 							</TableCell>
-							<TableCell padding="none">Set name</TableCell>
+							<TableCell padding="none"><Trans>Set name</Trans></TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
