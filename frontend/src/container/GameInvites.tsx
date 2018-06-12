@@ -1,19 +1,24 @@
 import * as React from "react";
+import {connect} from "react-redux";
 import {GameInvites as Component} from "../component/GameView/GameInvites";
 import {Client} from "../infrastructure/http/Client";
 import {httpContextValidationMap} from "../infrastructure/http/Provider";
 import {Response} from "../infrastructure/http/Response";
 import {GameInvite} from "../model/models";
+import {Dispatch} from "../redux/Action";
+import {SnackbarActions} from "../redux/module/snackbar";
 
-export interface GameViewProps {
+export interface GameInvitesProps {
 	gameId: string;
 }
 
-export class GameInvites extends React.PureComponent<GameViewProps, State> {
+type CombinedProps = GameInvitesProps & { onNotification: (message: string) => any };
 
-	protected static contextTypes = httpContextValidationMap;
+class GameInvitesRaw extends React.PureComponent<CombinedProps, State> {
 
-	public constructor(props: GameViewProps) {
+	public static contextTypes = httpContextValidationMap;
+
+	public constructor(props: CombinedProps) {
 		super(props);
 		this.state = {};
 	}
@@ -31,11 +36,28 @@ export class GameInvites extends React.PureComponent<GameViewProps, State> {
 		const client: Client = this.context.httpClient;
 		return client.request({url: "/games/" + this.props.gameId + "/invites", method: "POST", data: {email}})
 			.then((response: Response<GameInvite>) => {
-				if (!email)
+				if (!email) {
 					this.setState({invitation: response.data});
+				} else {
+					this.props.onNotification("Wysłano zaproszenie");
+				}
 			});
 	};
 }
+
+function mapStateToProps() {
+	return {};
+}
+
+function mapDispatchToProps(dispatch: Dispatch) {
+	return {
+		onNotification: (message: string) => {
+			dispatch(SnackbarActions.message(message));
+		}
+	};
+}
+
+export const GameInvites = connect(mapStateToProps, mapDispatchToProps)(GameInvitesRaw);
 
 interface State {
 	invitation?: GameInvite;
