@@ -76,7 +76,7 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 			errors.emailError = "Email must be valid email address";
 			error = true;
 		}
-		if (this.state.password.length < 6) {
+		if (this.state.password.length < 7) {
 			errors.passwordError = "Password must at least 7 characters long";
 			error = true;
 		}

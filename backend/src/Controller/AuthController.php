@@ -51,7 +51,15 @@ class AuthController
     public function register(Request $request, JWTTokenManagerInterface $manager) {
         $data = \json_decode($request->getContent(), true);
 
-        $user = new User($data["name"], User::hashEmail($data["email"]), password_hash($data["password"], PASSWORD_BCRYPT));
+        $password = $data["password"];
+        if (\strlen($password) < 7) {
+            return new Response(["message" => "Password must be at least 7 characters long"], false, 400);
+        }
+        $email = $data["email"];
+        if (false === \filter_var($email, \FILTER_VALIDATE_EMAIL)) {
+            return new Response(["message" => "Email must be valid"], false, 400);
+        }
+        $user = new User($data["name"], User::hashEmail($email), password_hash($password, PASSWORD_BCRYPT));
         $this->userRepository->saveUser($user);
 
         $token = $manager->create(new UserActor($user));
