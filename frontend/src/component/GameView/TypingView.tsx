@@ -118,7 +118,18 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		this.setState({bets});
 	};
 	private save = () => {
-		this.props.onSave(this.state.bets);
+		const elements: Match[] = this.props.matchSet ? this.props.matchSet.matches : [];
+		const bets: Bet[] = this.state.bets ? this.state.bets : [];
+
+		const matchesToType = elements.filter((m: Match) => {
+			return !m.locked;
+		}).map((m: Match) => {
+			return m.id;
+		});
+		const betsToSave = bets.filter((bet: Bet) => {
+			return -1 !== matchesToType.indexOf(bet.matchId);
+		});
+		this.props.onSave(betsToSave);
 	};
 }
 

@@ -23,8 +23,7 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	public constructor(props: GameViewProps) {
 		super(props);
 		this.state = {
-			activeTab: 0,
-			invites: ["asd", "dasd", "asd@as.as"]
+			activeTab: 0
 		};
 	}
 
@@ -100,5 +99,4 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 
 interface GameViewState {
 	activeTab: number;
-	invites: string[];
 }
