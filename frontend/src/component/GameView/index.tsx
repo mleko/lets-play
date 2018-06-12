@@ -31,7 +31,7 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 		return (
 			<div>
 				<h2>{this.props.game ? this.props.game.name : ""}</h2>
-				<AppBar position={"static"}>
+				<AppBar position={"static"} color={"default"}>
 					<Tabs
 						value={this.state.activeTab}
 						fullWidth={true}

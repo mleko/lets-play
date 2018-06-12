@@ -65,7 +65,7 @@ class InvitesController
             $message->addFrom("no-reply@lets-play.pl", "Lets Play");
             $message->setSubject("Zaproszenie - " . $game->getName() . " - Lets-Play");
             $body = new Part(sprintf(
-                "Cześć\n\n%s zaprasza Cię do udziału w rozgrywce: %s.\nPoniżej link z zaproszeniem\n%s\n\nDobrej zabawy",
+                "Cześć,\n\n%s zaprasza Cię do udziału w rozgrywce: %s.\nPoniżej link z zaproszeniem\n%s\n\nDobrej zabawy",
                 $user->getUser()->getName(),
                 $game->getName(),
                 $request->getUriForPath("/#/invitation/" . $invite->getId())
