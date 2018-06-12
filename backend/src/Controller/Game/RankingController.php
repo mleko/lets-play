@@ -50,6 +50,7 @@ class RankingController
         $userIds = \array_map(function (GameUser $user) {
             return $user->getUserId();
         }, $gameUsers);
+        $userIds[] = $game->getOwnerId();
 
         $calculator = new ScoreCalculator();
         $ranking = $this->buildRanking($set->getMatches(), $bets, $calculator, $userIds);
