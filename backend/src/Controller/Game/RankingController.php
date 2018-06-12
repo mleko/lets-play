@@ -86,7 +86,7 @@ class RankingController
         }
 
         \usort($ranking, function ($a, $b) {
-            return $a["points"] - $b["points"];
+            return -($a["points"] - $b["points"]);
         });
 
         return \array_values($ranking);
