@@ -23,7 +23,8 @@ class InvitationRaw extends React.PureComponent<CombinedProps, State> {
 	public constructor(props: CombinedProps) {
 		super(props);
 		this.state = {
-			accepted: false
+			accepted: false,
+			notFound: false
 		};
 	}
 
@@ -33,6 +34,7 @@ class InvitationRaw extends React.PureComponent<CombinedProps, State> {
 				<Component
 					invitation={this.state.invitation}
 					accepted={this.state.accepted}
+					notFound={this.state.notFound}
 					onAccept={this.accept}
 					onReject={this.reject}
 				/>
@@ -46,7 +48,12 @@ class InvitationRaw extends React.PureComponent<CombinedProps, State> {
 		const client: Client = this.context.httpClient;
 		return client.request({url: "/invitation/" + this.props.invitationId, method: "GET"})
 			.then((response: Response<GameInvitation>) => {
+				console.log("Then")
 				this.setState({invitation: response.data});
+			})
+			.catch(() => {
+				console.log("Fail")
+				this.setState({notFound: true});
 			});
 	}
 
@@ -77,4 +84,5 @@ export const Invitation = connect(mapStateToProps)(InvitationRaw);
 interface State {
 	invitation?: GameInvitation;
 	accepted?: boolean;
+	notFound: boolean;
 }

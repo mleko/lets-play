@@ -8,12 +8,22 @@ import {GameInvitation} from "../model/models";
 export interface InvitationProps {
 	invitation: GameInvitation;
 	accepted: boolean;
+	notFound: boolean;
 	onAccept: (invitationId: string) => any;
 	onReject: (invitationId: string) => any;
 }
 
 export class Invitation extends React.PureComponent<InvitationProps, {}> {
 	public render(): JSX.Element {
+		if (this.props.notFound) {
+			return (
+				<Grid container={true} spacing={24}>
+					<Grid xs={12} item={true}>
+						<h2 style={{textAlign: "center"}}>Zaproszenie wygasło bądź zostało już użyte</h2>
+					</Grid>
+				</Grid>
+			);
+		}
 		if (!this.props.invitation) {
 			return null;
 		}
