@@ -64,7 +64,7 @@ class Match
     }
 
     public function getResult(): ?MatchScore {
-        if (!$this->home->getScore() || !$this->away->getScore()) {
+        if (null === $this->home->getScore() || null === $this->away->getScore()) {
             return null;
         }
         return new MatchScore(
