@@ -103,10 +103,10 @@ class BetsController
             }
             $home = $row["bet"]["home"];
             $away = $row["bet"]["away"];
-            if (false === \filter_var($home, \FILTER_VALIDATE_INT) || $home <= 0) {
+            if (false === \filter_var($home, \FILTER_VALIDATE_INT) || $home < 0) {
                 throw new \InvalidArgumentException("Invalid home value");
             }
-            if (false === \filter_var($away, \FILTER_VALIDATE_INT) || $away <= 0) {
+            if (false === \filter_var($away, \FILTER_VALIDATE_INT) || $away < 0) {
                 throw new \InvalidArgumentException("Invalid away value");
             }
             $bets[] = new Bet($userId, $gameId, new Uuid($row["matchId"]), new MatchScore((int)$home, (int)$away));
