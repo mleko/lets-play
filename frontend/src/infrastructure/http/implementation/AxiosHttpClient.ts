@@ -31,7 +31,9 @@ export class AxiosHttpClient implements Client {
 				}
 				resolve(r.data);
 			});
-			promise.catch(reject);
+			promise.catch((r) => {
+				reject(r.response.data);
+			});
 		});
 	}
 
@@ -55,5 +57,6 @@ export class AxiosHttpClient implements Client {
 
 interface Options {
 	[id: string]: any;
+
 	baseUrl?: string;
 }

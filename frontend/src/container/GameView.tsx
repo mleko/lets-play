@@ -78,6 +78,9 @@ class GameViewRaw extends React.PureComponent<CombinedProps, State> {
 			.then((response: Response<Bet[]>) => {
 				this.setState({bets: response.data});
 				this.props.onNotification("Zapisano");
+			})
+			.catch((response: Response<{ message: string }>) => {
+				this.props.onNotification("Wystąpił błąd: " + response.data.message);
 			});
 	}
 }
