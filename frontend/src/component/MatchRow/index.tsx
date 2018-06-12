@@ -102,6 +102,7 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 		this.props.onChange(shallowMerge(this.props.match, {[left ? "home" : "away"]: mergedTeam}), this.props.index);
 	};
 	private onScoreChange = (score: number, left: boolean) => {
+		score = score >= 0 ? score : null;
 		const mergedTeam = shallowMerge(this.props.match[left ? "home" : "away"], {score});
 		this.props.onChange(shallowMerge(this.props.match, {[left ? "home" : "away"]: mergedTeam}), this.props.index);
 	};

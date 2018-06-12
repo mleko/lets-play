@@ -63,7 +63,11 @@ class BetsController
         if (!$game) {
             return new Response(["message" => "Game not found"], false, 404);
         }
-        $bets = $this->unserialize($data, $user->getId(), $gameId);
+        try {
+            $bets = $this->unserialize($data, $user->getId(), $gameId);
+        } catch (\InvalidArgumentException $exception) {
+            return new Response(["message" => $exception->getMessage()], false, 400);
+        }
 
         $set = $this->matchSetRepository->getSet($game->getMatchSetId());
         $matches = $set->getMatches();
@@ -75,7 +79,7 @@ class BetsController
             if (!\array_key_exists($bet->getMatchId()->getUuid(), $matchesById)) {
                 return new Response(["message" => "Cannot bet non game match"], false, 401);
             }
-            if (!$matchesById[$bet->getMatchId()->getUuid()]) {
+            if ($matchesById[$bet->getMatchId()->getUuid()]) {
                 return new Response(["message" => "Cannot bet past match"], false, 401);
             }
         }
@@ -97,7 +101,15 @@ class BetsController
             if (!isset($row["bet"], $row["bet"]["home"], $row["bet"]["away"])) {
                 continue;
             }
-            $bets[] = new Bet($userId, $gameId, new Uuid($row["matchId"]), new MatchScore($row["bet"]["home"], $row["bet"]["away"]));
+            $home = $row["bet"]["home"];
+            $away = $row["bet"]["away"];
+            if (false === \filter_var($home, \FILTER_VALIDATE_INT) || $home <= 0) {
+                throw new \InvalidArgumentException("Invalid home value");
+            }
+            if (false === \filter_var($away, \FILTER_VALIDATE_INT) || $away <= 0) {
+                throw new \InvalidArgumentException("Invalid away value");
+            }
+            $bets[] = new Bet($userId, $gameId, new Uuid($row["matchId"]), new MatchScore((int)$home, (int)$away));
         }
         return $bets;
     }
