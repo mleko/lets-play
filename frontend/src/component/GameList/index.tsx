@@ -44,6 +44,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 				<Button
 					variant="fab"
 					style={{position: "absolute", bottom: 20, right: 20}}
+					color={"primary"}
 					onClick={this.showNewGameDialog}
 				>
 					<AddIcon/>

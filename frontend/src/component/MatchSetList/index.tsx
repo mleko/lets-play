@@ -40,6 +40,7 @@ export class MatchSetList extends React.PureComponent<MatchSetListProps, State> 
 					to={"/match-sets/new"}
 					variant="fab"
 					style={{position: "absolute", bottom: 20, right: 20}}
+					color={"primary"}
 				>
 					<AddIcon/>
 				</LinkButton>

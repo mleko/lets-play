@@ -63,7 +63,7 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchS
 				<FormControl fullWidth={true} style={{marginTop: 8}}>
 					<Button variant={"raised"} color={"primary"} onClick={this.props.onSave}><SaveIcon/>Save</Button>
 				</FormControl>
-				<Button variant={"fab"} style={{position: "absolute", bottom: 20, right: 20}} onClick={this.addMatch}>
+				<Button variant={"fab"} color={"primary"} style={{position: "absolute", bottom: 20, right: 20}} onClick={this.addMatch}>
 					<AddIcon/>
 				</Button>
 			</div>
