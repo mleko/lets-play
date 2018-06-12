@@ -3,6 +3,7 @@ import * as React from "react";
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
 import {Add as AddIcon, PlayArrow as PlayIcon} from "material-ui-icons";
 import Button from "material-ui/Button";
+import Tooltip from "material-ui/Tooltip";
 import {Trans} from "react-i18next";
 import {Game, MatchSet} from "../../model/models";
 import {Link} from "../Link";
@@ -41,14 +42,16 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 						{this.renderRows()}
 					</TableBody>
 				</Table>
-				<Button
-					variant="fab"
-					style={{position: "absolute", bottom: 20, right: 20}}
-					color={"primary"}
-					onClick={this.showNewGameDialog}
-				>
-					<AddIcon/>
-				</Button>
+				<Tooltip title={<Trans>Create new game</Trans>}>
+					<Button
+						variant="fab"
+						style={{position: "absolute", bottom: 20, right: 20}}
+						color={"primary"}
+						onClick={this.showNewGameDialog}
+					>
+						<AddIcon/>
+					</Button>
+				</Tooltip>
 				{this.renderDialog()}
 			</div>
 		);
@@ -106,7 +109,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 	};
 
 	private showNewGameDialog = () => {
-		if(null === this.state.sets){
+		if (null === this.state.sets) {
 			this.setState({sets: []});
 			this.props.loadSets()
 				.then((sets) => {

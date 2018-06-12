@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
 import {Add as AddIcon, Edit as EditIcon} from "material-ui-icons";
+import Tooltip from "material-ui/Tooltip";
 import {Trans} from "react-i18next";
 import {MatchSet} from "../../model/models";
 import {Link} from "../Link";
@@ -37,14 +38,16 @@ export class MatchSetList extends React.PureComponent<MatchSetListProps, State> 
 						{sets.map(this.renderRow)}
 					</TableBody>
 				</Table>
-				<LinkButton
-					to={"/match-sets/new"}
-					variant="fab"
-					style={{position: "absolute", bottom: 20, right: 20}}
-					color={"primary"}
-				>
-					<AddIcon/>
-				</LinkButton>
+				<Tooltip title={<Trans>Add new set</Trans>}>
+					<LinkButton
+						to={"/match-sets/new"}
+						variant="fab"
+						style={{position: "absolute", bottom: 20, right: 20}}
+						color={"primary"}
+					>
+						<AddIcon/>
+					</LinkButton>
+				</Tooltip>
 			</div>
 		);
 	}

@@ -6,6 +6,7 @@ import {Add as AddIcon, Save as SaveIcon} from "material-ui-icons";
 import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
 import Input from "material-ui/Input";
+import Tooltip from "material-ui/Tooltip";
 import {Trans} from "react-i18next";
 import {replace, without} from "typescript-array-utils";
 import {merge} from "typescript-object-utils";
@@ -60,13 +61,34 @@ export class MatchSetView extends React.PureComponent<MatchSetViewProps & MatchS
 			return null;
 		}
 		return (
-			<div>
-				<FormControl fullWidth={true} style={{marginTop: 8}}>
-					<Button variant={"raised"} color={"primary"} onClick={this.props.onSave}><SaveIcon/>Save</Button>
+			<div style={{textAlign: "center"}}>
+				<FormControl style={{marginTop: 8}}>
+					<Button
+						color={"primary"}
+						onClick={this.addMatch}
+					>
+						<AddIcon/><Trans>Add match</Trans>
+					</Button>
 				</FormControl>
-				<Button variant={"fab"} color={"primary"} style={{position: "absolute", bottom: 20, right: 20}} onClick={this.addMatch}>
-					<AddIcon/>
-				</Button>
+				<FormControl fullWidth={true} style={{marginTop: 8}}>
+					<Button
+						variant={"raised"}
+						color={"primary"}
+						onClick={this.props.onSave}
+					>
+						<SaveIcon/><Trans>Save</Trans>
+					</Button>
+				</FormControl>
+				<Tooltip title={<Trans>Add match</Trans>}>
+					<Button
+						variant={"fab"}
+						color={"primary"}
+						style={{position: "absolute", bottom: 20, right: 20}}
+						onClick={this.addMatch}
+					>
+						<AddIcon/>
+					</Button>
+				</Tooltip>
 			</div>
 		);
 	}

@@ -11,6 +11,7 @@ import {User} from "../model/models";
 import {AppState} from "../redux";
 import {Dispatch} from "../redux/Action";
 import {RoutingActions} from "../redux/module/routing";
+import {SnackbarActions} from "../redux/module/snackbar";
 
 export interface MatchSetViewProps {
 	setId?: string;
@@ -18,6 +19,7 @@ export interface MatchSetViewProps {
 
 interface MatchSetViewActions {
 	onRedirect: (url: string) => any;
+	onNotification: (message: string) => any;
 }
 
 type CombinedProps = MatchSetViewProps & { user: User } & MatchSetViewActions;
@@ -68,12 +70,15 @@ class MatchSetViewWithRouter extends React.PureComponent<CombinedProps, State> {
 	private saveMatchSet = () => {
 		const result = MatchSetRepository.save(this.state.set, this.context.httpClient);
 		const set = this.state.set;
-		if (!set.id) {
-			result.then((response: Response<MatchSet>) => {
-				this.setState({set: response.data});
+
+		result.then((response: Response<MatchSet>) => {
+			this.setState({set: response.data});
+			this.props.onNotification("Saved");
+			if (!set.id) {
 				this.props.onRedirect("/match-sets/" + response.data.id);
-			});
-		}
+			}
+		});
+
 	};
 }
 
@@ -90,6 +95,7 @@ function mapStateToProps(state: AppState) {
 function mapDispatchToProps(dispatch: Dispatch) {
 	return bindActionCreators({
 		onRedirect: RoutingActions.redirect,
+		onNotification: SnackbarActions.message
 	}, dispatch);
 }
 

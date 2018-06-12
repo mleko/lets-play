@@ -3,6 +3,7 @@ import * as React from "react";
 import {Close as CloseIcon} from "material-ui-icons";
 import IconButton from "material-ui/IconButton";
 import Snackbar from "material-ui/Snackbar";
+import {Trans} from "react-i18next";
 
 export interface SnackbarsProps {
 	show: boolean;
@@ -28,7 +29,7 @@ export class Snackbars extends React.PureComponent<SnackbarsProps, {}> {
 				anchorOrigin={{vertical: "bottom", horizontal: "left"}}
 				open={this.props.show}
 				autoHideDuration={6000}
-				message={<span id="message-id">{this.props.message}</span>}
+				message={<span id="message-id"><Trans>{this.props.message}</Trans></span>}
 				onClose={this.props.onClose}
 				onExited={this.props.onExited}
 				action={button}
