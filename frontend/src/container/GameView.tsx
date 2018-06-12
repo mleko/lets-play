@@ -1,20 +1,25 @@
 import * as React from "react";
+import {connect} from "react-redux";
 import {GameView as Component} from "../component/GameView";
 import {Client} from "../infrastructure/http/Client";
 import {httpContextValidationMap} from "../infrastructure/http/Provider";
 import {Response} from "../infrastructure/http/Response";
 import {MatchSet, MatchSetRepository} from "../model/MatchSet";
 import {Bet, Game, Ranking} from "../model/models";
+import {Dispatch} from "../redux/Action";
+import {SnackbarActions} from "../redux/module/snackbar";
 
 export interface GameViewProps {
 	gameId: string;
 }
 
-export class GameView extends React.PureComponent<GameViewProps, State> {
+type CombinedProps = GameViewProps & { onNotification: (message: string) => any };
 
-	protected static contextTypes = httpContextValidationMap;
+class GameViewRaw extends React.PureComponent<CombinedProps, State> {
 
-	public constructor(props: GameViewProps) {
+	public static contextTypes = httpContextValidationMap;
+
+	public constructor(props: CombinedProps) {
 		super(props);
 		this.state = {};
 	}
@@ -72,9 +77,24 @@ export class GameView extends React.PureComponent<GameViewProps, State> {
 		client.request({url: "/games/" + this.props.gameId + "/bets", method: "PUT", data: bets})
 			.then((response: Response<Bet[]>) => {
 				this.setState({bets: response.data});
+				this.props.onNotification("Zapisano");
 			});
 	}
 }
+
+function mapStateToProps() {
+	return {};
+}
+
+function mapDispatchToProps(dispatch: Dispatch) {
+	return {
+		onNotification: (message: string) => {
+			dispatch(SnackbarActions.message(message));
+		}
+	};
+}
+
+export const GameView = connect(mapStateToProps, mapDispatchToProps)(GameViewRaw);
 
 interface State {
 	game?: Game;

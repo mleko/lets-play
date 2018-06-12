@@ -48,11 +48,9 @@ class InvitationRaw extends React.PureComponent<CombinedProps, State> {
 		const client: Client = this.context.httpClient;
 		return client.request({url: "/invitation/" + this.props.invitationId, method: "GET"})
 			.then((response: Response<GameInvitation>) => {
-				console.log("Then")
 				this.setState({invitation: response.data});
 			})
 			.catch(() => {
-				console.log("Fail")
 				this.setState({notFound: true});
 			});
 	}
