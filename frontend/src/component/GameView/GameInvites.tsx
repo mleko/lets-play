@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ChangeEvent} from "react";
 
-import {FormControl, InputAdornment, InputLabel, Theme} from "material-ui";
+import {FormControl, InputLabel, Theme} from "material-ui";
 import Button from "material-ui/Button";
 import Divider from "material-ui/Divider";
 import Input from "material-ui/Input";
@@ -43,7 +43,6 @@ export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
 						error={this.state.emailError}
 						id="adornment-email"
 						type={"email"}
-						startAdornment={<InputAdornment position="start">@</InputAdornment>}
 						value={this.state.email}
 						onChange={this.updateEmail}
 						onKeyDown={this.inputKeyDown}
