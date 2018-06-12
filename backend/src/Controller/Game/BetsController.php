@@ -8,6 +8,7 @@ use Mleko\LetsPlay\Entity\Bet;
 use Mleko\LetsPlay\Entity\Match;
 use Mleko\LetsPlay\Entity\MatchSet;
 use Mleko\LetsPlay\Entity\User;
+use Mleko\LetsPlay\Http\Response;
 use Mleko\LetsPlay\Repository\BetsRepository;
 use Mleko\LetsPlay\Repository\GameRepository;
 use Mleko\LetsPlay\Repository\MatchSetRepository;
@@ -49,19 +50,39 @@ class BetsController
             $set = $this->matchSetRepository->getSet($game->getMatchSetId());
             $bets = $this->createBetViews($bets, $set);
         }
-        return new \Mleko\LetsPlay\Http\Response($bets);
+        return new Response($bets);
     }
 
     public function update($gameId, Request $request, UserActor $authUser) {
+        $now = new \DateTimeImmutable();
         $data = \json_decode($request->getContent(), true);
         /** @var User $user */
         $user = $authUser->getUser();
         $gameId = new Uuid($gameId);
+        $game = $this->gameRepository->getGame($gameId->getUuid());
+        if (!$game) {
+            return new Response(["message" => "Game not found"], false, 404);
+        }
         $bets = $this->unserialize($data, $user->getId(), $gameId);
+
+        $set = $this->matchSetRepository->getSet($game->getMatchSetId());
+        $matches = $set->getMatches();
+        $matchesById = [];
+        foreach ($matches as $match) {
+            $matchesById[$match->getId()->getUuid()] = $match->isLocked($now);
+        }
+        foreach ($bets as $bet) {
+            if (!\array_key_exists($bet->getMatchId()->getUuid(), $matchesById)) {
+                return new Response(["message" => "Cannot bet non game match"], false, 401);
+            }
+            if (!$matchesById[$bet->getMatchId()->getUuid()]) {
+                return new Response(["message" => "Cannot bet past match"], false, 401);
+            }
+        }
 
         $this->betRepository->saveMany($bets, true);
 
-        return new \Mleko\LetsPlay\Http\Response($this->betRepository->getUserGameBets($user->getId(), $gameId));
+        return new Response($this->betRepository->getUserGameBets($user->getId(), $gameId));
     }
 
     /**
