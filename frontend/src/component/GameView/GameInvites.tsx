@@ -6,6 +6,7 @@ import Button from "material-ui/Button";
 import Divider from "material-ui/Divider";
 import Input from "material-ui/Input";
 import withStyles from "material-ui/styles/withStyles";
+import {Trans} from "react-i18next";
 import {GameInvite} from "../../model/models";
 
 export interface GameInvitesProps {
@@ -33,7 +34,7 @@ export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
 					style={{marginTop: 6}}
 					onClick={this.createInvitation}
 				>
-					Utwórz zaproszenie
+					<Trans>Create invitation</Trans>
 				</Button>
 				{this.renderInvitation()}
 				<Divider style={{marginTop: 6, marginBottom: 6}}/>
@@ -55,7 +56,7 @@ export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
 					style={{marginTop: 4}}
 					onClick={this.invite}
 				>
-					Wyślij zaproszenie
+					<Trans>Send invitation</Trans>
 				</Button>
 			</div>
 		);

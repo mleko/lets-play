@@ -2,6 +2,7 @@ import * as React from "react";
 
 import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
+import {Trans} from "react-i18next";
 import {replace} from "typescript-array-utils";
 import {shallowMergeDeep} from "typescript-object-utils";
 import {Bet, Match, MatchSet} from "../../model/models";
@@ -81,7 +82,7 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 					style={{marginTop: 10}}
 					onClick={this.save}
 				>
-					Zapisz
+					<Trans>Save</Trans>
 				</Button>
 			</div>
 		);
@@ -96,7 +97,7 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 				style={{marginTop: 15}}
 				onClick={this.save}
 			>
-				Zapisz
+				<Trans>Save</Trans>
 			</Button>
 		);
 	}

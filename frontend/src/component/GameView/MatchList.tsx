@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
+import {Trans} from "react-i18next";
 import {isNumber} from "util";
 import {Bet, HandA, Match} from "../../model/models";
 
@@ -37,7 +38,7 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 				result: {home: match.home.score, away: match.away.score},
 				bet: {home: bet ? bet.bet.home : null, away: bet ? bet.bet.away : null},
 				date: match.startDate.toLocaleString(),
-				points: bet ? bet.points : 0
+				points: bet ? bet.points : null
 			};
 		});
 
@@ -45,11 +46,11 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 			<Table>
 				<TableHead>
 					<TableRow>
-						<TableCell>Mecz</TableCell>
-						<TableCell>Data</TableCell>
-						<TableCell>Wynik</TableCell>
-						<TableCell>Typ</TableCell>
-						<TableCell>Punkty</TableCell>
+						<TableCell><Trans>Match</Trans></TableCell>
+						<TableCell><Trans>Date</Trans></TableCell>
+						<TableCell><Trans>Score</Trans></TableCell>
+						<TableCell><Trans>Pick</Trans></TableCell>
+						<TableCell><Trans>Points</Trans></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>

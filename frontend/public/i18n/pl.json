@@ -32,5 +32,11 @@
   "Users": "Użytkownicy",
   "We use email only as login and for the purpose of password reset": "Używamy adresu email tylko jako login i na potrzeby resetowania hasła",
   "You may provide fake email but you will not be able to reset password if you forget it": "Możesz podać zmyślony adres ale nie będziesz w stanie odzyskać hasła jeśli je zapomnisz",
-  "We store email in hashed form": "Przechowujemy adresy email jako hash'e"
+  "We store email in hashed form": "Przechowujemy adresy email jako hashe",
+  "Create invitation": "Utwórz zaproszenie",
+  "Send invitation": "Wyślij zaproszenie",
+  "Match": "Mecz",
+  "Date": "Data",
+  "Score": "Wynik",
+  "Pick": "Typ"
 }
