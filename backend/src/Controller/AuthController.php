@@ -59,6 +59,9 @@ class AuthController
         if (false === \filter_var($email, \FILTER_VALIDATE_EMAIL)) {
             return new Response(["message" => "Email must be valid"], false, 400);
         }
+        if ($this->userRepository->findUserByEmail($email)) {
+            return new Response(["messages" => "User already exists"], false, 409);
+        }
         $user = new User($data["name"], User::hashEmail($email), password_hash($password, PASSWORD_BCRYPT));
         $this->userRepository->saveUser($user);
 
