@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {Close as CloseIcon} from "material-ui-icons";
+import CloseIcon from "material-ui-icons/Close";
 import IconButton from "material-ui/IconButton";
 import Snackbar from "material-ui/Snackbar";
 import {Trans} from "react-i18next";

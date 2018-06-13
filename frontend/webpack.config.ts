@@ -1,9 +1,11 @@
 import * as webpack from "webpack";
 import * as path from "path";
+import {BundleAnalyzerPlugin} from "webpack-bundle-analyzer";
 
 const isProduction = process.env.NODE_ENV === "production";
+const analyze = process.env.ANALYZE === "true";
 
-console.log(process.env.NODE_ENV);
+console.log(process.env.NODE_ENV + " -> " + (isProduction ? "PROD" : "DEV") + (analyze ? " WITH_ANALYZE" : ""));
 
 const config = {
 	resolve: {
@@ -67,6 +69,11 @@ if (!isProduction) {
 		new webpack.optimize.UglifyJsPlugin({
 			extractComments: true
 		})
+	);
+}
+if (analyze) {
+	config.plugins.unshift(
+		new BundleAnalyzerPlugin()
 	);
 }
 

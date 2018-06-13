@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import {FormControl} from "material-ui";
 import AppBar from "material-ui/AppBar";
 import Button from "material-ui/Button";
+import FormControl from "material-ui/Form/FormControl";
 import TextField from "material-ui/TextField";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";

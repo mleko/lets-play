@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import {TableBody, TableCell, TableHead, TableRow} from "material-ui";
-import Table from "material-ui/Table";
+import Table, {TableBody, TableCell, TableHead, TableRow} from "material-ui/Table";
 import {Trans} from "react-i18next";
 
 export class Rules extends React.PureComponent<{}, {}> {

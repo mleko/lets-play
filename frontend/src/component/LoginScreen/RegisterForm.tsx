@@ -1,7 +1,10 @@
 import * as React from "react";
 
-import {Button, FormControl, InputAdornment, TextField} from "material-ui";
-import {Info as InfoIcon} from "material-ui-icons";
+import InfoIcon from "material-ui-icons/Info";
+import Button from "material-ui/Button";
+import FormControl from "material-ui/Form/FormControl";
+import InputAdornment from "material-ui/Input/InputAdornment";
+import TextField from "material-ui/TextField";
 import {Trans} from "react-i18next";
 import {RodoDialog} from "./RodoDialog";
 

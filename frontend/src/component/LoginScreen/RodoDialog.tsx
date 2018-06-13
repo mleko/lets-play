@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import {DialogContent, DialogContentText, DialogTitle} from "material-ui";
-import Dialog from "material-ui/Dialog";
+import Dialog, {DialogContent, DialogContentText, DialogTitle} from "material-ui/Dialog";
 import {Trans} from "react-i18next";
 
 export interface RodoDialogProps {

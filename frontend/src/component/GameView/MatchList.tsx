@@ -1,8 +1,7 @@
 import * as React from "react";
 
-import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
+import Table, {TableBody, TableCell, TableHead, TableRow} from "material-ui/Table";
 import {Trans} from "react-i18next";
-import {isNumber} from "util";
 import {Bet, HandA, Match} from "../../model/models";
 
 export interface MatchView {
@@ -67,7 +66,7 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 				<TableCell>{m.date}</TableCell>
 				<TableCell>{MatchList.scoreToString(m.result)}</TableCell>
 				<TableCell>{MatchList.scoreToString(m.bet)}</TableCell>
-				<TableCell>{isNumber(m.points) ? m.points : " - "}</TableCell>
+				<TableCell>{typeof m.points === "number" ? m.points : " - "}</TableCell>
 			</TableRow>
 		);
 	};

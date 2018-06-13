@@ -1,8 +1,9 @@
 import * as React from "react";
 
-import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
-import {Add as AddIcon, PlayArrow as PlayIcon} from "material-ui-icons";
+import AddIcon from "material-ui-icons/Add";
+import PlayIcon from "material-ui-icons/PlayArrow";
 import Button from "material-ui/Button";
+import Table, {TableBody, TableCell, TableHead, TableRow} from "material-ui/Table";
 import Tooltip from "material-ui/Tooltip";
 import {Trans} from "react-i18next";
 import {Game, MatchSet} from "../../model/models";

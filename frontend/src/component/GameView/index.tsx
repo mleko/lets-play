@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import {Tab} from "material-ui";
 import AppBar from "material-ui/AppBar";
 import Tabs from "material-ui/Tabs";
+import Tab from "material-ui/Tabs/Tab";
 import {Trans} from "react-i18next";
 import {Bet, Game, MatchSet, Ranking} from "../../model/models";
 import {GameUsersTab} from "./GameUsersTab";

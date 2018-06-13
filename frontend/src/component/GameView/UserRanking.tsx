@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
+import Table, {TableBody, TableCell, TableHead, TableRow} from "material-ui/Table";
 import {Trans} from "react-i18next";
 import {Ranking, RankingEntry} from "../../model/models";
 

@@ -1,10 +1,12 @@
 import * as React from "react";
 import {ChangeEvent} from "react";
 
-import {FormControl, InputLabel, Theme} from "material-ui";
 import Button from "material-ui/Button";
 import Divider from "material-ui/Divider";
+import FormControl from "material-ui/Form/FormControl";
 import Input from "material-ui/Input";
+import InputLabel from "material-ui/Input/InputLabel";
+import {Theme} from "material-ui/styles";
 import withStyles from "material-ui/styles/withStyles";
 import {Trans} from "react-i18next";
 import {GameInvite} from "../../model/models";

@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import {ExpansionPanelDetails, ExpansionPanelSummary} from "material-ui";
-import {ExpandMore as ExpandMoreIcon} from "material-ui-icons";
+import ExpandMoreIcon from "material-ui-icons/ExpandMore";
 import Divider from "material-ui/Divider";
-import ExpansionPanel from "material-ui/ExpansionPanel";
+import ExpansionPanel, {ExpansionPanelDetails, ExpansionPanelSummary} from "material-ui/ExpansionPanel";
 import {GameInvites} from "../../container/GameInvites";
 import {GameUsers} from "../../container/GameUsers";
 

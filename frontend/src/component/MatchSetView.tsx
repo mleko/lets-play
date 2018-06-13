@@ -1,11 +1,13 @@
 import * as React from "react";
 import {ChangeEvent} from "react";
 
-import {FormControl, InputLabel} from "material-ui";
-import {Add as AddIcon, Save as SaveIcon} from "material-ui-icons";
+import AddIcon from "material-ui-icons/Add";
+import SaveIcon from "material-ui-icons/Save";
 import Button from "material-ui/Button";
+import FormControl from "material-ui/Form/FormControl";
 import Grid from "material-ui/Grid";
 import Input from "material-ui/Input";
+import InputLabel from "material-ui/Input/InputLabel";
 import Tooltip from "material-ui/Tooltip";
 import {Trans} from "react-i18next";
 import {replace, without} from "typescript-array-utils";

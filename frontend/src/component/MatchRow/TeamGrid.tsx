@@ -1,10 +1,10 @@
 import * as React from "react";
 import {ChangeEvent, CSSProperties} from "react";
 
-import {WithStyles} from "material-ui";
 import Grid from "material-ui/Grid";
 import {GridSize} from "material-ui/Grid/Grid";
 import Input from "material-ui/Input";
+import {WithStyles} from "material-ui/styles";
 import withStyles from "material-ui/styles/withStyles";
 import {MatchTeam} from "../../model/Match";
 

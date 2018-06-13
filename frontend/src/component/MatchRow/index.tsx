@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ChangeEvent, CSSProperties} from "react";
 
-import {Delete as DeleteIcon} from "material-ui-icons";
+import DeleteIcon from "material-ui-icons/Delete";
 import Grid from "material-ui/Grid";
 import IconButton from "material-ui/IconButton";
 import TextField from "material-ui/TextField";

@@ -1,8 +1,9 @@
 import * as React from "react";
 import {ChangeEvent} from "react";
 
-import {MenuItem, Select as MuiSelect} from "material-ui";
 import Input from "material-ui/Input";
+import MenuItem from "material-ui/Menu/MenuItem";
+import MuiSelect from "material-ui/Select";
 
 export interface SelectProps {
 	value: any;

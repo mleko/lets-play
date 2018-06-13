@@ -1,16 +1,11 @@
 import * as React from "react";
 import {ChangeEvent} from "react";
 
-import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle,
-	FormControl,
-	InputLabel,
-	TextField
-} from "material-ui";
+import Button from "material-ui/Button";
+import Dialog, {DialogActions, DialogContent, DialogTitle} from "material-ui/Dialog";
+import {FormControl} from "material-ui/Form";
+import {InputLabel} from "material-ui/Input";
+import TextField from "material-ui/TextField";
 import {MatchSet} from "../../model/models";
 import {Option, Select} from "../Select";
 

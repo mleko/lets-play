@@ -1,7 +1,10 @@
 import * as React from "react";
 
-import {AppBar, IconButton, Toolbar, Typography} from "material-ui";
-import {Menu as MenuIcon} from "material-ui-icons";
+import MenuIcon from "material-ui-icons/Menu";
+import AppBar from "material-ui/AppBar";
+import IconButton from "material-ui/IconButton";
+import Toolbar from "material-ui/Toolbar";
+import Typography from "material-ui/Typography";
 import {User} from "../model/models";
 import {AuthenticationBadge} from "./AuthenticationBadge";
 import {Link} from "./Link";

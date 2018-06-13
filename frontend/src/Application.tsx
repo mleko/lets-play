@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import {Paper, Reboot} from "material-ui";
+import Paper from "material-ui/Paper";
+import Reboot from "material-ui/Reboot";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router";
 import {Router} from "react-router-dom";
 
