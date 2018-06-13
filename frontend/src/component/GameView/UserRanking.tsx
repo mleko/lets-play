@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {Table, TableBody, TableCell, TableHead, TableRow} from "material-ui";
+import {Trans} from "react-i18next";
 import {Ranking, RankingEntry} from "../../model/models";
 
 export interface UserRankingProps {
@@ -28,9 +29,9 @@ export class UserRanking extends React.PureComponent<UserRankingProps, {}> {
 			<Table>
 				<TableHead>
 					<TableRow>
-						<TableCell>Pozycja</TableCell>
-						<TableCell>Użytkownik</TableCell>
-						<TableCell>Punkty</TableCell>
+						<TableCell><Trans>Position</Trans></TableCell>
+						<TableCell><Trans>User</Trans></TableCell>
+						<TableCell><Trans>Points</Trans></TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
