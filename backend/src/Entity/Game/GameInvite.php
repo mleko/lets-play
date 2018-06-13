@@ -8,6 +8,7 @@ use Mleko\LetsPlay\ValueObject\Uuid;
 class GameInvite
 {
 
+    public const STATUS_PERMANENT = -1;
     public const STATUS_PENDING = 0;
     public const STATUS_ACCEPTED = 1;
     public const STATUS_CANCELED = 2;
@@ -49,14 +50,21 @@ class GameInvite
      * @return int
      */
     public function getStatus(): int {
+        if ($this->status === self::STATUS_PERMANENT) {
+            return self::STATUS_PENDING;
+        }
         return $this->status;
     }
 
     public function cancel(): void {
-        $this->status = self::STATUS_CANCELED;
+        if ($this->status !== self::STATUS_PERMANENT) {
+            $this->status = self::STATUS_CANCELED;
+        }
     }
 
     public function markAccepted(): void {
-        $this->status = self::STATUS_ACCEPTED;
+        if ($this->status !== self::STATUS_PERMANENT) {
+            $this->status = self::STATUS_ACCEPTED;
+        }
     }
 }
