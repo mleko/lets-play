@@ -98,7 +98,9 @@ class InvitesController
         $invitation->markAccepted();
         $this->inviteRepository->save($invitation);
         $gameUser = new GameUser($invitation->getGameId(), $user->getUser()->getId());
-        $this->gameUserRepository->save($gameUser);
+        if(null === $this->gameUserRepository->getGameUser($user->getUser()->getId(), $invitation->getGameId())){
+            $this->gameUserRepository->save($gameUser);
+        }
 
         return new Response(null);
     }
