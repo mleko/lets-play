@@ -36,7 +36,7 @@ const styles = {
 	}
 };
 
-export const TeamGrid = withStyles(styles)(
+export const TeamGridWide = withStyles(styles)(
 	class extends React.PureComponent<TeamGridProps & TeamGridActions & WithStyles<"leftMatch">, {}> {
 		public render(): JSX.Element {
 			const {gridSize, style, left, team} = this.props;
@@ -44,6 +44,7 @@ export const TeamGrid = withStyles(styles)(
 				<Grid
 					item={true}
 					xs={gridSize}
+					hidden={{xsDown: true}}
 					style={{textAlign: (left ? "right" : "left"), ...style}}
 					className={left ? this.props.classes.leftMatch : undefined}
 					key={"home"}

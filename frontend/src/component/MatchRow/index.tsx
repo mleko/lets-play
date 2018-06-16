@@ -8,7 +8,8 @@ import TextField from "material-ui/TextField";
 import {shallowMerge} from "typescript-object-utils";
 import {Match} from "../../model/Match";
 import {DateTime} from "../../utility/DateTime";
-import {TeamGrid} from "./TeamGrid";
+import {TeamGridSmall} from "./TeamGridSmall";
+import {TeamGridWide as TeamGrid} from "./TeamGridWide";
 
 export interface MatchRowProps {
 	match: Match;
@@ -50,47 +51,95 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 					team={match.away}
 					left={false}
 					gridSize={gridSize}
-					style={paperStyle}
+					style={{...paperStyle}}
 					key={"away"}
+					onNameChange={this.props.editName && editable ? this.onNameChange : undefined}
+					onScoreChange={editable ? this.onScoreChange : undefined}
+				/>
+			), (
+				<TeamGridSmall
+					left={match.home}
+					right={match.away}
+					style={{...paperStyle}}
+					key={"small"}
 					onNameChange={this.props.editName && editable ? this.onNameChange : undefined}
 					onScoreChange={editable ? this.onScoreChange : undefined}
 				/>
 			)
 		];
-		elements.push(this.renderDate(editable));
+		elements.push((
+			<Grid
+				item={true}
+				xs={2}
+				sm={1}
+				hidden={{smUp: true}}
+				style={{...paperStyle, borderTop: "none"}}
+				key={"empty-pre"}
+			/>
+		));
+		elements.push(...this.renderDate(editable));
 		if (removable) {
 			elements.push((
-				<Grid item={true} xs={1} style={{textAlign: "right", ...paperStyle}} key={"remove"}>
+				<Grid
+					item={true}
+					xs={2}
+					sm={1}
+					style={{textAlign: "right", ...paperStyle, borderTop: "none"}}
+					key={"remove"}
+				>
 					<IconButton onClick={this.remove}><DeleteIcon/></IconButton>
 				</Grid>
 			));
 		} else {
-			elements.push((<Grid item={true} xs={1} style={paperStyle} key={"empty"}/>));
+			elements.push((<Grid item={true} xs={2} sm={1} style={{...paperStyle, borderTop: "none"}} key={"empty"}/>));
 		}
 		return elements;
 	}
 
 	private renderDate(editable: boolean) {
+		const style = {textAlign: "center", ...paperStyle, borderTop: "none"};
+		const styleWide = {textAlign: "center", ...paperStyle};
 		if (editable && this.props.editDate) {
-			return (
-				<Grid item={true} xs={3} style={paperStyle} key={"dateTimePicker"}>
+			return [(
+				<Grid item={true} xs={8} sm={3} hidden={{smUp: true}} style={style} key={"dateTimePicker-xs"}>
 					<TextField
 						type="datetime-local"
 						value={DateTime.toInputString(this.props.match.startDate)}
 						onChange={this.updateDate}
+						inputProps={{style: {textAlign: "center"}}}
 					/>
 				</Grid>
-			);
+			),
+				(
+					<Grid item={true} xs={8} sm={3} hidden={{xsDown: true}} style={styleWide} key={"dateTimePicker"}>
+						<TextField
+							type="datetime-local"
+							value={DateTime.toInputString(this.props.match.startDate)}
+							onChange={this.updateDate}
+							inputProps={{style: {textAlign: "center"}}}
+						/>
+					</Grid>
+				)];
 		}
-		return (
-			<Grid item={true} xs={3} style={paperStyle} key={"dateTime"}>
+		return [(
+			<Grid item={true} xs={8} sm={3} hidden={{smUp: true}} style={style} key={"dateTime-xs"}>
 				<TextField
 					type="text"
 					value={this.props.match.startDate.toLocaleString()}
 					disabled={true}
+					inputProps={{style: {textAlign: "center"}}}
 				/>
 			</Grid>
-		);
+		), (
+			<Grid item={true} xs={8} sm={3} hidden={{xsDown: true}} style={styleWide} key={"dateTime"}>
+				<TextField
+					type="text"
+					value={this.props.match.startDate.toLocaleString()}
+					disabled={true}
+					inputProps={{style: {textAlign: "center"}}}
+				/>
+			</Grid>
+		)];
 	}
 
 	private remove = () => {
