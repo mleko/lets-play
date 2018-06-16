@@ -73,6 +73,10 @@
             </argument>
         </service>
         <service id="Zend\Mail\Transport\TransportInterface" alias="mail.transport"/>
+
+        <service id="log.line_formatter.with_trace" class="Monolog\Formatter\LineFormatter">
+            <call method="includeStacktraces"/>
+        </service>
     </services>
 
     <!-- ... -->
