@@ -39,7 +39,7 @@ class MatchSetController
             throw new NotFoundHttpException();
         }
         $data = \json_decode($request->getContent(), true);
-        $set = $this->denormalize($data, $user->getUser()->getId(), $setId);
+        $set = $this->denormalize($data, $user->getUser()->getId(), $setId, $set->isPublic());
         $this->matchSetRepository->save($set);
         return new \Mleko\LetsPlay\Http\Response($set);
     }
@@ -62,7 +62,7 @@ class MatchSetController
      * @param string|null $id
      * @return MatchSet
      */
-    private function denormalize($data, Uuid $userId, $id = null): MatchSet {
+    private function denormalize($data, Uuid $userId, $id = null, $public = false): MatchSet {
         $matches = [];
         foreach ($data["matches"] as $match) {
             $matches[] = new Match(
@@ -72,7 +72,7 @@ class MatchSetController
                 isset($match["id"]) && $match["id"] ? new Uuid($match["id"]) : null
             );
         }
-        $set = new MatchSet($data["name"], $userId, $matches, null === $id ? null : new Uuid($id));
+        $set = new MatchSet($data["name"], $userId, $matches, null === $id ? null : new Uuid($id), $public);
         return $set;
     }
 }
