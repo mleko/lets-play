@@ -65,6 +65,9 @@ export class AuthMiddleware implements Middleware<any> {
 			const token = localStorage.getItem("authToken");
 			if (token) {
 				this.client.requestDefaults.headers["Authorization"] = "Bearer " + token;
+			} else {
+				dispatch(AuthActions.loggedOut());
+				return ReduceResult.DONT_STORE;
 			}
 			this.client.request({
 				method: "GET",
