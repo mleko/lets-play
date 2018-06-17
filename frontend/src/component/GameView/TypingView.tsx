@@ -69,7 +69,7 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 
 	private renderMatchesToType(matches: Match[]) {
 		if (matches.length === 0) {
-			return (<div style={{textAlign: "center", margin: 10}}>Brak meczy do typowania</div>);
+			return (<div style={{textAlign: "center", margin: 10}}><Trans>There are no matches to bet</Trans></div>);
 		}
 		let visibleMatches = matches;
 		if (matches.length > 12 && !this.state.expanded) {
