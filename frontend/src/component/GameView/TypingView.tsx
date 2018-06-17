@@ -62,7 +62,7 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		return (
 			<MatchList
 				matches={matches}
-				bets={this.props.bets}
+				bets={this.props.bets ? this.props.bets : []}
 			/>
 		);
 	}

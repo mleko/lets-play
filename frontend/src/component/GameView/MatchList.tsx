@@ -30,7 +30,8 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 	public render(): JSX.Element {
 
 		const matches = this.props.matches.map((match: Match): MatchView => {
-			const bet = this.props.bets.find((b: Bet) => {
+			const bets = this.props.bets ? this.props.bets : [];
+			const bet = bets.find((b: Bet) => {
 				return b.matchId === match.id;
 			});
 			return {
