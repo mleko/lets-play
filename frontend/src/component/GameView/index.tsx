@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import AppBar from "material-ui/AppBar";
+import CircularProgress from "material-ui/Progress/CircularProgress";
 import Tabs from "material-ui/Tabs";
 import Tab from "material-ui/Tabs/Tab";
 import {Trans} from "react-i18next";
@@ -36,7 +37,8 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 				<AppBar position={"static"} color={"default"}>
 					<Tabs
 						value={this.state.activeTab}
-						fullWidth={true}
+						scrollable={true}
+						scrollButtons={"off"}
 						onChange={this.changeActiveTab}
 					>
 						<Tab label={<Trans>Picks</Trans>}/>
@@ -76,7 +78,9 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	}
 
 	private renderMatchList() {
-
+		if (!this.props.matchSet) {
+			return this.renderProgress();
+		}
 		return (
 			<MatchList
 				matches={this.props.matchSet.matches}
@@ -86,12 +90,18 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	}
 
 	private renderRanking() {
+		if (!this.props.ranking) {
+			return this.renderProgress();
+		}
 		return (
 			<UserRanking ranking={this.props.ranking}/>
 		);
 	}
 
 	private renderUsersView() {
+		if (!this.props.game) {
+			return this.renderProgress();
+		}
 		return (
 			<GameUsersTab gameId={this.props.game.id}/>
 		);
@@ -100,6 +110,14 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	private renderRules() {
 		return (
 			<Rules/>
+		);
+	}
+
+	private renderProgress() {
+		return (
+			<div style={{textAlign: "center"}}>
+				<CircularProgress size={160}/>
+			</div>
 		);
 	}
 

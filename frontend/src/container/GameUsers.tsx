@@ -12,6 +12,7 @@ export interface GameViewProps {
 export class GameUsers extends React.PureComponent<GameViewProps, State> {
 
 	protected static contextTypes = httpContextValidationMap;
+	private mounted = false;
 
 	public constructor(props: GameViewProps) {
 		super(props);
@@ -29,11 +30,18 @@ export class GameUsers extends React.PureComponent<GameViewProps, State> {
 	}
 
 	public componentDidMount() {
+		this.mounted = true;
 		const client: Client = this.context.httpClient;
 		return client.request({url: "/games/" + this.props.gameId + "/users", method: "GET"})
 			.then((response: Response<User[]>) => {
-				this.setState({users: response.data});
+				if (this.mounted) {
+					this.setState({users: response.data});
+				}
 			});
+	}
+
+	public componentWillUnmount(): void {
+		this.mounted = false;
 	}
 }
 

@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import Paper from "material-ui/Paper";
 import Table, {TableBody, TableCell, TableHead, TableRow} from "material-ui/Table";
 import {Trans} from "react-i18next";
 import {Bet, HandA, Match} from "../../model/models";
@@ -42,20 +43,22 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 		});
 
 		return (
-			<Table>
-				<TableHead>
-					<TableRow>
-						<TableCell><Trans>Match</Trans></TableCell>
-						<TableCell><Trans>Date</Trans></TableCell>
-						<TableCell><Trans>Score</Trans></TableCell>
-						<TableCell><Trans>Pick</Trans></TableCell>
-						<TableCell><Trans>Points</Trans></TableCell>
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{matches.map(this.renderRow)}
-				</TableBody>
-			</Table>
+			<Paper style={{width: "100%", overflow: "scroll"}}>
+				<Table>
+					<TableHead>
+						<TableRow>
+							<TableCell><Trans>Match</Trans></TableCell>
+							<TableCell><Trans>Date</Trans></TableCell>
+							<TableCell><Trans>Score</Trans></TableCell>
+							<TableCell><Trans>Pick</Trans></TableCell>
+							<TableCell><Trans>Points</Trans></TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{matches.map(this.renderRow)}
+					</TableBody>
+				</Table>
+			</Paper>
 		);
 	}
 
