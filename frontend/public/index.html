@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="user-scalable=0, initial-scale=1, minimum-scale=1, width=device-width, height=device-height">
@@ -7,11 +7,22 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/soccerball.png">
 
     <title>Let's Play</title>
+    <meta name="description" content="Pobaw się z przyjaciółmi w obstawianie wyników">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
     <style>
       body {
         font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      }
+      /* hide up/down arrows ("spinners") on input fields marked type="number" */
+      .no-spinners {
+        -moz-appearance:textfield;
+      }
+
+      .no-spinners::-webkit-outer-spin-button,
+      .no-spinners::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
     </style>
   </head>

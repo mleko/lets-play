@@ -107,7 +107,8 @@ export const TeamGridSmall = withStyles(styles)(
 				<Input
 					disableUnderline={true}
 					style={inputStyle}
-					inputProps={{style: {textAlign: "center"}}}
+					inputProps={{style: {textAlign: "center", className: "no-spinners"}}}
+					type={"number"}
 					value={(team.score === undefined || team.score === null) ? "" : team.score}
 					onChange={this.props.onScoreChange ? (left ? this.onLeftScoreChange : this.onRightScoreChange) : undefined}
 					disabled={!this.props.onScoreChange}

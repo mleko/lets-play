@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import ExpandMoreIcon from "material-ui-icons/ExpandMore";
 import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
 import {Trans} from "react-i18next";
@@ -21,7 +22,8 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 	public constructor(props: TypingViewProps) {
 		super(props);
 		this.state = {
-			bets: props.bets
+			bets: props.bets,
+			expanded: false
 		};
 	}
 
@@ -69,12 +71,18 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		if (matches.length === 0) {
 			return (<div style={{textAlign: "center", margin: 10}}>Brak meczy do typowania</div>);
 		}
+		let visibleMatches = matches;
+		if (matches.length > 12 && !this.state.expanded) {
+			visibleMatches = visibleMatches.slice(0, 10);
+		}
+		const hiddenMatches = matches.length - visibleMatches.length;
 		return (
 			<div>
-				{matches.length > 10 ? this.renderTopButton() : null}
+				{visibleMatches.length > 9 ? this.renderTopButton() : null}
 				<Grid container={true} spacing={16} style={{marginTop: 16}}>
-					{matches.map(this.renderElement)}
+					{visibleMatches.map(this.renderElement)}
 				</Grid>
+				{this.renderExpandButton(hiddenMatches)}
 				<Button
 					fullWidth={true}
 					color={"primary"}
@@ -115,6 +123,22 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		);
 	};
 
+	private renderExpandButton = (hiddenCount: number) => {
+		if (this.state.expanded || hiddenCount <= 0) {
+			return null;
+		}
+		return (
+			<div style={{textAlign: "center"}}>
+				<Button
+					color={"primary"}
+					onClick={this.expand}
+				>
+					<ExpandMoreIcon/><Trans>Show more</Trans> ({hiddenCount})
+				</Button>
+			</div>
+		);
+	};
+
 	private edit = (match: Match) => {
 		let bets = this.state.bets;
 		const betIndex = bets.findIndex((bet: Bet) => {
@@ -148,8 +172,13 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		});
 		this.props.onSave(betsToSave);
 	};
+
+	private expand = () => {
+		this.setState({expanded: true});
+	}
 }
 
 interface State {
 	bets: Bet[];
+	expanded: boolean;
 }
