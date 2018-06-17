@@ -97,7 +97,7 @@ export class MatchBetsDialog extends React.PureComponent<UserBetsDialogProps, {}
 		return (
 			<TableRow key={index}>
 				<TableCell>{userBet.user.name}</TableCell>
-				<TableCell>{MatchList.scoreToString(score)}</TableCell>
+				<TableCell><div style={{minWidth: "4em"}}>{MatchList.scoreToString(score)}</div></TableCell>
 				<TableCell>{bet && typeof bet.points === "number" ? bet.points : " - "}</TableCell>
 			</TableRow>
 		);

@@ -18,8 +18,8 @@ export class MatchListRow extends React.PureComponent<MatchListRowProps, {}> {
 			<TableRow>
 				<TableCell>{m.names.home + " : " + m.names.away}</TableCell>
 				<TableCell>{m.date}</TableCell>
-				<TableCell>{MatchList.scoreToString(m.result)}</TableCell>
-				<TableCell>{MatchList.scoreToString(m.bet)}</TableCell>
+				<TableCell><div style={{minWidth: "4em"}}>{MatchList.scoreToString(m.result)}</div></TableCell>
+				<TableCell><div style={{minWidth: "4em"}}>{MatchList.scoreToString(m.bet)}</div></TableCell>
 				<TableCell>{typeof m.points === "number" ? m.points : " - "}</TableCell>
 				{this.renderMatchBetsButton()}
 			</TableRow>

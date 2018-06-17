@@ -37,7 +37,7 @@ export class UserRanking extends React.PureComponent<UserRankingProps, State> {
 		}
 
 		return (
-			<div>
+			<div style={{width: "100%", overflow: "scroll"}}>
 				<Table>
 					<TableHead>
 						<TableRow>
