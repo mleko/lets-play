@@ -7,13 +7,15 @@ import {Response} from "../infrastructure/http/Response";
 import {MatchSet, MatchSetRepository} from "../model/MatchSet";
 import {Bet, Game, Ranking} from "../model/models";
 import {Dispatch} from "../redux/Action";
+import {RoutingActions} from "../redux/module/routing";
 import {SnackbarActions} from "../redux/module/snackbar";
 
 export interface GameViewProps {
 	gameId: string;
+	tab: string;
 }
 
-type CombinedProps = GameViewProps & { onNotification: (message: string) => any };
+type CombinedProps = GameViewProps & { onNotification: (message: string) => any, onTabSwitch: (url: string) => any };
 
 class GameViewRaw extends React.PureComponent<CombinedProps, State> {
 
@@ -27,11 +29,13 @@ class GameViewRaw extends React.PureComponent<CombinedProps, State> {
 	public render(): JSX.Element {
 		return (
 			<Component
+				tab={this.props.tab}
 				game={this.state.game}
 				matchSet={this.state.matchSet}
 				bets={this.state.bets}
 				ranking={this.state.ranking}
 				onBetSave={this.saveBets}
+				onTabSwitch={this.props.onTabSwitch}
 			/>
 		);
 	}
@@ -93,6 +97,9 @@ function mapDispatchToProps(dispatch: Dispatch) {
 	return {
 		onNotification: (message: string) => {
 			dispatch(SnackbarActions.message(message));
+		},
+		onTabSwitch: (url: string) => {
+			dispatch(RoutingActions.redirect(url));
 		}
 	};
 }

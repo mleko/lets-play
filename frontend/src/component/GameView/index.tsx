@@ -13,22 +13,17 @@ import {TypingView} from "./TypingView";
 import {UserRanking} from "./UserRanking";
 
 export interface GameViewProps {
+	tab: string;
 	game: Game;
 	matchSet: MatchSet;
 	bets: Bet[];
 	ranking: Ranking;
 
 	onBetSave: (bets: Bet[]) => any;
+	onTabSwitch: (url: string) => any;
 }
 
-export class GameView extends React.PureComponent<GameViewProps, GameViewState> {
-
-	public constructor(props: GameViewProps) {
-		super(props);
-		this.state = {
-			activeTab: 0
-		};
-	}
+export class GameView extends React.PureComponent<GameViewProps, {}> {
 
 	public render(): JSX.Element {
 		return (
@@ -36,16 +31,16 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 				<h2>{this.props.game ? this.props.game.name : ""}</h2>
 				<AppBar position={"static"} color={"default"}>
 					<Tabs
-						value={this.state.activeTab}
+						value={this.props.tab}
 						scrollable={true}
 						scrollButtons={"off"}
 						onChange={this.changeActiveTab}
 					>
-						<Tab label={<Trans>Picks</Trans>}/>
-						<Tab label={<Trans>Matches</Trans>}/>
-						<Tab label={"Ranking"}/>
-						<Tab label={<Trans>Users</Trans>}/>
-						<Tab label={<Trans>Rules</Trans>}/>
+						<Tab label={<Trans>Picks</Trans>} value={"bets"}/>
+						<Tab label={<Trans>Matches</Trans>} value={"matches"}/>
+						<Tab label={"Ranking"} value={"ranking"}/>
+						<Tab label={<Trans>Users</Trans>} value={"users"}/>
+						<Tab label={<Trans>Rules</Trans>} value={"rules"}/>
 					</Tabs>
 				</AppBar>
 				{this.renderTabContent()}
@@ -55,13 +50,13 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 	}
 
 	private renderTabContent() {
-		if (this.state.activeTab === 1) {
+		if (this.props.tab === "matches") {
 			return this.renderMatchList();
-		} else if (this.state.activeTab === 2) {
+		} else if (this.props.tab === "ranking") {
 			return this.renderRanking();
-		} else if (this.state.activeTab === 3) {
+		} else if (this.props.tab  === "users") {
 			return this.renderUsersView();
-		} else if (this.state.activeTab === 4) {
+		} else if (this.props.tab  === "rules") {
 			return this.renderRules();
 		}
 		return this.renderTypingView();
@@ -121,11 +116,8 @@ export class GameView extends React.PureComponent<GameViewProps, GameViewState> 
 		);
 	}
 
-	private changeActiveTab = (event: React.SyntheticEvent<any>, value: number) => {
-		this.setState({activeTab: value});
+	private changeActiveTab = (event: React.SyntheticEvent<any>, value: string) => {
+		this.props.onTabSwitch("/games/" + this.props.game.id + "/" + value);
+		// this.setState({activeTab: value});
 	};
-}
-
-interface GameViewState {
-	activeTab: number;
 }

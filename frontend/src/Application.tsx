@@ -84,8 +84,15 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 									/>
 									<PrivateRoute
 										authenticated={authed}
+										path="/games/:gameId/:tab"
+										render={this.renderGameView}
+										exact={true}
+									/>
+									<PrivateRoute
+										authenticated={authed}
 										path="/games/:gameId"
 										render={this.renderGameView}
+										exact={true}
 									/>
 									<Route path="/invitation/:invitationId" render={this.renderInvitation}/>
 									<Route render={this.renderDefaultRoute}/>
@@ -130,6 +137,7 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 		return (
 			<GameView
 				gameId={p.match.params.gameId}
+				tab={p.match.params.tab || "bets"}
 			/>
 		);
 	};
