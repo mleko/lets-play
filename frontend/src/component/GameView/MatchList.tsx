@@ -3,7 +3,9 @@ import * as React from "react";
 import Paper from "material-ui/Paper";
 import Table, {TableBody, TableCell, TableHead, TableRow} from "material-ui/Table";
 import {Trans} from "react-i18next";
+import {MatchBetsDialog} from "../../container/MatchBetsDialog";
 import {Bet, HandA, Match} from "../../model/models";
+import {MatchListRow} from "./MatchListRow";
 
 export interface MatchView {
 	names: HandA<string>;
@@ -11,20 +13,31 @@ export interface MatchView {
 	bet: HandA<number>;
 	date: string;
 	points?: number;
+	matchId: string;
+	locked: boolean;
 }
 
 export interface MatchListProps {
 	matches: Match[];
 	bets: Bet[];
+	showMatchBetsButton?: boolean;
+	gameId: string;
 }
 
-export class MatchList extends React.PureComponent<MatchListProps, {}> {
+export class MatchList extends React.PureComponent<MatchListProps, State> {
 
-	private static scoreToString(score: HandA<number>): string {
+	public static scoreToString(score: HandA<number>): string {
 		if (!score || score.away === null || score.home === null) {
 			return " - ";
 		}
 		return (score.home) + " : " + (score.away);
+	}
+
+	public constructor(props: MatchListProps) {
+		super(props);
+		this.state = {
+			matchBetsDialogMatchId: null
+		};
 	}
 
 	public render(): JSX.Element {
@@ -39,7 +52,9 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 				result: {home: match.home.score, away: match.away.score},
 				bet: {home: bet ? bet.bet.home : null, away: bet ? bet.bet.away : null},
 				date: match.startDate.toLocaleString(),
-				points: bet ? bet.points : null
+				points: bet ? bet.points : null,
+				matchId: match.id,
+				locked: match.locked
 			};
 		});
 
@@ -53,25 +68,51 @@ export class MatchList extends React.PureComponent<MatchListProps, {}> {
 							<TableCell><Trans>Score</Trans></TableCell>
 							<TableCell><Trans>Pick</Trans></TableCell>
 							<TableCell><Trans>Points</Trans></TableCell>
+							{this.props.showMatchBetsButton ? <TableCell style={{width: 1}}/> : null}
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{matches.map(this.renderRow)}
 					</TableBody>
 				</Table>
+				{this.renderMatchBetsDialog()}
 			</Paper>
 		);
 	}
 
 	private renderRow = (m: MatchView, index: number) => {
 		return (
-			<TableRow key={index}>
-				<TableCell>{m.names.home + " : " + m.names.away}</TableCell>
-				<TableCell>{m.date}</TableCell>
-				<TableCell>{MatchList.scoreToString(m.result)}</TableCell>
-				<TableCell>{MatchList.scoreToString(m.bet)}</TableCell>
-				<TableCell>{typeof m.points === "number" ? m.points : " - "}</TableCell>
-			</TableRow>
+			<MatchListRow
+				matchView={m}
+				key={index}
+				showMatchBetsButton={this.props.showMatchBetsButton}
+				onShowDialog={this.showMatchDialog}
+			/>
 		);
 	};
+
+	private renderMatchBetsDialog() {
+		const matchId = this.state.matchBetsDialogMatchId;
+		if (!matchId) {
+			return null;
+		}
+		const match = this.props.matches.find((m: Match) => {
+			return m.id === matchId;
+		});
+		const title = match.home.name + " : " + match.away.name + " - " + match.home.score + " : " + match.away.score;
+		return (
+			<MatchBetsDialog gameId={this.props.gameId} matchId={matchId} title={title} onClose={this.closeDialog}/>
+		);
+	}
+
+	private showMatchDialog = (matchId: string) => {
+		this.setState({matchBetsDialogMatchId: matchId});
+	};
+	private closeDialog = () => {
+		this.setState({matchBetsDialogMatchId: null});
+	}
+}
+
+interface State {
+	matchBetsDialogMatchId?: string;
 }

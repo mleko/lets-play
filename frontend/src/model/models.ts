@@ -22,6 +22,7 @@ export interface MatchScore {
 export interface Bet {
 	bet: MatchScore;
 	matchId: string;
+	userId?: string;
 	points?: number;
 }
 

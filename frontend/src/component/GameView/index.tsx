@@ -65,6 +65,7 @@ export class GameView extends React.PureComponent<GameViewProps, {}> {
 	private renderTypingView() {
 		return (
 			<TypingView
+				gameId={this.props.game.id}
 				matchSet={this.props.matchSet}
 				bets={this.props.bets}
 				onSave={this.props.onBetSave}
@@ -78,8 +79,10 @@ export class GameView extends React.PureComponent<GameViewProps, {}> {
 		}
 		return (
 			<MatchList
+				gameId={this.props.game.id}
 				matches={this.props.matchSet.matches}
 				bets={this.props.bets}
+				showMatchBetsButton={true}
 			/>
 		);
 	}

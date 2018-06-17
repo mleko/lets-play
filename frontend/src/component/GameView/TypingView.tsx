@@ -12,6 +12,7 @@ import {MatchList} from "./MatchList";
 import {mergeBetsIntoMatches} from "./mergeBetsIntoMatches";
 
 export interface TypingViewProps {
+	gameId: string;
 	matchSet: MatchSet;
 	bets: Bet[];
 	onSave: (bets: Bet[]) => any;
@@ -61,6 +62,7 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 		}
 		return (
 			<MatchList
+				gameId={this.props.gameId}
 				matches={matches}
 				bets={this.props.bets ? this.props.bets : []}
 			/>
@@ -145,7 +147,10 @@ export class TypingView extends React.PureComponent<TypingViewProps, State> {
 			return bet.matchId === match.id;
 		});
 		if (-1 === betIndex) {
-			bets = bets.concat([{matchId: match.id, bet: {home: match.home.score, away: match.away.score}}]);
+			bets = bets.concat([{
+				matchId: match.id,
+				bet: {home: match.home.score, away: match.away.score}
+			}]);
 		} else {
 			bets = replace(bets, betIndex,
 				shallowMergeDeep(bets[betIndex], {

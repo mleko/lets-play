@@ -29,6 +29,7 @@ export class UserBetsDialog extends React.PureComponent<UserBetsDialogProps, Sta
 	public render(): JSX.Element {
 		return (
 			<Component
+				gameId={this.props.gameId}
 				matches={this.state.matchSet !== null ? this.state.matchSet.matches : null}
 				bets={this.state.bets}
 				title={this.props.title}

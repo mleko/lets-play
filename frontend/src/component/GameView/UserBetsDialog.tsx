@@ -10,6 +10,7 @@ import {MatchList} from "./MatchList";
 
 export interface UserBetsDialogProps {
 	title: string;
+	gameId: string;
 	bets: Bet[] | null;
 	matches: Match[] | null;
 	onClose: () => any;
@@ -51,7 +52,7 @@ export class UserBetsDialog extends React.PureComponent<UserBetsDialogProps, {}>
 			return m.locked;
 		});
 		return (
-			<MatchList matches={matches} bets={this.props.bets}/>
+			<MatchList matches={matches} bets={this.props.bets} gameId={this.props.gameId}/>
 		);
 	}
 }
