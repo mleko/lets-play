@@ -107,4 +107,17 @@ class BetsRepository extends StorageRepository implements \Mleko\LetsPlay\Reposi
     public function getAll() {
         return $this->getElements();
     }
+
+    /**
+     * @param Uuid $gameId
+     * @param Uuid $matchId
+     * @return Bet[]
+     */
+    public function getGameMatchBets(Uuid $gameId, Uuid $matchId) {
+        $bets = $this->getElements();
+        $userGameBets = \array_filter($bets, function (Bet $bet) use ($gameId, $matchId) {
+            return $bet->getGameId()->getUuid() === $gameId->getUuid() && $bet->getMatchId()->getUuid() === $matchId->getUuid();
+        });
+        return \array_values($this->filterActive($userGameBets));
+    }
 }

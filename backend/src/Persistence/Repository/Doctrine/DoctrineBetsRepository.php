@@ -102,4 +102,22 @@ class DoctrineBetsRepository implements BetsRepository
     public function getAll() {
         return $this->entityRepository->findAll();
     }
+
+    /**
+     * @param Uuid $gameId
+     * @param Uuid $matchId
+     * @return Bet[]
+     */
+    public function getGameMatchBets(Uuid $gameId, Uuid $matchId) {
+        $query = $this->entityRepository->createQueryBuilder("bets")
+            ->leftJoin(Bet::class, "bets2", Join::WITH,
+                "bets.userId = bets2.userId AND bets.gameId = bets2.gameId AND bets.matchId = bets2.matchId AND bets.datetime < bets2.datetime")
+            ->where("bets.matchId = :matchId AND bets.gameId = :gameId AND bets2.id IS NULL")
+            ->getQuery();
+        return $query
+            ->setParameters([
+                "matchId" => $matchId,
+                "gameId" => $gameId
+            ])->getResult();
+    }
 }

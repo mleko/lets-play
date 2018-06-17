@@ -33,4 +33,11 @@ interface BetsRepository
      * @return Bet[]
      */
     public function getAll();
+
+    /**
+     * @param Uuid $gameId
+     * @param Uuid $matchId
+     * @return Bet[]
+     */
+    public function getGameMatchBets(Uuid $gameId, Uuid $matchId);
 }

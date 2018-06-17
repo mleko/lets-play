@@ -53,6 +53,38 @@ class BetsController
         return new Response($bets);
     }
 
+    public function listUserBets($gameId, $userId, UserActor $authUser, Request $request) {
+        $gameId = Uuid::fromString($gameId);
+        $userId = Uuid::fromString($userId);
+
+        $bets = $this->betRepository->getUserGameBets($userId, $gameId);
+
+        $game = $this->gameRepository->getGame($gameId->getUuid());
+        $set = $this->matchSetRepository->getSet($game->getMatchSetId());
+
+        $bets = $this->filterBets($bets, $set, true);
+        if ($request->query->get("include_points")) {
+            $bets = $this->createBetViews($bets, $set);
+        }
+        return new Response($bets);
+    }
+
+    public function listMatchBets($gameId, $matchId, UserActor $authUser, Request $request) {
+        $gameId = Uuid::fromString($gameId);
+        $matchId = Uuid::fromString($matchId);
+
+        $bets = $this->betRepository->getGameMatchBets($gameId, $matchId);
+
+        $game = $this->gameRepository->getGame($gameId->getUuid());
+        $set = $this->matchSetRepository->getSet($game->getMatchSetId());
+
+        $bets = $this->filterBets($bets, $set, true);
+        if ($request->query->get("include_points")) {
+            $bets = $this->createBetViews($bets, $set);
+        }
+        return new Response($bets);
+    }
+
     public function update($gameId, Request $request, UserActor $authUser) {
         $now = new \DateTimeImmutable();
         $data = \json_decode($request->getContent(), true);
@@ -121,22 +153,50 @@ class BetsController
      */
     private function createBetViews($bets, MatchSet $set): array {
         $views = [];
-        /** @var Match[] $matches */
-        $matches = [];
+        /** @var Match[] $matchesById */
+        $matchesById = [];
         foreach ($set->getMatches() as $match) {
-            if ($match->isLocked()) {
-                $matches[$match->getId()->getUuid()] = $match;
-            }
+            $matchesById[$match->getId()->getUuid()] = $match;
         }
         $calculator = new \Mleko\LetsPlay\Logic\ScoreCalculator();
         foreach ($bets as $bet) {
-            $points = null;
-            $matchResult = isset($matches[$bet->getMatchId()->getUuid()]) ? $matches[$bet->getMatchId()->getUuid()]->getResult() : null;
-            if ($matchResult) {
-                $points = $calculator->calculateScore($matchResult, $bet->getBet());
+            if (!isset($matchesById[$bet->getMatchId()->getUuid()])) {
+                //invalid match?
+                continue;
             }
+            $betMatch = $matchesById[$bet->getMatchId()->getUuid()];
+            $matchResult = $betMatch->isLocked() ? $matchesById[$bet->getMatchId()->getUuid()]->getResult() : null;
+            $points = $matchResult ? $calculator->calculateScore($matchResult, $bet->getBet()) : null;
+
             $views[] = new BetView($bet, $points);
         }
         return $views;
+    }
+
+    /**
+     * @param Bet[] $bets
+     * @param MatchSet $set
+     * @param bool $onlyLocked
+     * @return Bet[]
+     */
+    private function filterBets($bets, MatchSet $set, $onlyLocked = true): array {
+        $filteredBets = [];
+        /** @var Match[] $matchesById */
+        $matchesById = [];
+        foreach ($set->getMatches() as $match) {
+            $matchesById[$match->getId()->getUuid()] = $match;
+        }
+        foreach ($bets as $bet) {
+            if (!isset($matchesById[$bet->getMatchId()->getUuid()])) {
+                //invalid match?
+                continue;
+            }
+            $betMatch = $matchesById[$bet->getMatchId()->getUuid()];
+            if (!$betMatch->isLocked() && $onlyLocked) {
+                continue;
+            }
+            $filteredBets[] = $bet;
+        }
+        return $filteredBets;
     }
 }
