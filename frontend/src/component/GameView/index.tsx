@@ -89,7 +89,7 @@ export class GameView extends React.PureComponent<GameViewProps, {}> {
 			return this.renderProgress();
 		}
 		return (
-			<UserRanking ranking={this.props.ranking}/>
+			<UserRanking gameId={this.props.game.id} ranking={this.props.ranking}/>
 		);
 	}
 
