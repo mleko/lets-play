@@ -99,7 +99,10 @@ export class MatchList extends React.PureComponent<MatchListProps, State> {
 		const match = this.props.matches.find((m: Match) => {
 			return m.id === matchId;
 		});
-		const title = match.home.name + " : " + match.away.name + " - " + match.home.score + " : " + match.away.score;
+		let title = match.home.name + " : " + match.away.name;
+		if (match.away.score !== null && match.home.score !== null) {
+			title += " - " + match.home.score + " : " + match.away.score;
+		}
 		return (
 			<MatchBetsDialog gameId={this.props.gameId} matchId={matchId} title={title} onClose={this.closeDialog}/>
 		);

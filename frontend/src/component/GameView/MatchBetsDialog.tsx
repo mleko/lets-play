@@ -63,7 +63,7 @@ export class MatchBetsDialog extends React.PureComponent<UserBetsDialogProps, {}
 			};
 		}).sort(((a, b) => {
 			if (a.bet && b.bet) {
-				return a.bet.points - b.bet.points;
+				return  b.bet.points - a.bet.points;
 			} else if (a.bet === null && b.bet === null) {
 				return a.user.name.localeCompare(b.user.name);
 			} else {

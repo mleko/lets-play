@@ -63,6 +63,9 @@ export class GameView extends React.PureComponent<GameViewProps, {}> {
 	}
 
 	private renderTypingView() {
+		if (!this.props.game) {
+			return this.renderProgress();
+		}
 		return (
 			<TypingView
 				gameId={this.props.game.id}
