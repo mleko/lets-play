@@ -18,9 +18,9 @@ export class MatchListRow extends React.PureComponent<MatchListRowProps, {}> {
 			<TableRow>
 				<TableCell>{m.names.home + " : " + m.names.away}</TableCell>
 				<TableCell>{m.date}</TableCell>
-				<TableCell><div style={{minWidth: "4em"}}>{MatchList.scoreToString(m.result)}</div></TableCell>
-				<TableCell><div style={{minWidth: "4em"}}>{MatchList.scoreToString(m.bet)}</div></TableCell>
-				<TableCell>{typeof m.points === "number" ? m.points : " - "}</TableCell>
+				<TableCell padding={"dense"}><div style={{width: "4em"}}>{MatchList.scoreToString(m.result)}</div></TableCell>
+				<TableCell padding={"dense"}><div style={{width: "4em"}}>{MatchList.scoreToString(m.bet)}</div></TableCell>
+				<TableCell padding={"dense"}>{typeof m.points === "number" ? m.points : " - "}</TableCell>
 				{this.renderMatchBetsButton()}
 			</TableRow>
 		);
@@ -34,7 +34,7 @@ export class MatchListRow extends React.PureComponent<MatchListRowProps, {}> {
 			return (<TableCell/>);
 		}
 		return (
-			<TableCell><IconButton onClick={this.showDialog}><EyeIcon/></IconButton></TableCell>
+			<TableCell padding={"none"}><IconButton onClick={this.showDialog}><EyeIcon/></IconButton></TableCell>
 		);
 	}
 

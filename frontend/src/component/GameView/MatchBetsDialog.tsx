@@ -76,8 +76,8 @@ export class MatchBetsDialog extends React.PureComponent<UserBetsDialogProps, {}
 					<TableHead>
 						<TableRow>
 							<TableCell><Trans>User</Trans></TableCell>
-							<TableCell><Trans>Pick</Trans></TableCell>
-							<TableCell><Trans>Points</Trans></TableCell>
+							<TableCell padding={"dense"}><Trans>Pick</Trans></TableCell>
+							<TableCell padding={"dense"}><Trans>Points</Trans></TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -97,8 +97,8 @@ export class MatchBetsDialog extends React.PureComponent<UserBetsDialogProps, {}
 		return (
 			<TableRow key={index}>
 				<TableCell>{userBet.user.name}</TableCell>
-				<TableCell><div style={{minWidth: "4em"}}>{MatchList.scoreToString(score)}</div></TableCell>
-				<TableCell>{bet && typeof bet.points === "number" ? bet.points : " - "}</TableCell>
+				<TableCell padding={"dense"}><div style={{width: "4em"}}>{MatchList.scoreToString(score)}</div></TableCell>
+				<TableCell padding={"dense"}>{bet && typeof bet.points === "number" ? bet.points : " - "}</TableCell>
 			</TableRow>
 		);
 	}

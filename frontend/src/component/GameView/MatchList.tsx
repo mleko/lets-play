@@ -65,9 +65,9 @@ export class MatchList extends React.PureComponent<MatchListProps, State> {
 						<TableRow>
 							<TableCell><Trans>Match</Trans></TableCell>
 							<TableCell><Trans>Date</Trans></TableCell>
-							<TableCell><Trans>Score</Trans></TableCell>
-							<TableCell><Trans>Pick</Trans></TableCell>
-							<TableCell><Trans>Points</Trans></TableCell>
+							<TableCell padding={"dense"}><Trans>Score</Trans></TableCell>
+							<TableCell padding={"dense"}><Trans>Pick</Trans></TableCell>
+							<TableCell padding={"dense"}><Trans>Points</Trans></TableCell>
 							{this.props.showMatchBetsButton ? <TableCell style={{width: 1}}/> : null}
 						</TableRow>
 					</TableHead>
