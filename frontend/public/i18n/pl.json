@@ -43,5 +43,7 @@
   "User": "Użytkownik",
   "Show more": "Pokaż więcej",
   "There are no matches to bet": "Brak meczy do typowania",
-  "Close": "Zamknij"
+  "Close": "Zamknij",
+  "Bets will be settled on the result at the end of the regular game time which includes injury time but excludes official extra time and penalty shoot outs": "Typy będą rozstrzygane jako wynik na koniec regulaminowego czasu gry wliczając czas doliczony przez sędziego, ale bez uwzględniania dogrywek i dodatkowych rzutów karnych",
+  "Knock-out stage": "Faza pucharowa"
 }
