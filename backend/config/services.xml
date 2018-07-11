@@ -15,11 +15,6 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false"/>
 
-        <prototype namespace="Mleko\LetsPlay\Repository\" resource="../src/Repository/*">
-            <argument type="service" id="Mleko\LetsPlay\Persistence\Storage"/>
-            <argument type="service" id="mleko.alchemist.normalizer.repository"/>
-        </prototype>
-
         <prototype namespace="Mleko\LetsPlay\Persistence\Repository\Storage\" resource="../src/Persistence/Repository/Storage/*">
             <argument type="service" id="Mleko\LetsPlay\Persistence\Storage"/>
             <argument type="service" id="mleko.alchemist.normalizer.repository"/>
