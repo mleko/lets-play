@@ -45,5 +45,13 @@
             <tag name="console.command"/>
         </service>
 
+        <service class="Mleko\LetsPlay\Command\MigrateMatchSets" id="mleko.lets_play.command.migrate_match_sets">
+            <argument type="collection">
+                <argument type="service" key="doctrine" id="Mleko\LetsPlay\Persistence\Repository\Doctrine\DoctrineMatchSetRepository"/>
+                <argument type="service" key="storage" id="Mleko\LetsPlay\Persistence\Repository\Storage\MatchSetRepository"/>
+            </argument>
+            <tag name="console.command"/>
+        </service>
+
     </services>
 </container>

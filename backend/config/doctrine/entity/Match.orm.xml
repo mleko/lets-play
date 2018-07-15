@@ -1,0 +1,16 @@
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                    http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="Mleko\LetsPlay\Entity\Match" table="matches" repository-class="Doctrine\ORM\EntityRepository">
+
+        <id name="id" type="uuid"/>
+        <field name="startDate" type="datetime_tz_m" column="start_date"/>
+        <many-to-one field="set" target-entity="Mleko\LetsPlay\Entity\MatchSet">
+            <join-column name="set_id"/>
+        </many-to-one>
+        <embedded name="home" class="Mleko\LetsPlay\ValueObject\MatchTeam"/>
+        <embedded name="away" class="Mleko\LetsPlay\ValueObject\MatchTeam"/>
+    </entity>
+</doctrine-mapping>

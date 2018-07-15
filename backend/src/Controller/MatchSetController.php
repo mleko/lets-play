@@ -28,7 +28,8 @@ class MatchSetController
 
     public function create(Request $request, UserActor $user) {
         $data = \json_decode($request->getContent(), true);
-        $set = $this->denormalize($data, $user->getUser()->getId());
+        $set = new MatchSet($data["name"], $user->getUser()->getId());
+        $set->setMatches($this->denormalizeMatches($data["matches"], $set));
         $this->matchSetRepository->save($set);
         return new \Mleko\LetsPlay\Http\Response($set);
     }
@@ -39,7 +40,24 @@ class MatchSetController
             throw new NotFoundHttpException();
         }
         $data = \json_decode($request->getContent(), true);
-        $set = $this->denormalize($data, $user->getUser()->getId(), $setId, $set->isPublic());
+        $set->setName($data["name"]);
+        $matches = $set->getMatches();
+        $requestMatches = $this->denormalizeMatches($data["matches"], $set);
+        $updatedMatches = [];
+        foreach ($requestMatches as $match) {
+            $m = $this->findMatch($matches, $match->getId());
+            if ($m) {
+                $m->setStartDate($match->getStartDate());
+                $m->getHome()->setName($match->getHome()->getName());
+                $m->getHome()->setScore($match->getHome()->getScore());
+                $m->getAway()->setName($match->getAway()->getName());
+                $m->getAway()->setScore($match->getAway()->getScore());
+                $updatedMatches[] = $m;
+            } else {
+                $updatedMatches[] = $match;
+            }
+        }
+        $set->setMatches($updatedMatches);
         $this->matchSetRepository->save($set);
         return new \Mleko\LetsPlay\Http\Response($set);
     }
@@ -57,22 +75,36 @@ class MatchSetController
     }
 
     /**
-     * @param $data
-     * @param Uuid $userId
-     * @param string|null $id
-     * @return MatchSet
+     * @param array $requestedMatches
+     * @param MatchSet $set
+     * @return Match[]
      */
-    private function denormalize($data, Uuid $userId, $id = null, $public = false): MatchSet {
+    private function denormalizeMatches(array $requestedMatches, MatchSet $set): array {
         $matches = [];
-        foreach ($data["matches"] as $match) {
+        foreach ($requestedMatches as $match) {
             $matches[] = new Match(
                 new MatchTeam($match["home"]["name"], $match["home"]["score"] ?? null),
                 new MatchTeam($match["away"]["name"], $match["away"]["score"] ?? null),
                 new \DateTimeImmutable($match["startDate"]),
+                $set,
                 isset($match["id"]) && $match["id"] ? new Uuid($match["id"]) : null
             );
         }
-        $set = new MatchSet($data["name"], $userId, $matches, null === $id ? null : new Uuid($id), $public);
-        return $set;
+        return $matches;
+    }
+
+
+    /**
+     * @param Match[] $matches
+     * @param Uuid $matchId
+     * @return mixed|Match|null
+     */
+    private function findMatch(array $matches, Uuid $matchId): ?Match {
+        foreach ($matches as $match) {
+            if ($match->getId()->equals($matchId)) {
+                return $match;
+            }
+        }
+        return null;
     }
 }

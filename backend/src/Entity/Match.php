@@ -18,18 +18,22 @@ class Match
     private $startDate;
     /** @var Uuid */
     private $id;
+    /** @var MatchSet */
+    private $set;
 
     /**
      * Match constructor.
      * @param MatchTeam $home
      * @param MatchTeam $away
      * @param \DateTimeImmutable $startDate
+     * @param MatchSet $set
      * @param Uuid|null $id
      */
-    public function __construct(MatchTeam $home, MatchTeam $away, \DateTimeImmutable $startDate, ?Uuid $id = null) {
+    public function __construct(MatchTeam $home, MatchTeam $away, \DateTimeImmutable $startDate, MatchSet $set, ?Uuid $id = null) {
         $this->home = $home;
         $this->away = $away;
         $this->startDate = $startDate;
+        $this->set = $set;
         $this->id = $id ?: new Uuid();
     }
 
@@ -56,6 +60,13 @@ class Match
      */
     public function getStartDate(): \DateTimeImmutable {
         return $this->startDate;
+    }
+
+    /**
+     * @param \DateTimeImmutable $startDate
+     */
+    public function setStartDate(\DateTimeImmutable $startDate): void {
+        $this->startDate = $startDate;
     }
 
     public function isLocked(\DateTimeImmutable $now = null): bool {

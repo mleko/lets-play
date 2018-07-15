@@ -88,19 +88,23 @@ class MatchSetRepository implements \Mleko\LetsPlay\Repository\MatchSetRepositor
     }
 
     private function denormalizeSet($data): MatchSet {
-        return new MatchSet($data["name"],
+        $matchSet = new MatchSet($data["name"],
             new Uuid($data["ownerId"]),
-            \array_map(function ($match) {
+            new Uuid($data["id"]),
+            $data["public"] ?? false
+        );
+        $matchSet->setMatches(
+            \array_map(function ($match) use($matchSet){
                 return new Match(
                     new MatchTeam($match["home"]["name"], $match["home"]["score"] ?? null),
                     new MatchTeam($match["away"]["name"], $match["away"]["score"] ?? null),
                     new \DateTimeImmutable($match["startDate"] ?? "now"),
+                    $matchSet,
                     new Uuid($match["id"])
                 );
             }, $data["matches"])
-            , new Uuid($data["id"]),
-            $data["public"] ?? false
         );
+        return $matchSet;
     }
 
 }
