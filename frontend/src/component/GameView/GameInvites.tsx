@@ -13,7 +13,7 @@ import {GameInvite} from "../../model/models";
 
 export interface GameInvitesProps {
 	invitation: GameInvite;
-	onInvite: (email: null | string) => any;
+	onInvite: (email: null | string, permanent: boolean) => any;
 }
 
 export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
@@ -36,7 +36,16 @@ export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
 					style={{marginTop: 6}}
 					onClick={this.createInvitation}
 				>
-					<Trans>Create invitation</Trans>
+					<Trans>Create single-use invitation</Trans>
+				</Button>
+				<Button
+					variant={"raised"}
+					fullWidth={true}
+					color={"primary"}
+					style={{marginTop: 6}}
+					onClick={this.createPermanentInvitation}
+				>
+					<Trans>Create reusable invitation</Trans>
 				</Button>
 				{this.renderInvitation()}
 				<Divider style={{marginTop: 6, marginBottom: 6}}/>
@@ -88,7 +97,11 @@ export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
 	};
 
 	private createInvitation = () => {
-		this.props.onInvite(null);
+		this.props.onInvite(null, false);
+	};
+
+	private createPermanentInvitation = () => {
+		this.props.onInvite(null, true);
 	};
 
 	private invite = () => {
@@ -101,7 +114,7 @@ export class GameInvites extends React.PureComponent<GameInvitesProps, State> {
 		}
 
 		if (this.props.onInvite) {
-			this.props.onInvite(this.state.email);
+			this.props.onInvite(this.state.email, false);
 		}
 		this.setState({email: ""});
 	}
