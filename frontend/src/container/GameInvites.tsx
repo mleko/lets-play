@@ -32,9 +32,9 @@ class GameInvitesRaw extends React.PureComponent<CombinedProps, State> {
 		);
 	}
 
-	private invite = (email: string) => {
+	private invite = (email: string, permanent: boolean) => {
 		const client: Client = this.context.httpClient;
-		return client.request({url: "/games/" + this.props.gameId + "/invites", method: "POST", data: {email}})
+		return client.request({url: "/games/" + this.props.gameId + "/invites", method: "POST", data: {email, permanent}})
 			.then((response: Response<GameInvite>) => {
 				if (!email) {
 					this.setState({invitation: response.data});

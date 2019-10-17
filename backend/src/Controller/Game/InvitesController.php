@@ -54,7 +54,8 @@ class InvitesController
     public function inviteUser($gameId, UserActor $user, Request $request, TransportInterface $transport) {
         $gameId = new Uuid($gameId);
         $data = \json_decode($request->getContent(), true);
-        $invite = new GameInvite($gameId);
+        $permanentInvite = (bool) ($data["permanent"] ?? false);
+        $invite = new GameInvite($gameId, null, $permanentInvite ? GameInvite::STATUS_PERMANENT : GameInvite::STATUS_PENDING);
         $this->inviteRepository->save($invite);
 
         $email = $data["email"];
