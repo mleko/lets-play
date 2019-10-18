@@ -33,7 +33,7 @@
     "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "^3.1.11"
   },
   "dependencies": {
     "@types/date-fns": "^2.6.0",
