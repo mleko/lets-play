@@ -8,6 +8,7 @@ const analyze = process.env.ANALYZE === "true";
 console.log(process.env.NODE_ENV + " -> " + (isProduction ? "PROD" : "DEV") + (analyze ? " WITH_ANALYZE" : ""));
 
 const config = {
+	mode: isProduction ? "production" : "development",
 	resolve: {
 		// .js is required for react imports.
 		// .tsx is for our app entry point.
@@ -59,17 +60,15 @@ if (!isProduction) {
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin()
 	);
-	config.devServer.hot = true;
+	config.devServer["hot"] = true;
 } else {
 	config.plugins.push(
 		new webpack.LoaderOptionsPlugin({
 			minimize: true,
 			debug: false
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			extractComments: true
 		})
 	);
+	config["optimization"] = {minimize: true};
 }
 if (analyze) {
 	config.plugins.unshift(

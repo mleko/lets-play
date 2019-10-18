@@ -24,16 +24,16 @@
     "react-dom": "^16.0.0",
     "react-hot-loader": "^3.0.0",
     "source-map-support": "^0.5.4",
-    "ts-loader": "^3.0.0",
+    "ts-loader": "^6.2.0",
     "ts-node": "^5.0.0",
     "tsconfig-paths": "^3.2.0",
     "tslint": "^5.8.0",
     "tslint-loader": "^3.3.0",
     "tslint-react": "^3.0.0",
     "typescript": "^2.6.2",
-    "webpack": "^3.10.0",
-    "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-dev-server": "^2.9.7"
+    "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-dev-server": "^3.8.2"
   },
   "dependencies": {
     "@types/date-fns": "^2.6.0",
@@ -57,7 +57,8 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "typescript-array-utils": "^0.1.4",
-    "typescript-object-utils": "^0.3.0"
+    "typescript-object-utils": "^0.3.0",
+    "webpack-cli": "^3.3.9"
   },
   "nyc": {
     "extension": [
