@@ -85,8 +85,7 @@ export class GameList extends React.PureComponent<GameListProps, State> {
 			return (
 				<TableRow>
 					<TableCell colSpan={2}>
-						Nie uczestniczysz w żadnej grze, utwórz nową lub poproś przyjaciół o zaproszenie do istniejącej
-						rozgrywki
+						<Trans>You're not playing any game. Create a new one or ask your friends to join an existing game.</Trans>
 					</TableCell>
 				</TableRow>
 			);
