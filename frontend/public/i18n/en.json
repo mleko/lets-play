@@ -1,1 +1,11 @@
-{}
+{
+
+  "Play": "Play",
+  "Game name": "Game name",
+  "Log in": "Log in",
+  "Log out": "Log out",
+"Register": "Register",
+  "Remind password": "Remind password",
+  "Password": "Password",
+  "Name": "Name"
+}
