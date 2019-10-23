@@ -17,7 +17,7 @@ export const i18n = i18next
 			loadPath: "/i18n/{{lng}}.json"
 		},
 		fallbackLng: "en",
-		whitelist: ["en", "pl", "ru"]
+		whitelist: ["en", "pl", "pt", "ru"]
 	});
 
 export const httpClient = new AxiosHttpClient({}, {baseUrl: "/api"});
