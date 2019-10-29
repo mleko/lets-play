@@ -1,9 +1,9 @@
 import * as React from "react";
 import {ChangeEvent} from "react";
 
-import Input from "material-ui/Input";
-import MenuItem from "material-ui/Menu/MenuItem";
-import MuiSelect from "material-ui/Select";
+import Input from "@material-ui/core/Input";
+import MenuItem from "@material-ui/core/MenuItem";
+import MuiSelect from "@material-ui/core/Select";
 
 export interface SelectProps {
 	value: any;
@@ -34,7 +34,7 @@ export class Select extends React.PureComponent<SelectProps, {}> {
 		return (<MenuItem value={option.value} key={index}>{option.label}</MenuItem>);
 	};
 
-	private handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+	private handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
 		this.props.onChange(event.target.value);
 	}
 }

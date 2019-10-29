@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import ExpandMoreIcon from "material-ui-icons/ExpandMore";
-import Button from "material-ui/Button";
-import Grid from "material-ui/Grid";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {Trans} from "react-i18next";
 import {replace} from "typescript-array-utils";
 import {shallowMergeDeep} from "typescript-object-utils";

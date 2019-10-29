@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import InfoIcon from "material-ui-icons/Info";
-import Button from "material-ui/Button";
-import FormControl from "material-ui/Form/FormControl";
-import InputAdornment from "material-ui/Input/InputAdornment";
-import TextField from "material-ui/TextField";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
+import InfoIcon from "@material-ui/icons/Info";
 import {Trans} from "react-i18next";
 import {RodoDialog} from "./RodoDialog";
 
@@ -106,13 +106,13 @@ export class RegisterForm extends React.PureComponent<RegisterFormProps, State> 
 		return !error;
 	};
 
-	private updateName = (event: React.SyntheticEvent<HTMLInputElement>) => {
+	private updateName = (event: React.SyntheticEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>) => {
 		this.setState({name: event.currentTarget.value});
 	};
-	private updateEmail = (event: React.SyntheticEvent<HTMLInputElement>) => {
+	private updateEmail = (event: React.SyntheticEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>) => {
 		this.setState({email: event.currentTarget.value});
 	};
-	private updatePassword = (event: React.SyntheticEvent<HTMLInputElement>) => {
+	private updatePassword = (event: React.SyntheticEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>) => {
 		this.setState({password: event.currentTarget.value});
 	};
 

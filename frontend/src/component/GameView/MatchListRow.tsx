@@ -1,8 +1,9 @@
 import * as React from "react";
 
-import EyeIcon from "material-ui-icons/RemoveRedEye";
-import IconButton from "material-ui/IconButton";
-import {TableCell, TableRow} from "material-ui/Table";
+import IconButton from "@material-ui/core/IconButton";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import EyeIcon from "@material-ui/icons/RemoveRedEye";
 import {MatchList, MatchView} from "./MatchList";
 
 export interface MatchListRowProps {

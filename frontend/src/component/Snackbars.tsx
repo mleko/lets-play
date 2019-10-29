@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import CloseIcon from "material-ui-icons/Close";
-import IconButton from "material-ui/IconButton";
-import Snackbar from "material-ui/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import Snackbar from "@material-ui/core/Snackbar";
+import CloseIcon from "@material-ui/icons/Close";
 import {Trans} from "react-i18next";
 
 export interface SnackbarsProps {

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Button, {ButtonProps} from "material-ui/Button";
+import Button, {ButtonProps} from "@material-ui/core/Button";
 import {Link, LinkProps} from "react-router-dom";
 
 export class LinkButton extends React.Component<ButtonProps & LinkProps> {

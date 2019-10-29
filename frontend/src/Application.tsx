@@ -1,7 +1,6 @@
 import * as React from "react";
 
-import Paper from "material-ui/Paper";
-import Reboot from "material-ui/Reboot";
+import Paper from "@material-ui/core/Paper";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router";
 import {Router} from "react-router-dom";
 
@@ -45,7 +44,6 @@ export class Application extends React.Component<ApplicationProps & ApplicationA
 		}
 		return (
 			<div>
-				<Reboot/>
 				<Snackbars/>
 				<Router history={history}>
 					<div>

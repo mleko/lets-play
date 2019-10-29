@@ -1,10 +1,14 @@
 import * as React from "react";
 
-import AddIcon from "material-ui-icons/Add";
-import PlayIcon from "material-ui-icons/PlayArrow";
-import Button from "material-ui/Button";
-import Table, {TableBody, TableCell, TableHead, TableRow} from "material-ui/Table";
-import Tooltip from "material-ui/Tooltip";
+import Button from "@material-ui/core/Button";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Tooltip from "@material-ui/core/Tooltip";
+import AddIcon from "@material-ui/icons/Add";
+import PlayIcon from "@material-ui/icons/PlayArrow";
 import {Trans} from "react-i18next";
 import {Game, MatchSet} from "../../model/models";
 import {Link} from "../Link";

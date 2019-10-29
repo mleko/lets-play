@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import DeleteIcon from "material-ui-icons/Delete";
-import MessageIcon from "material-ui-icons/Message";
-import IconButton from "material-ui/IconButton";
-import {ListItem, ListItemSecondaryAction, ListItemText} from "material-ui/List";
+import DeleteIcon from "@material-ui/icons/Delete";
+import MessageIcon from "@material-ui/icons/Message";
+import IconButton from "@material-ui/core/IconButton";
+import {ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core/List";
 
 export interface GameInviteProps {
 	email: string;

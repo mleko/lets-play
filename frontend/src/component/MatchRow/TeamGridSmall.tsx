@@ -1,10 +1,11 @@
 import * as React from "react";
 import {ChangeEvent, CSSProperties} from "react";
 
-import Grid from "material-ui/Grid";
-import Input from "material-ui/Input";
-import {WithStyles} from "material-ui/styles";
-import withStyles from "material-ui/styles/withStyles";
+import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
+import Input from "@material-ui/core/Input";
+import {WithStyles} from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import {MatchTeam} from "../../model/Match";
 
 export interface TeamGridProps {
@@ -31,57 +32,50 @@ const styles = {
 			left: 10,
 			fontWeight: "bold"
 		}
-	}
+	} as CSSProperties
 };
 
 export const TeamGridSmall = withStyles(styles)(
 	class extends React.PureComponent<TeamGridProps & TeamGridActions & WithStyles<"leftMatch">, {}> {
-		public render(): JSX.Element[] {
+		public render(): JSX.Element {
 			const {style} = this.props;
-			return [
-				(
+			return (
+				<Hidden smUp={true}>
 					<Grid
 						item={true}
 						xs={6}
-						hidden={{smUp: true}}
 						style={{textAlign: "right", ...style}}
 						className={this.props.classes.leftMatch}
 						key={"home-l"}
 					>
 						{this.renderLabel(true)}
 					</Grid>
-				), (
 					<Grid
 						item={true}
 						xs={6}
-						hidden={{smUp: true}}
 						style={{textAlign: "left", ...style}}
 						key={"away-l"}
 					>
 						{this.renderLabel(false)}
 					</Grid>
-				), (
 					<Grid
 						item={true}
 						xs={6}
-						hidden={{smUp: true}}
 						style={{textAlign: "right", ...style, borderTop: "none"}}
 						key={"home-s"}
 					>
 						{this.renderInput(true)}
 					</Grid>
-				), (
 					<Grid
 						item={true}
 						xs={6}
-						hidden={{smUp: true}}
 						style={{textAlign: "left", ...style, borderTop: "none"}}
 						key={"away-s"}
 					>
 						{this.renderInput(false)}
 					</Grid>
-				)
-			];
+				</Hidden>
+			);
 		}
 
 		private renderLabel(left: boolean) {

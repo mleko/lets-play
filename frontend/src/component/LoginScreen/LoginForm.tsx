@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import Button from "material-ui/Button";
-import Divider from "material-ui/Divider";
-import FormControl from "material-ui/Form/FormControl";
-import TextField from "material-ui/TextField";
+import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
+import FormControl from "@material-ui/core/FormControl";
+import TextField from "@material-ui/core/TextField";
 import {Trans} from "react-i18next";
 
 export interface LoginFormProps {

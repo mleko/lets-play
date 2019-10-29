@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import CircularProgress from "material-ui/Progress/CircularProgress";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export interface LoadingOverlayProps {
 	size: number;

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import IconButton, {IconButtonProps} from "material-ui/IconButton";
+import IconButton, {IconButtonProps} from "@material-ui/core/IconButton";
 import {Link, LinkProps} from "react-router-dom";
 
 export class LinkIconButton extends React.Component<IconButtonProps & LinkProps> {

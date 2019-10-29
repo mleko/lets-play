@@ -1,13 +1,13 @@
 import * as React from "react";
 import {ChangeEvent} from "react";
 
-import Button from "material-ui/Button";
-import Divider from "material-ui/Divider";
-import FormControl from "material-ui/Form/FormControl";
-import Input from "material-ui/Input";
-import InputLabel from "material-ui/Input/InputLabel";
-import {Theme} from "material-ui/styles";
-import withStyles from "material-ui/styles/withStyles";
+import Button from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import {Theme} from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import {Trans} from "react-i18next";
 import {GameInvite} from "../../model/models";
 
@@ -136,7 +136,7 @@ const styles = (theme: Theme) => ({
 		textTransform: "none",
 		textAlign: "center",
 		marginTop: 3
-	},
+	} as React.CSSProperties,
 });
 
 function Url(props: { classes?: any, text: string }) {

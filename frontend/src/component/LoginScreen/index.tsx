@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import AppBar from "material-ui/AppBar";
-import Tab from "material-ui/Tabs/Tab";
-import Tabs from "material-ui/Tabs/Tabs";
+import AppBar from "@material-ui/core/AppBar";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs/Tabs";
 import {Trans} from "react-i18next";
 
 import {LoginForm} from "./LoginForm";

@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import Avatar from "material-ui/Avatar";
-import Divider from "material-ui/Divider";
-import Menu from "material-ui/Menu";
-import MenuItem from "material-ui/Menu/MenuItem";
+import Avatar from "@material-ui/core/Avatar";
+import Divider from "@material-ui/core/Divider";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import {Trans} from "react-i18next";
 import {User} from "../model/models";
 import {LinkButton} from "./LinkButton";

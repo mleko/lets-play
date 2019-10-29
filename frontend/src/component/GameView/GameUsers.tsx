@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import List from "material-ui/List";
-import ListItem from "material-ui/List/ListItem";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 import {User} from "../../model/models";
 
 export interface GameUsersProps {

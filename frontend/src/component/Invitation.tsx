@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import Button from "material-ui/Button";
-import Grid from "material-ui/Grid";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import {Redirect} from "react-router";
 import {GameInvitation} from "../model/models";
 

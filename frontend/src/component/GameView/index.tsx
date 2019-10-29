@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import AppBar from "material-ui/AppBar";
-import CircularProgress from "material-ui/Progress/CircularProgress";
-import Tabs from "material-ui/Tabs";
-import Tab from "material-ui/Tabs/Tab";
+import AppBar from "@material-ui/core/AppBar";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
 import {Trans} from "react-i18next";
 import {Bet, Game, MatchSet, Ranking} from "../../model/models";
 import {GameUsersTab} from "./GameUsersTab";

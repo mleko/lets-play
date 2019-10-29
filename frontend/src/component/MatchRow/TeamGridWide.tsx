@@ -1,11 +1,12 @@
 import * as React from "react";
 import {ChangeEvent, CSSProperties} from "react";
 
-import Grid from "material-ui/Grid";
-import {GridSize} from "material-ui/Grid/Grid";
-import Input from "material-ui/Input";
-import {WithStyles} from "material-ui/styles";
-import withStyles from "material-ui/styles/withStyles";
+import Grid from "@material-ui/core/Grid";
+import {GridSize} from "@material-ui/core/Grid/Grid";
+import Hidden from "@material-ui/core/Hidden";
+import Input from "@material-ui/core/Input";
+import {WithStyles} from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import {MatchTeam} from "../../model/Match";
 
 export interface TeamGridProps {
@@ -33,7 +34,7 @@ const styles = {
 			left: 10,
 			fontWeight: "bold"
 		}
-	}
+	} as CSSProperties
 };
 
 export const TeamGridWide = withStyles(styles)(
@@ -41,26 +42,27 @@ export const TeamGridWide = withStyles(styles)(
 		public render(): JSX.Element {
 			const {gridSize, style, left, team} = this.props;
 			return (
-				<Grid
-					item={true}
-					xs={gridSize}
-					hidden={{xsDown: true}}
-					style={{textAlign: (left ? "right" : "left"), ...style}}
-					className={left ? this.props.classes.leftMatch : undefined}
-					key={"home"}
-				>
-					{this.renderLabel(true)}
-					<Input
-						disableUnderline={true}
-						style={inputStyle}
-						type={"number"}
-						inputProps={{style: {textAlign: "center"}, className: "no-spinners"}}
-						value={(team.score === undefined || team.score === null) ? "" : team.score}
-						onChange={this.props.onScoreChange ? this.onScoreChange : undefined}
-						disabled={!this.props.onScoreChange}
-					/>
-					{this.renderLabel(false)}
-				</Grid>
+				<Hidden xsDown={true}>
+					<Grid
+						item={true}
+						xs={gridSize}
+						style={{textAlign: (left ? "right" : "left"), ...style}}
+						className={left ? this.props.classes.leftMatch : undefined}
+						key={"home"}
+					>
+						{this.renderLabel(true)}
+						<Input
+							disableUnderline={true}
+							style={inputStyle}
+							type={"number"}
+							inputProps={{style: {textAlign: "center"}, className: "no-spinners"}}
+							value={(team.score === undefined || team.score === null) ? "" : team.score}
+							onChange={this.props.onScoreChange ? this.onScoreChange : undefined}
+							disabled={!this.props.onScoreChange}
+						/>
+						{this.renderLabel(false)}
+					</Grid>
+				</Hidden>
 			);
 		}
 

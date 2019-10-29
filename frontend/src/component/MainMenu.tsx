@@ -1,10 +1,13 @@
 import * as React from "react";
 
-import ListIcon from "material-ui-icons/List";
-import PlayIcon from "material-ui-icons/PlayArrow";
-import Divider from "material-ui/Divider";
-import Drawer from "material-ui/Drawer";
-import List, {ListItem, ListItemIcon, ListItemText} from "material-ui/List";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListIcon from "@material-ui/icons/List";
+import PlayIcon from "@material-ui/icons/PlayArrow";
 import {Link} from "./Link";
 
 export interface MainMenuProps {

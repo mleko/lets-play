@@ -1,10 +1,11 @@
 import * as React from "react";
 import {ChangeEvent, CSSProperties} from "react";
 
-import DeleteIcon from "material-ui-icons/Delete";
-import Grid from "material-ui/Grid";
-import IconButton from "material-ui/IconButton";
-import TextField from "material-ui/TextField";
+import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import TextField from "@material-ui/core/TextField";
+import DeleteIcon from "@material-ui/icons/Delete";
 import {shallowMerge} from "typescript-object-utils";
 import {Match} from "../../model/Match";
 import {DateTime} from "../../utility/DateTime";
@@ -68,14 +69,15 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 			)
 		];
 		elements.push((
-			<Grid
-				item={true}
-				xs={2}
-				sm={1}
-				hidden={{smUp: true}}
-				style={{...paperStyle, borderTop: "none"}}
-				key={"empty-pre"}
-			/>
+			<Hidden smUp={true}>
+				<Grid
+					item={true}
+					xs={2}
+					sm={1}
+					style={{...paperStyle, borderTop: "none"}}
+					key={"empty-pre"}
+				/>
+			</Hidden>
 		));
 		elements.push(...this.renderDate(editable));
 		if (removable) {
@@ -101,17 +103,8 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 		const styleWide = {textAlign: "center", ...paperStyle};
 		if (editable && this.props.editDate) {
 			return [(
-				<Grid item={true} xs={8} sm={3} hidden={{smUp: true}} style={style} key={"dateTimePicker-xs"}>
-					<TextField
-						type="datetime-local"
-						value={DateTime.toInputString(this.props.match.startDate)}
-						onChange={this.updateDate}
-						inputProps={{style: {textAlign: "center"}}}
-					/>
-				</Grid>
-			),
-				(
-					<Grid item={true} xs={8} sm={3} hidden={{xsDown: true}} style={styleWide} key={"dateTimePicker"}>
+				<Hidden smUp={true}>
+					<Grid item={true} xs={8} sm={3} style={style} key={"dateTimePicker-xs"}>
 						<TextField
 							type="datetime-local"
 							value={DateTime.toInputString(this.props.match.startDate)}
@@ -119,26 +112,43 @@ export class MatchRow extends React.PureComponent<MatchRowProps & MatchRowAction
 							inputProps={{style: {textAlign: "center"}}}
 						/>
 					</Grid>
+				</Hidden>
+			),
+				(
+					<Hidden xsDown={true}>
+						<Grid item={true} xs={8} sm={3} style={styleWide} key={"dateTimePicker"}>
+							<TextField
+								type="datetime-local"
+								value={DateTime.toInputString(this.props.match.startDate)}
+								onChange={this.updateDate}
+								inputProps={{style: {textAlign: "center"}}}
+							/>
+						</Grid>
+					</Hidden>
 				)];
 		}
 		return [(
-			<Grid item={true} xs={8} sm={3} hidden={{smUp: true}} style={style} key={"dateTime-xs"}>
-				<TextField
-					type="text"
-					value={this.props.match.startDate.toLocaleString()}
-					disabled={true}
-					inputProps={{style: {textAlign: "center"}}}
-				/>
-			</Grid>
+			<Hidden smUp={true}>
+				<Grid item={true} xs={8} sm={3} style={style} key={"dateTime-xs"}>
+					<TextField
+						type="text"
+						value={this.props.match.startDate.toLocaleString()}
+						disabled={true}
+						inputProps={{style: {textAlign: "center"}}}
+					/>
+				</Grid>
+			</Hidden>
 		), (
-			<Grid item={true} xs={8} sm={3} hidden={{xsDown: true}} style={styleWide} key={"dateTime"}>
-				<TextField
-					type="text"
-					value={this.props.match.startDate.toLocaleString()}
-					disabled={true}
-					inputProps={{style: {textAlign: "center"}}}
-				/>
-			</Grid>
+			<Hidden xsDown={true}>
+				<Grid item={true} xs={8} sm={3} style={styleWide} key={"dateTime"}>
+					<TextField
+						type="text"
+						value={this.props.match.startDate.toLocaleString()}
+						disabled={true}
+						inputProps={{style: {textAlign: "center"}}}
+					/>
+				</Grid>
+			</Hidden>
 		)];
 	}
 

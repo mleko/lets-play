@@ -1,14 +1,14 @@
 import * as React from "react";
 import {ChangeEvent} from "react";
 
-import AddIcon from "material-ui-icons/Add";
-import SaveIcon from "material-ui-icons/Save";
-import Button from "material-ui/Button";
-import FormControl from "material-ui/Form/FormControl";
-import Grid from "material-ui/Grid";
-import Input from "material-ui/Input";
-import InputLabel from "material-ui/Input/InputLabel";
-import Tooltip from "material-ui/Tooltip";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import Grid from "@material-ui/core/Grid";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import Tooltip from "@material-ui/core/Tooltip";
+import AddIcon from "@material-ui/icons/Add";
+import SaveIcon from "@material-ui/icons/Save";
 import {Trans} from "react-i18next";
 import {replace, without} from "typescript-array-utils";
 import {merge} from "typescript-object-utils";

@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import AppBar from "material-ui/AppBar";
-import Button from "material-ui/Button";
-import FormControl from "material-ui/Form/FormControl";
-import TextField from "material-ui/TextField";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import TextField from "@material-ui/core/TextField";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import {Trans} from "react-i18next";
 
 export interface LoginProps {
@@ -69,7 +69,7 @@ export class ResetForm extends React.PureComponent<LoginProps, State> {
 		return !error;
 	};
 
-	private updatePassword = (event: React.SyntheticEvent<HTMLInputElement>) => {
+	private updatePassword = (event: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
 		this.setState({password: event.currentTarget.value});
 	};
 
