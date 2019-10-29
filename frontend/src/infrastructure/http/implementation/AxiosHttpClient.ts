@@ -1,4 +1,4 @@
-import axios, {AxiosPromise, AxiosRequestConfig} from "axios";
+import axios, {AxiosPromise, AxiosRequestConfig, Method} from "axios";
 import {mergeDeep} from "typescript-object-utils";
 
 import {Client} from "../Client";
@@ -43,7 +43,7 @@ export class AxiosHttpClient implements Client {
 
 		const axiosRequest: AxiosRequestConfig = {
 			url,
-			method: merged.method,
+			method: merged.method as Method,
 			headers: merged.headers,
 			params: merged.queryData
 		};
