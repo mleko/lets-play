@@ -6,6 +6,7 @@ import Divider from "material-ui/Divider";
 import Drawer from "material-ui/Drawer";
 import List, {ListItem, ListItemIcon, ListItemText} from "material-ui/List";
 import {Link} from "./Link";
+import {Trans} from "react-i18next";
 
 export interface MainMenuProps {
 	open: boolean;
@@ -31,14 +32,14 @@ export class MainMenu extends React.PureComponent<MainMenuProps, {}> {
 						<Link to={"/"}>
 							<ListItem>
 								<ListItemIcon><PlayIcon/></ListItemIcon>
-								<ListItemText primary="Rozgrywki"/>
+								<ListItemText primary={<Trans>Competition</Trans>}/>
 							</ListItem>
 						</Link>
 						<Divider/>
 						<Link to={"/match-sets"}>
 							<ListItem>
 								<ListItemIcon><ListIcon/></ListItemIcon>
-								<ListItemText primary="Zestawy meczy"/>
+								<ListItemText primary={<Trans>Match Sets</Trans>}/>
 							</ListItem>
 						</Link>
 					</List>
