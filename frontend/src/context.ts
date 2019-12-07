@@ -18,7 +18,7 @@ export const i18n = i18next
 		},
 		fallbackLng: "en",
 		whitelist: ["en", "pl", "pt", "ru", "uk", "pt-br", "nl", "fi", "it", "de"],
-        keySeparator: false
+		keySeparator: false
 	});
 
 export const httpClient = new AxiosHttpClient({}, {baseUrl: "/api"});
