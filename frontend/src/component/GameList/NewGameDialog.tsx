@@ -11,6 +11,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import TextField from "@material-ui/core/TextField";
 import {MatchSet} from "../../model/models";
 import {Option, Select} from "../Select";
+import {Trans} from "react-i18next";
 
 export interface NewGameDialogProps {
 	open: boolean;
@@ -36,20 +37,20 @@ export class NewGameDialog extends React.PureComponent<NewGameDialogProps, State
 				onClose={this.props.onClose}
 				aria-labelledby="form-dialog-title"
 			>
-				<DialogTitle id="form-dialog-title">New Game</DialogTitle>
+				<DialogTitle id="form-dialog-title"><Trans>New Game</Trans></DialogTitle>
 				<DialogContent>
 					<TextField
 						autoFocus={true}
 						margin="dense"
 						id="name"
-						label="Name"
+						label={<Trans>Name</Trans>}
 						type="text"
 						value={this.state.name}
 						fullWidth={true}
 						onChange={this.changeName}
 					/>
 					<FormControl style={{width: "100%"}}>
-						<InputLabel htmlFor="new-game-dialog-match-set-select">Match Set</InputLabel>
+						<InputLabel htmlFor="new-game-dialog-match-set-select"><Trans>Match Set</Trans></InputLabel>
 						<Select
 							value={this.state.matchSetId}
 							options={this.getOptions()}
@@ -60,10 +61,10 @@ export class NewGameDialog extends React.PureComponent<NewGameDialogProps, State
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={this.props.onClose} color="primary">
-						Cancel
+						<Trans>Cancel</Trans>
 					</Button>
 					<Button onClick={this.create} color="primary" variant={"raised"}>
-						Create
+						<Trans>Create</Trans>
 					</Button>
 				</DialogActions>
 			</Dialog>

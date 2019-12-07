@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListIcon from "@material-ui/icons/List";
 import PlayIcon from "@material-ui/icons/PlayArrow";
 import {Link} from "./Link";
+import {Trans} from "react-i18next";
 
 export interface MainMenuProps {
 	open: boolean;
@@ -34,14 +35,14 @@ export class MainMenu extends React.PureComponent<MainMenuProps, {}> {
 						<Link to={"/"}>
 							<ListItem>
 								<ListItemIcon><PlayIcon/></ListItemIcon>
-								<ListItemText primary="Rozgrywki"/>
+								<ListItemText primary={<Trans>Competition</Trans>}/>
 							</ListItem>
 						</Link>
 						<Divider/>
 						<Link to={"/match-sets"}>
 							<ListItem>
 								<ListItemIcon><ListIcon/></ListItemIcon>
-								<ListItemText primary="Zestawy meczy"/>
+								<ListItemText primary={<Trans>Match Sets</Trans>}/>
 							</ListItem>
 						</Link>
 					</List>
